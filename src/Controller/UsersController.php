@@ -52,45 +52,48 @@ class UsersController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $encoder,MailerInterface $mailer ): Response
     {
         $user1=$this->getUser();
-        $user = new Users();
-        $form = $this->createForm(UsersType::class, $user);
-        $form->handleRequest($request);
+
+        if($user1 == null) {
+            $user = new Users();
+            $form = $this->createForm(UsersType::class, $user);
+            $form->handleRequest($request);
 
 
+            if ($form->isSubmitted() && $form->isValid()) {
+                // encode the plain password
+                $user->setToken(md5(uniqid()));
+                $user->setRoleAdmin(0);
+                $email = (new TemplatedEmail())
+                    ->htmlTemplate('front/users/registration/confirmation_email.html.twig'
+                    )
+                    ->context(['user' => $user, 'token' => $user->getToken()])
+                    ->from('gaming2020room@gmail.com')
+                    //->to($m->getEmail())
+                    ->to($user->getEmail())
+                    ->subject('Verification Email');
+                //->text('Sending emails is fun again!')
+                $mailer->send($email);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setToken(md5(uniqid()));
-            $user->setRoleAdmin(0);
-            $email = (new TemplatedEmail())
-                ->htmlTemplate('front/users/registration/confirmation_email.html.twig'
-                )
-                ->context(['user' => $user , 'token' => $user->getToken()])
-
-                ->from('gaming2020room@gmail.com')
-                //->to($m->getEmail())
-                ->to($user->getEmail())
-                ->subject('Verification Email');
-            //->text('Sending emails is fun again!')
-            $mailer->send($email);
-
-            $user->setEtat(0);
-            $user->setRole(0);
-            $user->setRoleAdmin(0);
-            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+                $user->setEtat(0);
+                $user->setRole(0);
+                $user->setRoleAdmin(0);
+                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
 
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-            return $this->redirectToRoute('confirmation');
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                return $this->redirectToRoute('confirmation');
 
 
+            }
+
+            return $this->render('front/sign_up.html.twig', [
+                'form' => $form->createView(), 'user' => $user1,
+            ]);
+        }else{
+            return $this->redirectToRoute('error404', [], Response::HTTP_SEE_OTHER);
         }
-
-        return $this->render('front/sign_up.html.twig', [
-            'form' => $form->createView(),  'user' => $user1,
-        ]);
     }
 
 
