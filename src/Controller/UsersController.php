@@ -52,7 +52,8 @@ class UsersController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $encoder,MailerInterface $mailer ): Response
     {
         $user1=$this->getUser();
-        if($user1 == null ) {
+
+        if($user1 == null) {
             $user = new Users();
             $form = $this->createForm(UsersType::class, $user);
             $form->handleRequest($request);
@@ -90,8 +91,7 @@ class UsersController extends AbstractController
             return $this->render('front/sign_up.html.twig', [
                 'form' => $form->createView(), 'user' => $user1,
             ]);
-        }
-        else{
+        }else{
             return $this->redirectToRoute('error404', [], Response::HTTP_SEE_OTHER);
         }
     }
