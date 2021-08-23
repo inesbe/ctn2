@@ -76,16 +76,8 @@ class UsersController extends AbstractController
 
             $user->setEtat(0);
             $user->setRole(0);
+            $user->setRoleAdmin(0);
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
-
-
-
-
-
-
-
-
-
 
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -172,9 +164,9 @@ class UsersController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/users/{id}/activerBan", name="users_activer", methods={"GET","POST"})
+     * @Route("/admin/users/{id}/activer", name="users_activer", methods={"GET","POST"})
      */
-    public function activerCompteBan( Users $user,$id,\Swift_Mailer $mailer)
+    public function activerCompte( Users $user,$id,\Swift_Mailer $mailer)
     {
         $user=$this->getDoctrine()->getRepository(Users::class)->find($id);
 

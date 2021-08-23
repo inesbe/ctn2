@@ -34,6 +34,12 @@
     </br>
     <div class="contact-form-area pb-100">
         <div class="container">
+            {% for message in  app.flashes('info') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
             <div class="section-title">
                 <h2>Formulaire Réclamation</h2>
                 <span>Veuillez remplir les champs</span>

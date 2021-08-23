@@ -160,6 +160,7 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="S'il vous plaît choisir une image")
      */
     private $image;
 

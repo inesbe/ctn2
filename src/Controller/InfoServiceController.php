@@ -24,15 +24,7 @@ class InfoServiceController extends AbstractController
             'info_services' => $infoServiceRepository->findAll(),
         ]);
     }
-    /**
-     * @Route("/infoservice", name="info_service_front", methods={"GET"})
-     */
-    public function indexfront(InfoServiceRepository $infoServiceRepository): Response
-    {
-        return $this->render('front/services.html.twig', [
-            'info_services' => $infoServiceRepository->findAll(),
-        ]);
-    }
+
 
     /**
      * @Route("/admin/infoservice/new", name="info_service_new", methods={"GET","POST"})
@@ -47,6 +39,11 @@ class InfoServiceController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($infoService);
             $entityManager->flush();
+
+            $this->addFlash(
+                'info',
+                'Service ajouté avec succés'
+            );
 
             return $this->redirectToRoute('info_service_admin', [], Response::HTTP_SEE_OTHER);
         }

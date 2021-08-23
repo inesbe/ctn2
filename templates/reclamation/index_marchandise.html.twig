@@ -1,32 +1,69 @@
 {% extends 'back/base.html.twig' %}
 
-{% block title %}Reclamarion Marchandises{% endblock %}
+{% block title %}Reclamation Marchandises{% endblock %}
 
 {% block body %}
+
     <h1 style="color:#ec4844;">Listes des réclamations Marchandises</h1>
+
+
+
 
     <!-- Main content -->
     <section class="content">
+
         <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="dt-buttons btn-group flex-wrap">
+
+
+
+
+                    </div></div><div class="col-sm-12 col-md-6"><div id="example1_filter" class="dataTables_filter">
+                        <label style="color:royalblue;">Rechercher:
+
+                            <input type="search" style="width:180px" class="form-control form-control-sm" placeholder="Email" aria-controls="example1"  id="myInput" onkeyup="myFunction()">
+
+                        </label>
+                        <label>
+
+                            <input type="search" style="width:180px" class="form-control form-control-sm" placeholder="Date réclamation" aria-controls="example1"  id="myInput2" onkeyup="myFunction2()">
+
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <!--<div class="card-header  bg-primary text-white">
                             <h3 class="card-title">Liste des Membres</h3>
                         </div>-->
+                        {% for message in  app.flashes('info') %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
 
                         <!-- /.card-header -->
                         <div class="card-body">
+
                             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                    <div class="row"><div class="col-sm-12"><table id="affichage_reclamation" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                                <div class="row"><div class="col-sm-12"><table id="affichage_reclamationM" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
 
                                             <thead>
                                             <tr role="row">
+                                                <th><h5 style="color:royalblue;">Date Reclamation</h5></th>
                                                 <th><h5 style="color:royalblue;">Nom</h5></th>
                                                 <th><h5 style="color:royalblue;">Prenom</h5></th>
                                                 <th><h5 style="color:royalblue;">Nationalité</h5></th>
                                                 <th><h5 style="color:royalblue;">Email</h5></th>
-                                                <th><h5 style="color:royalblue;">Message</h5></th>
+                                                <th><h5 style="color:royalblue;">Etat reponse</h5></th>
                                                 <th><h5 style="color:royalblue;">actions</h5></th>
                                             </tr>
                                             </thead>
@@ -34,12 +71,19 @@
                                             {% for reclamation in reclamations %}
                                                 {% if reclamation.type == "Marchandise" %}
                                                     <tr>
+                                                        <td>{{ reclamation.date ? reclamation.date|date('Y-m-d H:i:s') : '' }}</td>
                                                         <td>{{ reclamation.nom }}</td>
                                                         <td>{{ reclamation.prenom }}</td>
                                                         <td>{{ reclamation.nationalite }}</td>
                                                         <td>{{ reclamation.email }}</td>
-                                                        <td>{{ reclamation.message }}</td>
-                                                        <td></td>
+                                                        {% if reclamation.etat == 1 %}
+                                                            <td align=center><i class="far fa-check-circle fa-lg" style="color:seagreen;" title="repondu"></i></td>
+                                                        {% else %}
+                                                            <td align=center><i class="far fa-times-circle fa-lg" style="color:red;" title="non repondu"></i></td>
+                                                        {% endif %}
+                                                        <td>
+                                                            <a href="{{ path('reclamation_afficher', {'id': reclamation.id}) }}"> <button type="button"  class="btn btn-block btn-outline-info" > Afficher</button></a>
+                                                        </td>
                                                     </tr>
                                                 {% endif %}
                                             {% else %}
@@ -60,7 +104,51 @@
 
                 </div>
 
-            </div></div></section>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("affichage_reclamationP");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[4];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        function myFunction2() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput2");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("affichage_reclamationP");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 
 
 

@@ -1,62 +1,126 @@
-<!DOCTYPE html>
+{% extends 'back/base.html.twig' %}
 
-<title>Reclamation</title>
+{% block title %}Reclamation{% endblock %}
+
+
 
 {% block body %}
-    <h1>Reclamation</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ reclamation.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ reclamation.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ reclamation.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Nationalite</th>
-                <td>{{ reclamation.nationalite }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ reclamation.email }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ reclamation.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Codepostal</th>
-                <td>{{ reclamation.codepostal }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ reclamation.ville }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ reclamation.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Message</th>
-                <td>{{ reclamation.message }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ reclamation.type }}</td>
-            </tr>
-        </tbody>
-    </table>
+    </br>
 
-    <a href="{{ path('reclamation_index') }}">back to list</a>
+    <div class="col-md-9">
 
-    <a href="{{ path('reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+        <div class="card card-danger card-outline">
 
-    {{ include('reclamation/_delete_form.html.twig') }}
+            <div class="card-header">
+                <h3 class="card-title">Réclamation de la part de :</h3>
+
+                <div class="card-tools">
+                    {% if reclamation.etat == 1 %}
+                        <a class="btn btn-tool" >réclamation repondu <i class="far fa-check-circle fa-lg" style="color:seagreen;" title="repondu"></i></a>
+                    {% else %}
+                        <a  class="btn btn-tool" style="color:red;"> réclamation non repondu</a>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <div class="mailbox-read-info">
+                    <h4 style="color:#ec4844;">{{ reclamation.nom }} {{ reclamation.prenom }}
+                        <span class="mailbox-read-time float-right" title="Date reclamation">{{ reclamation.date |date('Y-m-d H:i:s') }}</span>
+                    </h4>
+                    <h6> <b>Email:</b> {{ reclamation.email }}</h6>
+                    {% if reclamation.telephone != null %}
+                        <h6> <b>Telephone: </b> {{ reclamation.telephone }}</h6>
+                    {% endif %}
+                    <h6> <b>Nationalité: </b> {{ reclamation.nationalite }}</h6>
+                    <h6> <b>Adresse: </b> {{ reclamation.adresse }}</h6>
+                    <h6> <b>Ville:</b> {{ reclamation.ville }}</h6>
+                    {% if reclamation.codepostal != null %}
+                        <h6><b>Code postal: </b> {{ reclamation.codepostal }}</h6>
+                    {% endif %}
+                </div>
+
+                <div class="mailbox-read-message">
+                    <p> {{ reclamation.message |nl2br }}</p>
+                </div>
+                <!-- /.mailbox-read-message -->
+            </div>
+            <!-- /.card-body -->
+
+            <!-- /.card-footer -->
+            <div class="card-footer">
+                {% if reclamation.etat == 0 %}
+                    {% if reclamation.type == "Passager" %}
+                        <div class="float-right">
+                            <a href="{{ path('reclamation_reponseP', {'id': reclamation.id}) }}">
+                                <button type="button" class="btn btn-default"><i class="fas fa-reply" style="color:royalblue;"></i> Repondre</button></a>
+                        </div>
+                        <form method="post" action="{{ path('reclamation_supprimP', {'id': reclamation.id}) }}" onsubmit="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reclamation.id) }}">
+                            <button type="submit" class="btn btn-default"><i class="far fa-trash-alt text-danger" ></i> Supprimer</button>
+                        </form>
+                    {% else %}
+                        <div class="float-right">
+                            <a href="{{ path('reclamation_reponseM', {'id': reclamation.id}) }}">
+                                <button type="button" class="btn btn-default"><i class="fas fa-reply " style="color:royalblue;"></i> Repondre</button></a>
+                        </div>
+                        <form method="post" action="{{ path('reclamation_supprimerM', {'id': reclamation.id}) }}" onsubmit="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reclamation.id) }}">
+                            <button type="submit" class="btn btn-default"><i class="far fa-trash-alt text-danger" ></i> Supprimer</button>
+                        </form>
+                    {% endif %}
+
+                {% endif %}
+                {% if reclamation.etat == 1 %}
+                    {% if reclamation.type == "Passager" %}
+                        <div class="float-right">
+                            <a href="{{ path('reponse_afficher', {'id': reclamation.id}) }}">
+                                <button type="button" class="btn btn-default"><i class="fas fa-eye" style="color:royalblue;"></i> Voir réponse</button></a>
+                        </div>
+                        <form method="post" action="{{ path('reclamation_supprimP', {'id': reclamation.id}) }}" onsubmit="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reclamation.id) }}">
+                            <button type="submit" class="btn btn-default"><i class="far fa-trash-alt text-danger" ></i> Supprimer</button>
+                        </form>
+                    {% else %}
+                        <div class="float-right">
+                            <a href="{{ path('reponse_afficher', {'id': reclamation.id}) }}">
+                                <button type="button" class="btn btn-default"><i class="fas fa-eye" style="color:royalblue;"></i> Voir réponse</button></a>
+                        </div>
+                        <form method="post" action="{{ path('reclamation_supprimerM', {'id': reclamation.id}) }}" onsubmit="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reclamation.id) }}">
+                            <button type="submit" class="btn btn-default"><i class="far fa-trash-alt text-danger" ></i> Supprimer</button>
+                        </form>
+                    {% endif%}
+
+
+                {% endif %}
+            </div>
+            <!-- /.card-footer -->
+
+        </div>
+        <!-- /.card -->
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            {% if reclamation.type == "Passager" %}
+                <a href="{{ path('index_passagers') }}" class="btn btn-default"><i class="fas fa-arrow-left text-danger" ></i>Retour</a>
+            {% else %}
+
+                <a href="{{ path('index_marchandise') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+            {% endif %}
+        </div>
+    </div>
+
+
 {% endblock %}
+
+
+
+
+
+
+
+

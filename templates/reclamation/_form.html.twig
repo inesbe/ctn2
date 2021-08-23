@@ -86,7 +86,7 @@
             </div>
             <div class="col-lg-12 col-md-12">
                 <div class="form-group">
-                    {{ form_widget(form.message,{'attr':{'placeholder':'Ecrivez votre message... ','rows':'10'}}) }}
+                    {{ form_widget(form.message,{'attr':{'placeholder':'Ecrivez votre message... ','rows':'10'}}) |nl2br  }}
                     {% if form_errors(form.message) %}
                         <div class="help-block with-errors" role="alert">
                             {{ form_errors(form.message) }}

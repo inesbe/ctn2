@@ -115,6 +115,26 @@ class Reclamation
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $reponse;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateReponse;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -236,6 +256,54 @@ class Reclamation
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getReponse(): ?string
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse(?string $reponse): self
+    {
+        $this->reponse = $reponse;
+
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getDateReponse(): ?\DateTimeInterface
+    {
+        return $this->dateReponse;
+    }
+
+    public function setDateReponse(?\DateTimeInterface $dateReponse): self
+    {
+        $this->dateReponse = $dateReponse;
 
         return $this;
     }

@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Reclamation;
+use App\Form\ReclamationReponseType;
 use App\Form\ReclamationType;
 use App\Repository\ReclamationRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -34,55 +37,6 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/reclamation_passagers", name="reclamation_passagers", methods={"GET","POST"})
-     */
-    public function reclamation_passagers(Request $request): Response
-    {
-        $reclamation = new Reclamation();
-        $form = $this->createForm(ReclamationType::class, $reclamation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $reclamation->setType('Passager');
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($reclamation);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('front/reclamation_passagers.html.twig', [
-            'reclamation' => $reclamation,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/reclamation_marchandise", name="reclamation_marchandise", methods={"GET","POST"})
-     */
-    public function reclamation_marchandise(Request $request): Response
-    {
-        $reclamation = new Reclamation();
-        $form = $this->createForm(ReclamationType::class, $reclamation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $reclamation->setType('Marchandise');
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($reclamation);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('front/reclamation_marchandise.html.twig', [
-            'reclamation' => $reclamation,
-            'form' => $form->createView(),
-        ]);
-    }
-
-
-    /**
      * @Route("/{id}/edit", name="reclamation_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Reclamation $reclamation): Response
@@ -100,6 +54,170 @@ class ReclamationController extends AbstractController
             'reclamation' => $reclamation,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/rec/{id}", name="reclamation_afficher", methods={"GET"})
+     */
+    public function show(Reclamation $reclamation): Response
+    {
+        $reclamation->setReponse(null);
+        return $this->render('reclamation/show.html.twig', [
+            'reclamation' => $reclamation,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/repondreP", name="reclamation_reponseP", methods={"GET","POST"})
+     */
+    public function repondre_rec_passager(Request $request, Reclamation $reclamation,\Swift_Mailer $mailer): Response
+    {
+        $form = $this->createForm(ReclamationReponseType::class, $reclamation);
+        $form->handleRequest($request);
+
+        if($reclamation->getEtat()==0){
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                if( $reclamation->getType()== "Passager") {
+
+                    $reclamation->setEtat(1);
+                    $currentDate = new \DateTime();
+                    $currentDate->sub(new \DateInterval('PT1H'));
+                    $reclamation->setDateReponse($currentDate);
+
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($reclamation);
+                    $entityManager->flush();
+
+                    $message = (new \Swift_Message('Réponse à une réclamation client'))
+                        ->setFrom('Gaming2020Room@gmail.com')
+                        ->setTo($reclamation->getEmail())
+                        ->setBody($this->renderView(
+                            'reclamation/EmailReclamation/reponseReclamation.html.twig', ['reclamation' => $reclamation,]
+                        ),
+                            'text/html');
+                    $mailer->send($message);
+
+
+                    $this->addFlash(
+                        'info',
+                        'Email envoyé avec succès'
+                    );
+
+                    return $this->redirectToRoute('index_passagers', [], Response::HTTP_SEE_OTHER);
+                }
+
+            }
+
+            return $this->render('reclamation/reponse.html.twig', [
+                'reclamation' => $reclamation,
+                'form' => $form->createView(),
+            ]);
+        } else {
+            return $this->redirectToRoute('backERROR404', [], Response::HTTP_SEE_OTHER);
+        }
+
+    }
+
+    /**
+     * @Route("/{id}/repondreM", name="reclamation_reponseM", methods={"GET","POST"})
+     */
+    public function repondre_rec_marchandise(Request $request, Reclamation $reclamation,\Swift_Mailer $mailer): Response
+    {
+        $form = $this->createForm(ReclamationReponseType::class, $reclamation);
+        $form->handleRequest($request);
+
+
+        if($reclamation->getEtat()==0){
+
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                if( $reclamation->getType()== "Marchandise") {
+
+
+                    $reclamation->setEtat(1);
+                    $currentDate = new \DateTime();
+                    $currentDate->sub(new \DateInterval('PT1H'));
+                    $reclamation->setDateReponse($currentDate);
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($reclamation);
+                    $entityManager->flush();
+
+
+                    $message = (new \Swift_Message('Réponse à une réclamation client'))
+                        ->setFrom('Gaming2020Room@gmail.com')
+                        ->setTo($reclamation->getEmail())
+                        ->setBody($this->renderView(
+                            'reclamation/EmailReclamation/reponseReclamation.html.twig', ['reclamation' => $reclamation,]
+                        ),
+                            'text/html');
+                    $mailer->send($message);
+
+
+                    $this->addFlash(
+                        'info',
+                        'Email envoyé avec succès'
+                    );
+
+                    return $this->redirectToRoute('index_marchandise', [], Response::HTTP_SEE_OTHER);
+                }
+
+            }
+
+            return $this->render('reclamation/reponse.html.twig', [
+                'reclamation' => $reclamation,
+                'form' => $form->createView(),
+            ]);
+
+        } else {
+            return $this->redirectToRoute('backERROR404', [], Response::HTTP_SEE_OTHER);
+        }
+
+    }
+
+    /**
+     * @Route("/supprimerM/{id}", name="reclamation_supprimerM", methods={"POST"})
+     */
+    public function deleteM(Request $request, Reclamation $reclamation): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$reclamation->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($reclamation);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('index_marchandise', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/supprimerP/{id}", name="reclamation_supprimP", methods={"POST"})
+     */
+    public function deleteP(Request $request, Reclamation $reclamation): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$reclamation->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($reclamation);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('index_passagers', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/afficherrep/{id}", name="reponse_afficher", methods={"GET"})
+     */
+    public function afficher_reponse(Reclamation $reclamation): Response
+    {
+        if($reclamation->getEtat()==1 && $reclamation->getReponse() != null){
+            return $this->render('reclamation/afficherReponse.html.twig', [
+                'reclamation' => $reclamation,
+            ]);
+        }else{
+            return $this->redirectToRoute('backERROR404', [], Response::HTTP_SEE_OTHER);
+        }
     }
 }
 

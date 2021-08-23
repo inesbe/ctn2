@@ -42,6 +42,16 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/admin/error404", name="backERROR404")
+     */
+    public function error(): Response
+    {
+        return $this->render('back/404.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+
 
 
 }

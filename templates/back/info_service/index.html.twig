@@ -8,9 +8,17 @@
 
 {% block body %}
 
+    {% for message in  app.flashes('info') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
     <br>
     <h1 style="color:#ec4844;">Gestion des Services    <a href="{{ path('info_service_new') }}" class="btn btn-default"><i class="fas fa-plus-circle" style="color:#ec4844;" ></i> Ajouter nouveau service</a>
     </h1>
+
 
     <!-- Main content -->
     <section class="content">
@@ -18,7 +26,7 @@
             <div class="row">
 
 
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="card card-danger card-outline">
                         {% for info in info_services %}
                             <div class="card-header">

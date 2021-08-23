@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Conteneur;
 use App\Entity\Quota;
+use App\Entity\Reclamation;
 use App\Entity\Users;
 use App\Form\QuotaType;
+use App\Form\ReclamationType;
 use App\Repository\ChassisRepository;
 use App\Repository\ConteneurRepository;
 use App\Repository\DocumentsRepository;
+use App\Repository\InfoServiceRepository;
 use App\Repository\MediasRepository;
 use App\Repository\OffresRepository;
 use App\Entity\Ligne;
@@ -188,35 +191,88 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/reclamation_passagers", name="reclamation_passagers")
+     * @Route("/reclamation_passagers", name="reclamation_passagers", methods={"GET","POST"})
      */
-    public function reclamation_passagers(): Response
-    { $user=$this->getUser();
+    public function reclamation_passagers(Request $request): Response
+    {
+        $user=$this->getUser();
+        $reclamation = new Reclamation();
+        $form = $this->createForm(ReclamationType::class, $reclamation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reclamation->setType('Passager');
+            $currentDate = new \DateTime();
+            $currentDate->sub(new \DateInterval('PT1H'));
+            $reclamation->setDate($currentDate);
+            $reclamation->setEtat(0);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($reclamation);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'info',
+                'Message envoyé avec succès'
+            );
+
+            return $this->redirectToRoute('reclamation_passagers',array('user'=>$user), Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('front/reclamation_passagers.html.twig', [
-            'controller_name' => 'HomeController',  'user' => $user,
-        ]);
-    }
-
-
-    /**
-     * @Route("/services", name="services")
-     */
-    public function services(): Response
-    { $user=$this->getUser();
-        return $this->render('front/services.html.twig', [
-            'controller_name' => 'HomeController',  'user' => $user,
+            'reclamation' => $reclamation,
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/reclamation_marchandise", name="reclamation_marchandise")
+     * @Route("/reclamation_marchandise", name="reclamation_marchandise", methods={"GET","POST"})
      */
-    public function reclamation_marchandises(): Response
-    { $user=$this->getUser();
+    public function reclamation_marchandises(Request $request): Response
+    {
+        $user=$this->getUser();
+        $reclamation = new Reclamation();
+        $form = $this->createForm(ReclamationType::class, $reclamation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reclamation->setType('Marchandise');
+            $currentDate = new \DateTime();
+            $currentDate->sub(new \DateInterval('PT1H'));
+            $reclamation->setDate($currentDate);
+            $reclamation->setEtat(0);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($reclamation);
+            $entityManager->flush();
+
+
+            $this->addFlash(
+                'info',
+                'Message envoyé avec succès'
+            );
+
+            return $this->redirectToRoute('reclamation_marchandise', array('user'=>$user), Response::HTTP_SEE_OTHER);
+
+        }
+
         return $this->render('front/reclamation_marchandise.html.twig', [
-            'controller_name' => 'HomeController',  'user' => $user,
+            'reclamation' => $reclamation,
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/infoservice", name="info_service_front", methods={"GET"})
+     */
+    public function indexfront(InfoServiceRepository $infoServiceRepository): Response
+    {
+        $user=$this->getUser();
+        return $this->render('front/services.html.twig', [
+            'info_services' => $infoServiceRepository->findAll() , 'user' => $user,
+        ]);
+    }
+
 
     /**
      * @Route("/mediatheque", name="mediatheque")
@@ -492,6 +548,15 @@ class HomeController extends AbstractController
     }
 
 
+    /**
+     * @Route("/ERROR404", name="error404", methods={"GET"})
+     */
+    public function error404(): Response
+    {
+        return $this->render('front/404.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
 
       /**
 

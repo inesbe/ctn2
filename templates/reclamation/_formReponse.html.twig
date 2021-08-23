@@ -1,0 +1,124 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-3">
+                <a href="{{ path('reclamation_afficher', {'id': reclamation.id}) }}" class="btn btn-danger btn-block mb-3">Retour</a>
+
+                <!-- /.card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Date Réclamation</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" > <i class="far fa-calendar-alt text-danger"></i> {{ reclamation.date ? reclamation.date|date('Y-m-d H:i:s') : '' }}</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Détails sur le client</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item active">
+                                <a  class="nav-link" title="Nom & Prenom">
+                                    <i class="far fa-user text-danger"></i> {{ reclamation.nom }} {{ reclamation.prenom }}
+
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a  class="nav-link" title="Télephone">
+                                    <i class="fas fa-phone text-danger"></i> {{ reclamation.telephone }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a  class="nav-link" title="Nationalité">
+                                    <i class="fas fa-passport text-danger"></i> {{ reclamation.nationalite }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a  class="nav-link" title="Adresse">
+                                    <i class="fas fa-map-marker-alt text-danger"></i> {{ reclamation.adresse }}
+
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a  class="nav-link" title="Ville">
+                                    <i class="fas fa-city text-danger"></i> {{ reclamation.ville }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+            </div>
+
+            <!-- /.col -->
+
+
+            <div class="col-md-9">
+                <div class="card card-danger card-outline">
+                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                    <div class="card-header">
+                        <h3 class="card-title">Écrire un email</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="À: {{ reclamation.email }}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Objet: Réponse à une réclamation client" disabled>
+                        </div>
+                        <div class="form-group">
+                            {{ form_widget(form.reponse,{'attr':{'placeholder':'Ecrivez votre email... ','rows':'20'}}) |nl2br }}
+                            {% if form_errors(form.reponse) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.reponse) }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <div class="float-right">
+
+                            <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i>{{ button_label|default('Envoyez') }}</button>
+                        </div>
+                        <button type="reset" class="btn btn-default"><i class="fas fa-times text-danger"></i> Reset </button>
+                    </div>
+                    <!-- /.card-footer -->
+                    {{ form_end(form) }}
+                </div>
+                <!-- /.card -->
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
