@@ -1,0 +1,118 @@
+
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block title %}Réservation {% endblock %}
+
+{% block body %}
+
+    <div class="page-banner bg-marchandise">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="page-content">
+                        <h2>Réservation</h2>
+                        <ul>
+                            <li><a href="{{ path('home') }}">Accueil</a></li>
+                            <li>Reservation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="blog-area-two ptb-100">
+        <div class="container">
+            <div class="section-title">
+                <!--<span><i class="bx bxs-megaphone"></i></span>-->
+                <h2>Vos réservations</h2>
+            </div>
+
+            <div class="container">
+                <div class="faq-area  ">
+                    <div class="container">
+
+
+                        <div class="faq-form" style="width:100%">
+                            <div>
+                                <div class="text-center">
+                                    <a class="faq-form-btn" href="{{ path('reservation_new') }}"> <i
+                                                class="bx bxs-plus-circle"></i></a>
+                                </div>
+                                <br>
+                                <br>
+
+
+                                <div class="row">
+                                    {% for reservation in reservations %}
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="blog-card">
+                                                <a class="blog-image"
+                                                   href="{{ path('reservation_show', {'id': reservation.id}) }}">
+                                                    <img src="assets/img/blog/blog12.jpg" alt="image">
+                                                </a>
+                                                <div class="blog-text">
+                                                    {% if reservation.valide is null %}
+                                                        <span class="meta-tag">En attente</span>
+                                                    {% elseif reservation.valide %}
+
+                                                        {% if reservation.confirme is null %}
+                                                            <span style="background-color: green"
+                                                                  class="meta-tag">Validée</span>
+                                                        {% elseif reservation.confirme %}
+                                                            <span style="background-color: deepskyblue"
+                                                                  class="meta-tag">Confirmée</span>
+                                                        {% elseif reservation.confirme == false %}
+                                                            <span style="background-color: red"
+                                                                  class="meta-tag">Refusée</span>
+                                                        {% endif %}
+                                                    {% elseif reservation.valide == false %}
+                                                        <span style="background-color: red"
+                                                              class="meta-tag">Refusée</span>
+                                                    {% endif %}
+                                                    {% if reservation.dateExacte %}
+                                                        <div class="date">{{ reservation.dateExacte ? reservation.dateExacte|date('Y-m-d') : '' }}</div>
+                                                    {% else %}
+                                                        <div class="date">{{ reservation.dateMin ? reservation.dateMin|date('Y-m-d') : '' }}</div>
+                                                        <div class="date">{{ reservation.dateMax ? reservation.dateMax|date('Y-m-d') : '' }}</div>
+                                                    {% endif %}
+                                                    <h3>
+                                                        <a href="#">
+                                                            {{ reservation.portArrive }}
+                                                        </a>
+
+                                                    </h3>
+                                                    <a href="{{ path('reservation_show', {'id': reservation.id}) }}"
+                                                       class="default-btn-two">Consulter</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="7">Pas de record trouvé</td>
+                                        </tr>
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <br>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+{% include 'front/footer.html.twig' %}

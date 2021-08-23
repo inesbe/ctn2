@@ -1,0 +1,11 @@
+{% extends 'back/base.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter un document</h1>
+
+    {{ include('back/documents/_form.html.twig') }}
+
+    <a href="{{ path('documents_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+{% endblock %}
+
+

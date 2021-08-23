@@ -1,0 +1,169 @@
+{% extends 'front/base.html.twig' %}
+
+{% block body %}
+
+    <div class="blog-details-area bg-f9f9f9 ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="blog-details-desc">
+                        <div class="article-image">
+                            <img src="../../assets/img/blog/blog-details.jpg" alt="image">
+                        </div>
+                        <div class="article-content">
+                            <div class="entry-meta">
+                                <ul>
+                                    {% if  offre.pdf %}
+                                        <li>
+                                            <i class='bx bx-folder-open'></i>
+                                            <span>Document</span>
+                                            <a href="{{ asset('uploads/offresPdf/' ~ offre.pdf) }}"
+                                               target="_blank">{{ offre.titre }}.pdf</a>
+                                        </li>
+                                    {% endif %}
+                                    <li>
+                                        <i class='bx bx-calendar'></i>
+                                        <span>Date de publication</span>
+                                        {{ offre.dateRelease ? offre.dateRelease|date('Y-m-d') : '' }}
+                                    </li>
+                                    {% if  offre.pdfResultat %}
+                                        <li>
+                                            <i class='bx bx-folder-open'></i>
+                                            <span>Document</span>
+                                            <a href="{{ asset('uploads/offresPdf/' ~ offre.pdfResultat) }}"
+                                               target="_blank">Résultat.pdf</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <h3>{{ offre.titre }}</h3>
+                            <blockquote class="wp-block-quote">
+                                <p>{{ offre.description |nl2br }}.</p>
+
+                            </blockquote>
+                            {{ offre.details |nl2br }}
+                        </div>
+                        {% if app.user %}
+                            <div class="comments-area">
+                                <div class="comment-respond">
+                                    <h3 class="comment-reply-title">Laissez un commentaire</h3>
+                                    <div class="comment-form">
+                                        <p class="comment-notes">
+                                            <span id="email-notes">Votre commentaire ne sera pas public.</span>
+                                        </p>
+                                        <p class="comment-form-comment">
+                                            <label>Commentaire</label>
+                                            <textarea name="comment" id="comment" cols="45" placeholder="Commentaire..."
+                                                      rows="5" maxlength="65525" required="required"></textarea>
+                                        </p>
+                                        <div class="text-center">
+                                        </div>
+                                        <p class="form-submit">
+                                            <a type="submit"
+                                                    class="default-btn-one senComment">Envoyer</a>
+                                        </p>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        {% else %}
+                        {{ include('front/offres/commentaire_offre.html.twig') }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="widget-area">
+                        <div class="widget widget_posts_thumb">
+
+                            <h3 class="widget-title">Récents</h3>
+                            {% for off in offres %}
+                                <div class="item">
+                                    <a href="{{ path('offres_details', {'id': off.id}) }}" class="thumb">
+                                        <span class="fullimage cover bg4" role="img"></span>
+                                    </a>
+                                    <div class="info">
+                                        <span>{{ off.dateRelease ? offre.dateRelease|date('Y-m-d') : '' }}</span>
+                                        <h4 class="title usmall"><a
+                                                    href="{{ path('offres_details', {'id': off.id}) }}">{{ off.titre }}</a>
+                                        </h4>
+                                    </div>
+                                    {% if off.type =="Ouvert" %}
+                                        <div class="clear" style="color: springgreen">{{ off.type }}</div>
+
+                                    {% else %}
+                                        <div class="clear" style="color: orangered">{{ off.type }}</div>
+                                    {% endif %}
+
+
+                                </div>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7">Pas de record trouvé</td>
+                                </tr>
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+
+    <script>
+        //<--!<input type="date" class="custom-select" style="height: 55px">-->
+        setTimeout(() => {
+
+
+            /***** envoyer un commentaire**/
+
+            function onClickSendComment(event) {
+
+                let id ={{ offre.id }};
+                event.preventDefault();
+                let comment = document.getElementById('comment').value;
+                var encodedComment = encodeURIComponent(comment);
+                const url = Routing.generate('userCommentOffre', {id: id, comment:encodedComment});
+
+                if(comment !=""){
+                    axios.get(url).then(function (response) {
+
+                        window.alert("Commentaire envoyé!")
+                    }).catch(function (error) {
+                        if (error.response.status === 400) {
+                            window.alert("Une erreur s'est produite, réessayer plus tard.")
+                        } else {
+                            window.alert("Une erreur s'est produite, réessayer plus tard.")
+                        }
+                    });
+                }else
+                window.alert("Verrifier les données")
+
+
+            }
+            document.querySelector('a.senComment').addEventListener('click', onClickSendComment);
+
+
+        }, 2000);
+
+    </script>
+{% endblock %}

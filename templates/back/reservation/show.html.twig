@@ -1,0 +1,1052 @@
+{% extends 'back/base.html.twig' %}
+{% block title %}Détails réservation{% endblock %}
+{% block stylesheets %}
+    <style>
+
+        .custom-select {
+            display: inline-block;
+            width: 100%;
+            height: calc(2.25rem + 2px);
+            padding: .375rem 1.75rem .375rem .75rem;
+            line-height: 1.5;
+            color: #495057;
+            vertical-align: middle;
+            background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right .75rem center;
+            background-size: 8px 10px;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .custom-select {
+            text-transform: none;
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Réservation</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Réservation</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+
+
+                    <!-- About Me Box -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Détails réservation</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Port d'arrivée</strong>
+
+                            <p class="text-muted">{{ reservation.portArrive }}</p>
+
+
+                            <hr>
+                            {% if reservation.dateExacte %}
+                                <strong><i class="fas fa-calendar-week"></i> Date Exacte</strong>
+
+                                <p class="text-muted">
+                                    {{ reservation.dateExacte ? reservation.dateExacte|date('Y-m-d') : '' }}
+                                </p>
+
+                                <hr>
+                            {% else %}
+
+                                <strong><i class="fas fa-calendar-week"></i> Date min</strong>
+
+                                <p class="text-muted">
+                                    <input type="hidden" id="dateMin"
+                                           value="{{ reservation.dateMin ? reservation.dateMin|date('Y-m-d') : '' }}">
+                                    {{ reservation.dateMin ? reservation.dateMin|date('Y-m-d') : '' }}
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="fas fa-calendar-week"></i> Date max</strong>
+
+                                <p class="text-muted">
+                                    <input type="hidden" id="dateMax"
+                                           value="{{ reservation.dateMax ? reservation.dateMax|date('Y-m-d') : '' }}">
+                                    {{ reservation.dateMax ? reservation.dateMax|date('Y-m-d') : '' }}
+                                </p>
+                                <a data-toggle="modal"
+                                   data-target="#dateModal" type="button" class="btn btn-primary btn-block"><b>Ajouter
+                                        une date exacte</b></a>
+
+                            {% endif %}
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Réservé par</h3>
+                        </div>
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle"
+                                     src="{{ asset('/uploads/adminImages/' ~ reservation.user.image) }}"
+                                     alt="User profile picture" style="height: 100px;">
+                            </div>
+
+                            <h3 class="profile-username text-center">{{ reservation.user.prenom }} {{ reservation.user.nom }}</h3>
+
+                            <p class="text-muted text-center">{{ reservation.user.email }}</p>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>{{ reservation.user.societe }}</b> <a
+                                            class="float-right">{{ reservation.user.typesociete }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>{{ reservation.user.pays }}</b>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Nb réservations</b> <a
+                                            class="float-right">{{ reservation.user.reservations |length }}</a>
+                                </li>
+                            </ul>
+
+                            <a href="#" class="btn btn-primary btn-block"><b>Profile</b></a>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Historique
+                                        réservation</a>
+                                </li>
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <section class="content pb-3">
+                                        <div class="container-fluid h-100 row">
+                                            <div class="card card-row card-success col-lg-4">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">
+                                                        Conteneurs
+                                                    </h3>
+                                                    <a class="float-right" data-toggle="modal"
+                                                       data-target="#addConteneurModal"
+                                                       type="button"><i class="fas fa-plus"></i></a>
+                                                </div>
+                                                <div class="card-body">
+                                                    {% set i=0 %}
+                                                    {% for conteneur in reservation.conteneurs %}
+                                                        {% set i=i+1 %}
+                                                        <div class="card card-info card-outline">
+                                                            <div class="card-header">
+                                                                <h5 class="card-title">{{ conteneur.type }}</h5>
+                                                                <div class="card-tools">
+                                                                    <a href="#"
+                                                                       class="btn btn-tool btn-link">#{{ i }}</a>
+                                                                    {% if not reservation.valide %}
+                                                                        <a class="btn btn-tool modalClick" data-toggle="modal"
+                                                                           data-target="#{{ conteneur.id }}" type="button">
+                                                                            <i class="fas fa-pen"></i>
+                                                                        </a>
+                                                                        <form class="float-right" method="post"
+                                                                              action="{{ path('reservation_back_deletCont', {'id': conteneur.id, 'idR': reservation.id}) }} "
+                                                                              onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                                            <input type="hidden" name="_token"
+                                                                                   value="{{ csrf_token('delete' ~ conteneur.id) }}">
+                                                                            <button class="btn btn-tool"
+                                                                            >
+
+                                                                                <i class="fas fa-trash-alt"></i>
+                                                                            </button>
+                                                                        </form>
+
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                {% if conteneur.ref %}
+                                                                    <p>
+                                                                        Référence :
+                                                                        {{ conteneur.ref }}
+                                                                    </p>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+
+                                                        <!--Modal-->
+                                                        <div class="modal fade bd-example-modal-lg" id="{{ conteneur.id }}"
+                                                             tabindex="-1" role="dialog"
+                                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                            Modifier conteneur {{ conteneur.type }}</h5>
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form method="post" action="{{ path('reservation_modContainter', {'id': conteneur.id,'idR':reservation.id}) }}" onsubmit="return confirm('Êtes vous sûr?');">
+                                                                            <div class="form-group">
+                                                                                <label>Type</label>
+                                                                                <select class="custom-select choose-card" name="type" value="{{ conteneur.type }}" id="typeCont">
+                                                                                    <option value="Stadard20" {{  conteneur.type=='Standrd20'? 'selected'}} >Standard 20</option>
+                                                                                    <option value="Standar40" {{  conteneur.type=='Standar40'? 'selected'}} >Standard 40</option>
+                                                                                    <option value="HighCube20" {{  conteneur.type=='HighCube20'? ''}} >HighCube20</option>
+                                                                                    <option value="HighCube40" {{  conteneur.type=='HighCube40'? 'selected'}} >High cube 40</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Réfèrence</label>
+                                                                                <input name="ref" value="{{ conteneur.ref }}" class="form-control" id="refCont" placeholder="c...">
+                                                                            </div>
+                                                                            <br>
+                                                                            <button  class="btn btn-success float-right">Modifier
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                                data-dismiss="modal">Close
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--/Modal-->
+
+
+                                                    {% endfor %}
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="card card-row card-primary  col-lg-4">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">
+                                                        Chassis
+                                                    </h3>
+                                                    <a class="float-right" data-toggle="modal"
+                                                       data-target="#addChassisModal"
+                                                       type="button"><i class="fas fa-plus"></i></a>
+                                                </div>
+                                                <div class="card-body">
+                                                    {% set i=0 %}
+                                                    {% for chassis in reservation.chassis %}
+                                                        {% set i=i+1 %}
+                                                        <div class="card card-info card-outline">
+                                                            <div class="card-header">
+                                                                <h5 class="card-title">{{ chassis.type }}</h5>
+                                                                <div class="card-tools">
+                                                                    <a href="#"
+                                                                       class="btn btn-tool btn-link">#{{ i }}</a>
+                                                                    {% if not reservation.valide %}
+                                                                        <a class="btn btn-tool modalChassisClick" data-toggle="modal" data-target="#{{ chassis.id }}" type="button">
+                                                                            <i class="fas fa-pen"></i>
+                                                                        </a>
+                                                                        <form class="float-right" method="post"
+                                                                              action="{{ path('reservation_back_deletChassis', {'id': chassis.id, 'idR': reservation.id}) }} "
+                                                                              onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                                            <input type="hidden" name="_token"
+                                                                                   value="{{ csrf_token('delete' ~ chassis.id) }}">
+                                                                            <button class="btn btn-tool">
+
+                                                                                <i class="fas fa-trash-alt"></i>
+                                                                            </button>
+                                                                        </form>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                {% if chassis.ref %}
+                                                                    <p>
+                                                                        Référence :
+                                                                        {{ chassis.ref }}
+                                                                    </p>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!--Modal-->
+                                                        <div class="modal fade bd-example-modal-lg" id="{{ chassis.id }}"
+                                                             tabindex="-1" role="dialog"
+                                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                            Modifier chassis {{ chassis.type }}</h5>
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form method="post" action="{{ path('reservation_modChassis', {'id': chassis.id,'idR':chassis.id}) }}" onsubmit="return confirm('Êtes vous sûr?');">
+                                                                            <div class="form-group">
+                                                                                <select class="custom-select choose-card" name="type" value="{{ chassis.type }}" id="typeChassis">
+                                                                                    <option value="semi" selected>Semi</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Réfèrence</label>
+                                                                                <input name="ref" value="{{ chassis.ref }}" class="form-control" id="refCont" placeholder="ch...">
+                                                                            </div>
+                                                                            <br>
+                                                                            <button  class="btn btn-success float-right">Modifier
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                                data-dismiss="modal">Close
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--/Modal-->
+
+
+
+
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <div class="card card-row card-default  col-lg-4">
+                                                <div class="card-header bg-info">
+                                                    <h3 class="card-title">
+                                                        Vracks
+                                                    </h3>
+                                                    <a class="float-right" data-toggle="modal"
+                                                       data-target="#addVrackModal"
+                                                       type="button"><i class="fas fa-plus"></i></a>
+                                                </div>
+                                                <div class="card-body">
+                                                    {% set i=0 %}
+                                                    {% for vrack in reservation.vracks %}
+                                                        {% set i=i+1 %}
+                                                        <div class="card card-info card-outline">
+                                                            <div class="card-header">
+                                                                <h5 class="card-title">{{ vrack.codeEmballage }}</h5>
+                                                                <div class="card-tools">
+                                                                    <a href="#"
+                                                                       class="btn btn-tool btn-link">#{{ i }}</a>
+                                                                    {% if not reservation.valide %}
+                                                                        <a class="btn btn-tool clickVrackModal" data-toggle="modal" data-target="#{{ vrack.id }}" type="button">
+                                                                            <i class="fas fa-pen"></i>
+                                                                        </a>
+                                                                        <form class="float-right" method="post"
+                                                                              action="{{ path('reservation_back_deletVrack', {'id': vrack.id, 'idR': reservation.id}) }} "
+                                                                              onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                                            <input type="hidden" name="_token"
+                                                                                   value="{{ csrf_token('delete' ~ vrack.id) }}">
+                                                                            <button class="btn btn-tool">
+
+                                                                                <i class="fas fa-trash-alt"></i>
+                                                                            </button>
+                                                                        </form>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                {% if vrack.ref %}
+                                                                    <p>
+                                                                        Référence :
+                                                                        {{ vrack.ref }}
+                                                                    </p>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+
+                                                        <!--Modal-->
+                                                        <div class="modal fade bd-example-modal-lg" id="{{ vrack.id }}"
+                                                             tabindex="-1" role="dialog"
+                                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                            Modifier
+                                                                            vrack {{ vrack.codeEmballage }}</h5>
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form method="post" action="{{ path('reservation_modVrack', {'id': vrack.id,'idR': reservation.id}) }}" onsubmit="return confirm('Êtes vous sûr?');">
+                                                                            <div class="form-group">
+                                                                                <label>Type</label>
+                                                                                <select class="custom-select choose-card" name="type" value="{{ vrack.codeEmballage }}" id="typeVrack">
+                                                                                    <option value="CR" {{  vrack.codeEmballage=='CR'? 'selected'}}>Coffre(s)</option>
+                                                                                    <option value="BC" {{  vrack.codeEmballage=='BC'? 'selected'}}>Bocaux</option>
+                                                                                    <option value="BV" {{  vrack.codeEmballage=='BV'? 'selected'}}>Bouteilles vide de gaz comprimes</option>
+                                                                                    <option value="CG" {{  vrack.codeEmballage=='CG'? 'selected'}}>Cageauts</option>
+                                                                                    <option value="CC" {{  vrack.codeEmballage=='CC'? 'selected'}}>Caisses</option>
+                                                                                    <option value="CH" {{  vrack.codeEmballage=='CH'? 'selected'}}>Chariot elevateur</option>
+                                                                                    <option value="AE" {{  vrack.codeEmballage=='AE'? 'selected'}}>Colis</option>
+                                                                                    <option value="CY" {{  vrack.codeEmballage=='CY'? 'selected'}}>Cylindre</option>
+                                                                                    <option value="CE" {{  vrack.codeEmballage=='CE'? 'selected'}}>Estagnons</option>
+                                                                                    <option value="FA" {{  vrack.codeEmballage=='FA'? 'selected'}}>Fardeau</option>
+                                                                                    <option value="FL" {{  vrack.codeEmballage=='FL'? 'selected'}}>Filet</option>
+                                                                                    <option value="CF" {{  vrack.codeEmballage=='CF'? 'selected'}}>Futs</option>
+                                                                                    <option value="LT" {{  vrack.codeEmballage=='LT'? 'selected'}}>Lot</option>
+                                                                                    <option value="CA" {{  vrack.codeEmballage=='CA'? 'selected'}}>Packages</option>
+                                                                                    <option value="PA" {{  vrack.codeEmballage=='PA'? 'selected'}}>Palettes</option>
+                                                                                    <option value="PP" {{  vrack.codeEmballage=='PP'? 'selected'}}>Palettes primeurs</option>
+                                                                                    <option value="PQ" {{  vrack.codeEmballage=='PQ'? 'selected'}}>Paquets</option>
+                                                                                    <option value="PH" {{  vrack.codeEmballage=='PH'? 'selected'}}>Planchette</option>
+                                                                                    <option value="PO" {{  vrack.codeEmballage=='PO'? 'selected'}}>Ponton</option>
+                                                                                    <option value="PS" {{  vrack.codeEmballage=='PS'? 'selected'}}>Presses ramasseuses</option>
+                                                                                    <option value="RL" {{  vrack.codeEmballage=='RL'? 'selected'}}>Rouleaux</option>
+                                                                                    <option value="SP" {{  vrack.codeEmballage=='SP'? 'selected'}}>Sacherie</option>
+                                                                                    <option value="CS" {{  vrack.codeEmballage=='CS'? 'selected'}}>Sacs</option>
+                                                                                    <option value="SC" {{  vrack.codeEmballage=='SC'? 'selected'}}>Sceaux</option>
+                                                                                    <option value="TB" {{  vrack.codeEmballage=='TB'? 'selected'}}>Tambours en bois</option>
+                                                                                    <option value="TM" {{  vrack.codeEmballage=='TM'? 'selected'}}>Tambours métaliques</option>
+                                                                                    <option value="TN" {{  vrack.codeEmballage=='TN'? 'selected'}}>Tonneaux</option>
+                                                                                    <option value="TL" {{  vrack.codeEmballage=='TL'? 'selected'}}>Tonnelets</option>
+                                                                                    <option value="CT" {{  vrack.codeEmballage=='CT'? 'selected'}}>Touret</option>
+                                                                                    <option value="TE" {{  vrack.codeEmballage=='TE'? 'selected'}}>Tubes</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Réfèrence</label>
+                                                                                <input name="ref" value="{{ vrack.ref }}" class="form-control" id="refCont" placeholder="v...">
+                                                                            </div>
+                                                                            <br>
+                                                                            <button  class="btn btn-success float-right">Modifier
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                                data-dismiss="modal">Close
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--/Modal-->
+
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                    {% if reservation.valide is null %}
+                                        <a class="btn btn-primary " data-toggle="modal"
+                                           data-target="#validationModal"
+                                           type="button"><b>Valider</b></a>
+                                        <a class="btn btn-danger " data-toggle="modal"
+                                           data-target="#refusModal"
+                                           type="button"><b>Refuser</b></a>
+                                    {% elseif reservation.valide %}
+                                        {% if reservation.confirme is null %}
+                                            <label style="background-color: yellow">
+                                                Reservation validé en attente de confirmation.
+                                            </label>
+                                        {% elseif reservation.confirme %}
+                                            <label style="background-color: deepskyblue">
+                                                Reservation confirmé.
+                                            </label>
+                                        {% elseif reservation.confirme == false %}
+                                            <label style="background-color: red; color: white">
+                                                Reservation refusé par l'utilisateur.
+                                            </label>
+                                        {% endif %}
+                                    {% elseif reservation.valide == false %}
+                                        <label style="background-color: red; color: white">
+                                            Reservation refusé par l'administrateur.
+                                        </label>
+                                    {% endif %}
+
+
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="timeline">
+                                    <!-- The timeline -->
+                                    <div class="timeline timeline-inverse">
+
+                                        <!-- /.timeline-label -->
+                                        <!-- timeline item -->
+                                        <div>
+                                            <i class="fas fa-envelope bg-primary"></i>
+
+                                            <div class="timeline-item">
+
+                                                <h3 class="timeline-header"><a
+                                                            href="#">{{ reservation.user.prenom }}{{ reservation.user.nom }}</a><span
+                                                            id="email"> {{ reservation.user.email }} </span></h3>
+
+                                                <div class="timeline-body">
+                                                    {{ reservation.reservationText }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END timeline item -->
+                                        <!-- timeline item -->
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+        <!--Modal-->
+        <div class="modal fade bd-example-modal-lg" id="dateModal"
+             tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Date exacte</h5>
+                        <button type="button" class="close"
+                                data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label>Date exacte </label></br>
+
+                        <input type="date" class="custom-select" id="inputDateExacte">
+                        <br>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" class="btn btn-success float-left addDateExacte">Modifier</a>
+                        <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/Modal-->
+
+    <!--Modal-->
+    <div class="modal fade bd-example-modal-lg" id="validationModal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        Êtes vous sûr?<br>
+                        <a class="btn btn-primary btn-block validerRservation"><b>Valider</b></a>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Modal-->
+
+
+
+    <!--Modal-->
+    <div class="modal fade bd-example-modal-lg" id="refusModal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Raison de refus</h5>
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input class="form-control" id="objet" placeholder="Objet:">
+                        </div>
+                        <div class="form-group">
+                    <textarea id="compose-textarea" class="form-control mailText" style="height: 300px">
+                     <p> Bonjour Mr/Mme {{ reservation.user.nom }},
+                        ...<p>
+                    </textarea>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-success float-left sendRefus">Envoyer</a>
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Modal-->
+
+    <!--Modal-->
+    <div class="modal fade bd-example-modal-lg" id="addConteneurModal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Ajouter un conteneur</h5>
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="custom-select choose-card" id="typeCont">
+                                <option value="Stadard20" selected>Standard 20</option>
+                                <option value="Standar40">Standard 40</option>
+                                <option value="HighCube20">HighCube20</option>
+                                <option value="HighCube40">High cube 40</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Réfèrence</label>
+                            <input class="form-control" id="refCont" placeholder="c...">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-success float-left addConteneur">Ajouter</a>
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Modal-->
+
+
+    <!--Modal-->
+    <div class="modal fade bd-example-modal-lg" id="addChassisModal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Ajouter chassis</h5>
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="custom-select choose-card" id="typeChassis">
+                                <option value="semi" selected>Semi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Réfèrence</label>
+                            <input class="form-control" id="refChassis" placeholder="ch...">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-success float-left addChassis">Ajouter</a>
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Modal-->
+
+    <!--Modal-->
+    <div class="modal fade bd-example-modal-lg" id="addVrackModal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Ajouter vrack</h5>
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Emballage</label><br>
+                            <select class="custom-select choose-card" id="typeVrack">
+                                <option value="CR" selected>Coffre(s)</option>
+                                <option value="BC">Bocaux</option>
+                                <option value="BV">Bouteilles vide de gaz comprimes</option>
+                                <option value="CG">Cageauts</option>
+                                <option value="CC">Caisses</option>
+                                <option value="CH">Chariot elevateur</option>
+                                <option value="AE">Colis</option>
+                                <option value="CY">Cylindre</option>
+                                <option value="CE">Estagnons</option>
+                                <option value="FA">Fardeau</option>
+                                <option value="FL">Filet</option>
+                                <option value="CF">Futs</option>
+                                <option value="LT">Lot</option>
+                                <option value="CA">Packages</option>
+                                <option value="PA">Palettes</option>
+                                <option value="PP">Palettes primeurs</option>
+                                <option value="PQ">Paquets</option>
+                                <option value="PH">Planchette</option>
+                                <option value="PO">Ponton</option>
+                                <option value="PS">Presses ramasseuses</option>
+                                <option value="RL">Rouleaux</option>
+                                <option value="SP">Sacherie</option>
+                                <option value="CS">Sacs</option>
+                                <option value="SC">Sceaux</option>
+                                <option value="TB">Tambours en bois</option>
+                                <option value="TM">Tambours métaliques</option>
+                                <option value="TN">Tonneaux</option>
+                                <option value="TL">Tonnelets</option>
+                                <option value="CT">Touret</option>
+                                <option value="TE">Tubes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Réfèrence</label>
+                            <input class="form-control" id="refVrack" placeholder="v...">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-success float-left addVrack">Ajouter</a>
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Modal-->
+{% endblock %}
+
+
+{% block javascripts %}
+
+    <script>
+        $(function () {
+            //Add text editor
+            $('#compose-textarea').summernote()
+        })
+    </script>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+
+    <script>
+        //<--!<input type="date" class="custom-select" style="height: 55px">-->
+        setTimeout(() => {
+
+            $(".modalClick").ready(function(){
+
+                $(".modalClick").click(function(){
+                    const id=$(this).attr("data-target");
+                    console.log(id)
+                    $(id).modal();
+                })
+            })
+
+            $(".modalChassisClick").ready(function(){
+
+                $(".modalChassisClick").click(function(){
+                    const id=$(this).attr("data-target");
+                    console.log(id)
+                    $(id).modal();
+                })
+            })
+
+            $(".clickVrackModal").ready(function(){
+
+                $(".clickVrackModal").click(function(){
+                    const id=$(this).attr("data-target");
+                    console.log(id)
+                    $(id).modal();
+                })
+            })
+
+            /***** Valider reservation**/
+
+            function onClickValiderRservation(event) {
+
+                let idR ={{ reservation.id }};
+                event.preventDefault();
+                const url = Routing.generate('validerReservation', {id: idR});
+
+                {% if reservation.dateExacte %}
+                axios.get(url).then(function (response) {
+
+                    window.alert("Réservation validée!")
+                    location.reload();
+                }).catch(function (error) {
+                    if (error.response.status === 400) {
+                        window.alert("Vous ne pouvez pas faire de validation si vous n'êtes pas connecté!")
+                    } else {
+                        window.alert("Une erreur s'est produite, réessayer plus tard.")
+                    }
+                });
+                {% else %}
+
+                window.alert("Verrifier les données")
+                {% endif %}
+
+
+            }
+
+            /***** Modifer date exate reservation**/
+
+            function onClickAddDateExacte(event) {
+                event.preventDefault();
+                let dateExacte = document.getElementById('inputDateExacte').value;
+                let dateMin = document.getElementById('dateMin').value;
+                let dateMax = document.getElementById('dateMax').value;
+                let idR ={{ reservation.id }};
+                const url = Routing.generate('reservation_showBack_modDateExact', {id: idR, date: dateExacte + ""});
+                if (dateExacte && dateExacte >= dateMin && dateExacte <= dateMax) {
+                    axios.get(url).then(function (response) {
+                        location.reload();
+
+                        window.alert("Date exacte ajoutée!")
+
+                    }).catch(function (error) {
+                        if (error.response.status === 400) {
+                            window.alert("Vous ne pouvez pas faire de validation si vous n'êtes pas connecté!")
+                        } else {
+                            window.alert("Une erreur s'est produite, réessayer plus tard.")
+                        }
+                    });
+                } else
+                    window.alert("Verrifier vos données, la doit être comprise en la date min et la date max")
+
+
+            }
+
+            /***** refus**/
+
+            function onClickSendRefus(event) {
+                event.preventDefault();
+                let objet = document.getElementById('objet').value;
+                let mailText = document.querySelector('textarea.mailText').value;
+                let idR ={{ reservation.id }};
+                var encodedMail = encodeURIComponent(mailText);
+                const url = Routing.generate('refuserReservation', {
+                    id: idR,
+                    objet: objet,
+                    mailText: encodedMail
+                });
+                if (objet != "" && mailText != "") {
+                    axios.get(url).then(function (response) {
+                        window.alert("Email envoiyé!");
+                        location.reload();
+
+                    }).catch(function (error) {
+                        if (error.response.status === 400) {
+                            window.alert("Vous ne pouvez pas faire de refus si vous n'êtes pas connecté!")
+                        } else {
+                            window.alert("Une erreur s'est produite, réessayer plus tard.")
+                        }
+                    });
+                } else
+                    window.alert("Verrifier vos données")
+
+
+            }
+
+            /***** add conteneur**/
+
+            function onClickAddConteneur(event) {
+                event.preventDefault();
+                let ref = document.getElementById('refCont').value;
+                var select = document.getElementById('typeCont');
+                var typeCont = select.options[select.selectedIndex].value;
+                let idR ={{ reservation.id }};
+
+                var params = encodeURIComponent(idR + "-" + typeCont + "-" + ref);
+
+                const url = Routing.generate('reservation_addContainterBack', {
+                    params: params,
+                });
+                if (ref != "" && typeCont != "") {
+                    axios.get(url).then(function (response) {
+                        window.alert("Conteneur bien ajouté!");
+                        location.reload();
+
+                    }).catch(function (error) {
+                        if (error.response.status === 400) {
+                            window.alert("Vous ne pouvez pas faire d'ajout si vous n'êtes pas connecté!")
+                        } else {
+                            window.alert("Une erreur s'est produite, réessayer plus tard.")
+                        }
+                    });
+                } else
+                    window.alert("Verrifier vos données")
+
+
+            }
+
+            /***** add  chassis**/
+
+            function onClickAddChassis(event) {
+                event.preventDefault();
+                let ref = document.getElementById('refChassis').value;
+                var select = document.getElementById('typeChassis');
+                var typeChassis = select.options[select.selectedIndex].value;
+                let idR ={{ reservation.id }};
+
+                var params = encodeURIComponent(idR + "-" + typeChassis + "-" + ref);
+                const url = Routing.generate('reservation_addChassisBack', {
+                    params: params,
+                });
+                if (ref != "" && typeChassis != "") {
+                    axios.get(url).then(function (response) {
+                        window.alert("Chassis bien ajouté!");
+                        location.reload();
+
+                    }).catch(function (error) {
+                        if (error.response.status === 400) {
+                            window.alert("Vous ne pouvez pas faire d'ajout si vous n'êtes pas connecté!")
+                        } else {
+                            window.alert("Une erreur s'est produite, réessayer plus tard.")
+                        }
+                    });
+                } else
+                    window.alert("Verrifier vos données")
+
+            }
+
+            /***** add vrack**/
+
+            function onClickAddVrack(event) {
+                event.preventDefault();
+                let ref = document.getElementById('refVrack').value;
+                var select = document.getElementById('typeVrack');
+                var typeVrack = select.options[select.selectedIndex].value;
+                let idR ={{ reservation.id }};
+
+                var params = encodeURIComponent(idR + "-" + typeVrack + "-" + ref);
+                const url = Routing.generate('reservation_addVrackBack', {
+                    params: params,
+                });
+                if (ref != "" && typeVrack != "") {
+                    axios.get(url).then(function (response) {
+                        window.alert("Vrack bien ajouté!");
+                        location.reload();
+
+                    }).catch(function (error) {
+                        if (error.response.status === 400) {
+                            window.alert("Vous ne pouvez pas faire d'ajout si vous n'êtes pas connecté!")
+                        } else {
+                            window.alert("Une erreur s'est produite, réessayer plus tard.")
+                        }
+                    });
+                } else
+                    window.alert("Verrifier vos données")
+
+
+            }
+
+
+            document.querySelector('a.validerRservation').addEventListener('click', onClickValiderRservation);
+            document.querySelector('a.addDateExacte').addEventListener('click', onClickAddDateExacte);
+            document.querySelector('a.sendRefus').addEventListener('click', onClickSendRefus);
+
+            document.querySelector('a.addConteneur').addEventListener('click', onClickAddConteneur);
+            document.querySelector('a.addChassis').addEventListener('click', onClickAddChassis);
+            document.querySelector('a.addVrack').addEventListener('click', onClickAddVrack);
+
+
+        }, 2000);
+
+    </script>
+{% endblock %}

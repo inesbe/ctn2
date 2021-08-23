@@ -1,0 +1,94 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+
+    <div class="search-overlay">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-close">
+                    <span class="search-overlay-close-line"></span>
+                    <span class="search-overlay-close-line"></span>
+                </div>
+                <div class="search-overlay-form">
+                    <form>
+                        <input type="text" class="input-search" placeholder="Search here...">
+                        <button type="submit"><i class='bx bx-search'></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="page-banner bg-3">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="page-content">
+                        <h2>Veuillez Créer Un Nouveau Mot De Passe</h2>
+                        <ul>
+                            <li><a href="{{ path('home') }}">Acceuil</a></li>
+                            <li><a href="{{ path('sign_in') }}">Authentification</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sign-in-area ptb-100">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nouveau Mot De Passe</h2>
+
+            </div>
+            <div class="sign-in-form">
+                <form>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" placeholder="nouveau mot de passe">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password1" placeholder="confirmer le mot de passe">
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn default-btn-one">Confirmer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="newsletter-area">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="newsletter-title">
+                            <h3>Newsletter:</h3>
+                            <p>S'il vous plaît, écrivez votre email ci-dessous pour rester en contact avec nous</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <form class="newsletter-form" data-bs-toggle="validator">
+                            <input type="email" class="form-control" placeholder="Email" name="EMAIL" required="" autocomplete="off">
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                            <div id="validator-newsletter" class="form-result"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock  %}
+    {% include 'front/footer.html.twig' %}

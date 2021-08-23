@@ -1,0 +1,109 @@
+<div class="contact-form">
+
+    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+
+    <form id="contactForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_widget(form.nom,{'attr':{'placeholder':'Nom '}}) }}
+                    {% if form_errors(form.nom) %}
+                        <div class="help-block with-errors" role="alert">
+                            {{ form_errors(form.nom) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_widget(form.prenom,{'attr':{'placeholder':'Prénom '}}) }}
+                    {% if form_errors(form.prenom) %}
+                        <div class="help-block with-errors" role="alert">
+                            {{ form_errors(form.prenom) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_widget(form.nationalite,{'attr':{'placeholder':'Nationalité '}}) }}
+                    {% if form_errors(form.nationalite) %}
+                        <div class="help-block with-errors" role="alert">
+                            {{ form_errors(form.nationalite) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_widget(form.email,{'attr':{'placeholder':'Email '}}) }}
+                    {% if form_errors(form.email) %}
+                        <div class="help-block with-errors" role="alert">
+                            {{ form_errors(form.email) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_widget(form.adresse,{'attr':{'placeholder':'Adresse '}}) }}
+                    {% if form_errors(form.adresse) %}
+                        <div class="help-block with-errors" role="alert">
+                            {{ form_errors(form.adresse) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_widget(form.codepostal,{'attr':{'placeholder':'Code Postal '}}) }}
+                    {% if form_errors(form.codepostal) %}
+                        <div class="help-block with-errors" role="alert">
+                            {{ form_errors(form.codepostal) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_widget(form.ville,{'attr':{'placeholder':'Ville '}}) }}
+                    {% if form_errors(form.ville) %}
+                        <div class="help-block with-errors" role="alert">
+                            {{ form_errors(form.ville) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_widget(form.telephone,{'attr':{'placeholder':'Téléphone '}}) }}
+                    {% if form_errors(form.telephone) %}
+                        <div class="help-block with-errors" role="alert">
+                            {{ form_errors(form.telephone) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    {{ form_widget(form.message,{'attr':{'placeholder':'Ecrivez votre message... ','rows':'10'}}) }}
+                    {% if form_errors(form.message) %}
+                        <div class="help-block with-errors" role="alert">
+                            {{ form_errors(form.message) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-12 col-md-12 text-center">
+            <button type="submit" class="default-btn-one">{{ button_label|default('Envoyez Message') }}</button>
+            <div id="msgSubmit" class="h3 text-center hidden"></div>
+            <div class="clearfix"></div>
+        </div>
+        {{ form_end(form) }}
+    </form>
+
+
+</div>
+

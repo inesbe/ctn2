@@ -1,0 +1,45 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+
+    <!--top page -->
+
+    <div class="page-banner bg-banner1">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="page-content">
+                        <h2> Réclamation Passagers  </h2>
+                        <ul>
+                            <li><a href="{{ path('home') }}">Acceuil</a></li>
+                            <li>Passagers</li>
+                            <li>Réclamation Passagers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- fin top page -->
+
+
+    <!-- Formulaire reclamation passagers -->
+    </br>
+    <div class="contact-form-area pb-100">
+        <div class="container">
+            <div class="section-title">
+                <h2>Formulaire Réclamation</h2>
+                <span>Veuillez remplir les champs</span>
+            </div>
+            {{ include('reclamation/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
+    {% include 'front/footer.html.twig' %}

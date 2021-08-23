@@ -1,0 +1,593 @@
+{% block stylesheets %}
+    <style>
+
+        .custom-select {
+            display: inline-block;
+            width: 100%;
+            height: calc(2.25rem + 2px);
+            padding: .375rem 1.75rem .375rem .75rem;
+            line-height: 1.5;
+            color: #495057;
+            vertical-align: middle;
+            background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right .75rem center;
+            background-size: 8px 10px;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .custom-select {
+            text-transform: none;
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+    </style>
+{% endblock %}
+
+<div class="page-banner bg-marchandise">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-content">
+                    <h2>Réservation</h2>
+                    <ul>
+                        <li><a href="{{ path('home') }}">Accueil</a></li>
+                        <li>Reservation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="faq-area  ">
+        <div class="container">
+
+
+            <div class="faq-form">
+                <div>
+                    <div class="section-title">
+                        <span></span>
+                        <h2>Veuillez saisir les détails</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Date Min</label>
+                                <input type="date" class="custom-select" id="dateMin" style="height: 55px">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Date Max</label>
+                                <input type="date" class="custom-select" id="dateMax" style="height: 55px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <div class="form-group">
+                                <label>Port d'arrivé</label>
+                                <input type="text" class="custom-select" id="portArrive" style="height: 55px">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-area ptb-100 row">
+
+                        <div class="container col-sm-4">
+
+
+                            <div class="faq-form ">
+                                <div>
+                                    <div class="section-title">
+                                        <span class="nbContainers">NB : </span>
+                                        <h2>Conteneur</h2>
+                                    </div>
+                                    <div class="row">
+                                        <div>
+                                            <div class="form-group">
+                                                <label>Type</label><br>
+                                                <select class="custom-select choose-card" id="typeConteneur">
+                                                    <option value="Stadard20" selected>Standard 20</option>
+                                                    <option value="Standar40">Standard 40</option>
+                                                    <option value="HighCube20">Standard 40</option>
+                                                    <option value="HighCube40">High cube 40</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="text-center">
+                                        <a class="default-btn-one addContainer">Ajouter à ma reservation</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container col-sm-4">
+
+
+                            <div class="faq-form">
+                                <div>
+                                    <div class="section-title">
+                                        <span class="nbChassis">NB : </span>
+                                        <h2>Chassis</h2>
+                                    </div>
+                                    <div class="row">
+                                        <div>
+                                            <div class="form-group">
+                                                <label>Type</label><br>
+                                                <select class="custom-select choose-card" id="typeChassis">
+                                                    <option value="semi" selected>Semi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="default-btn-one addCahssis">Ajouter à ma reservation</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container col-sm-4">
+
+                            <div class="faq-form">
+                                <div>
+                                    <div class="section-title">
+                                        <span class="nbVrack" type="button" data-toggle="modal"
+                                              data-target="#exampleModal">NB : </span>
+                                        <h2>Vrack</h2>
+                                    </div>
+                                    <div class="row">
+                                        <div>
+                                            <div class="form-group">
+                                                <label>Emballage</label><br>
+                                                <select class="custom-select choose-card" id="typeVrack">
+                                                    <option value="CR" selected>Coffre(s)</option>
+                                                    <option value="BC">Bocaux</option>
+                                                    <option value="BV">Bouteilles vide de gaz comprimes</option>
+                                                    <option value="CG">Cageauts</option>
+                                                    <option value="CC">Caisses</option>
+                                                    <option value="CH">Chariot elevateur</option>
+                                                    <option value="AE">Colis</option>
+                                                    <option value="CY">Cylindre</option>
+                                                    <option value="CE">Estagnons</option>
+                                                    <option value="FA">Fardeau</option>
+                                                    <option value="FL">Filet</option>
+                                                    <option value="CF">Futs</option>
+                                                    <option value="LT">Lot</option>
+                                                    <option value="CA">Packages</option>
+                                                    <option value="PA">Palettes</option>
+                                                    <option value="PP">Palettes primeurs</option>
+                                                    <option value="PQ">Paquets</option>
+                                                    <option value="PH">Planchette</option>
+                                                    <option value="PO">Ponton</option>
+                                                    <option value="PS">Presses ramasseuses</option>
+                                                    <option value="RL">Rouleaux</option>
+                                                    <option value="SP">Sacherie</option>
+                                                    <option value="CS">Sacs</option>
+                                                    <option value="SC">Sceaux</option>
+                                                    <option value="TB">Tambours en bois</option>
+                                                    <option value="TM">Tambours métaliques</option>
+                                                    <option value="TN">Tonneaux</option>
+                                                    <option value="TL">Tonnelets</option>
+                                                    <option value="CT">Touret</option>
+                                                    <option value="TE">Tubes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <a class="default-btn-one addVrack">Ajouter à ma reservation</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input id="lisIdsC" name="lisIdsC" type="hidden" value="a">
+                        <input id="lisIdsCh" name="lisIdsCh" type="hidden" value="a">
+                        <input id="lisIdsV" name="lisIdsV" type="hidden" value="a">
+
+                    </div>
+
+
+                    <div class="text-center">
+                        <a class="faq-form-btn me-4 listCChV" data-toggle="modal"
+                           data-target="#reserverModal">Réserver</a>
+                        <a class="faq-form-btn me-4 reset">Annuler</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<!-- Modal -->
+<div class="modal fade" id="reserverModal" tabindex="-1" role="dialog" aria-labelledby="reserverModal"
+     aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Êtes vous sûr?</h5>
+                <a type="button" class="close emptyX" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+
+                <div class="container ">
+                    <div class="faq-form ">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="about-info-card">
+                                    <h3>Conteneurs</h3>
+                                </div>
+                                <ul id="appC">
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="about-info-card">
+                                    <h3>Chassis</h3>
+                                </div>
+                                <ul id="appCh">
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="about-info-card">
+                                    <h3>Vracks</h3>
+                                </div>
+                                <ul id="appV">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary addReservation">Réserver</a>
+                <a type="button" class="btn btn-secondary empty" data-dismiss="modal">Fermer</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% block javascripts %}
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+
+    <script>
+
+        //<--!<input type="date" class="custom-select" style="height: 55px">-->
+        setTimeout(() => {
+
+            var c = 0;
+            var v = 0;
+            var ch = 0;
+
+
+            /*****container add**/
+
+            function onClickAddContainer(event) {
+
+
+                var select = document.getElementById('typeConteneur');
+                var value = select.options[select.selectedIndex].value;
+                console.log(value);
+                event.preventDefault();
+                c++;
+                const nbContainers = document.querySelector('span.nbContainers');
+
+
+                const url = Routing.generate('reservation_new_addContainter', {type: value});
+                //const url = Routing.generate('reservation_new_addContainter', {type: document.getElementById("test").value});
+
+                axios.get(url).then(function (response) {
+                    let id = response.data.id;
+                    document.getElementById("lisIdsC").value = document.getElementById("lisIdsC").value + id + "a";
+                    window.alert("Vous avez ajouter un contenaire à votre réservation")
+                    nbContainers.textContent = "NB : " + c;
+
+                }).catch(function (error) {
+                    if (error.response.status === 400) {
+                        window.alert("Vous ne pouvez pas faire de réservation si vous n'êtes pas connecté!")
+                    } else {
+                        window.alert("Une erreur s'est produite, réessayer plus tard.")
+                    }
+                });
+            }
+
+            /*****chassis add**/
+            function onClickAddChassis(event) {
+
+                var selectCH = document.getElementById('typeChassis');
+                var valueCh = selectCH.options[selectCH.selectedIndex].value;
+                event.preventDefault();
+                ch++;
+                const nbChassis = document.querySelector('span.nbChassis');
+
+                const url = Routing.generate('reservation_new_addChassis', {type: valueCh});
+                //const url = Routing.generate('reservation_new_addContainter', {type: document.getElementById("test").value});
+
+                axios.get(url).then(function (response) {
+                    let id = response.data.id;
+                    document.getElementById("lisIdsCh").value = document.getElementById("lisIdsCh").value + id + "a";
+                    window.alert("Vous avez ajouter un chassis à votre réservation")
+                    nbChassis.textContent = "NB : " + ch;
+
+                }).catch(function (error) {
+                    if (error.response.status === 400) {
+                        window.alert("Vous ne pouvez pas faire de réservation si vous n'êtes pas connecté!")
+                    } else {
+                        window.alert("Une erreur s'est produite, réessayer plus tard.")
+                    }
+                });
+            }
+
+            /*****vrack add**/
+            function onClickAddVrack(event) {
+
+                var selectV = document.getElementById('typeVrack');
+                var valueV = selectV.options[selectV.selectedIndex].value;
+                event.preventDefault();
+                v++;
+                const nbVrack = document.querySelector('span.nbVrack');
+
+                const url = Routing.generate('reservation_new_addVrack', {cdEm: valueV});
+                //const url = Routing.generate('reservation_new_addContainter', {type: document.getElementById("test").value});
+
+                axios.get(url).then(function (response) {
+                    let id = response.data.id;
+                    document.getElementById("lisIdsV").value = document.getElementById("lisIdsV").value + id + "a";
+                    window.alert("Vous avez ajouter un Vrack à votre réservation")
+                    nbVrack.textContent = "NB : " + v;
+
+                }).catch(function (error) {
+                    if (error.response.status === 400) {
+                        window.alert("Vous ne pouvez pas faire de réservation si vous n'êtes pas connecté!")
+                    } else {
+                        window.alert("Une erreur s'est produite, réessayer plus tard.")
+                    }
+                });
+            }
+
+            /*****reservation add**/
+
+
+            function onClickAddresrvation(event) {
+                event.preventDefault();
+
+                var dateMin = document.getElementById('dateMin').value;
+                var dateMax = document.getElementById('dateMax').value;
+                var portArrive = document.getElementById('portArrive').value;
+
+
+                const nbContainers = document.querySelector('span.nbContainers');
+                const nbChassis = document.querySelector('span.nbChassis');
+                const nbVrack = document.querySelector('span.nbVrack');
+
+                var lisIdsC = document.getElementById("lisIdsC").value
+                var lisIdsV = document.getElementById("lisIdsV").value
+                var lisIdsCh = document.getElementById("lisIdsCh").value
+                if ((lisIdsC != "a" || lisIdsV != "a" || lisIdsCh != "a")) {
+                    if (dateMin != "" || dateMax != "" || portArrive != "") {
+                        const url = Routing.generate('reservation_new_addReservation', {
+                            dateMin: dateMin + "",
+                            dateMax: dateMax + "",
+                            portArrive: portArrive,
+                            lisIdsC: lisIdsC,
+                            lisIdsV: lisIdsV,
+                            lisIdsCh: lisIdsCh
+                        });
+                        console.log(url);
+                        //const url = Routing.generate('reservation_new_addContainter', {type: document.getElementById("test").value});
+
+                        axios.get(url).then(function (response) {
+
+                            document.getElementById('lisIdsC').value = "a";
+                            document.getElementById('lisIdsV').value = "a";
+                            document.getElementById('lisIdsCh').value = "a";
+
+                            document.getElementById('dateMin').value = "";
+                            document.getElementById('dateMax').value = "";
+                            document.getElementById('portArrive').value = "";
+
+                            window.alert("Vous avez fait une réservation")
+                            window.location.href='{{ path('connaissement_new') }}';
+
+                            c = 0;
+                            ch = 0;
+                            v = 0;
+                            nbContainers.textContent = "NB : " + c;
+                            nbChassis.textContent = "NB : " + ch;
+                            nbVrack.textContent = "NB : " + v;
+
+                        }).catch(function (error) {
+                            if (error.response.status === 400) {
+                                window.alert("Vous ne pouvez pas faire de réservation si vous n'êtes pas connecté!")
+                            } else {
+                                window.alert("Une erreur s'est produite, réessayer plus tard.")
+                            }
+                        });
+                    } else window.alert("Verrifez vos données")
+                } else window.alert("Verrifez vos données")
+
+
+            }
+
+            /*****reservation reset**/
+
+
+            function onClickReset(event) {
+
+                event.preventDefault();
+                const nbContainers = document.querySelector('span.nbContainers');
+                const nbChassis = document.querySelector('span.nbChassis');
+                const nbVrack = document.querySelector('span.nbVrack');
+
+                var lisIdsC = document.getElementById("lisIdsC").value
+                var lisIdsV = document.getElementById("lisIdsV").value
+                var lisIdsCh = document.getElementById("lisIdsCh").value
+                if ((lisIdsC != "a" || lisIdsV != "a" || lisIdsCh != "a")) {
+                    const url = Routing.generate('reservation_new_resetReservation', {
+                        lisIdsC: lisIdsC,
+                        lisIdsV: lisIdsV,
+                        lisIdsCh: lisIdsCh
+                    });
+                    console.log(url);
+                    //const url = Routing.generate('reservation_new_addContainter', {type: document.getElementById("test").value});
+
+                    axios.get(url).then(function (response) {
+
+                        document.getElementById('lisIdsC').value = "a";
+                        document.getElementById('lisIdsV').value = "a";
+                        document.getElementById('lisIdsCh').value = "a";
+
+                        document.getElementById('dateMin').value = "";
+                        document.getElementById('dateMax').value = "";
+                        document.getElementById('portArrive').value = "";
+
+                        window.alert("Réservation annulée")
+                        c = 0;
+                        ch = 0;
+                        v = 0;
+                        nbContainers.textContent = "NB : " + c;
+                        nbChassis.textContent = "NB : " + ch;
+                        nbVrack.textContent = "NB : " + v;
+
+                    }).catch(function (error) {
+                        if (error.response.status === 400) {
+                            window.alert("Vous ne pouvez pas faire de réservation si vous n'êtes pas connecté!")
+                        } else {
+                            window.alert("Une erreur s'est produite, réessayer plus tard.")
+                        }
+                    });
+                } else window.alert("Verrifez vos données")
+
+
+            }
+
+            function onClickNbVrack(event) {
+
+                event.preventDefault();
+                var lisIdsC = document.getElementById("lisIdsC").value;
+                var lisIdsCh = document.getElementById("lisIdsCh").value;
+                var lisIdsV = document.getElementById("lisIdsV").value;
+                const url = Routing.generate('reservation_listVrack', {
+                    lisIdsC: lisIdsC,
+                    lisIdsCh: lisIdsCh,
+                    lisIdsV: lisIdsV,
+                });
+                console.log(url);
+                //const url = Routing.generate('reservation_new_addContainter', {type: document.getElementById("test").value});
+
+                axios.get(url).then(function (response) {
+                    let appC = document.querySelector('#appC');
+                    let tC = response.data.lisIdsC;
+                    let langsC = [];
+                    for (var prop in tC) {
+                        langsC[prop] = tC[prop];
+                    }
+                    let nodesC = [];
+                    langsC.map(lang => {
+                        if (lang) {
+                            let li = document.createElement('li');
+                            li.textContent = lang;
+                            nodesC.push(li);
+                        }
+                    });
+                    appC.append(...nodesC);
+                    /****************************************************/
+                    let appCh = document.querySelector('#appCh');
+                    let tCh = response.data.lisIdsCh;
+                    let langsCh = [];
+                    for (var prop in tCh) {
+                        langsCh[prop] = tCh[prop];
+                    }
+                    let nodesCh = [];
+                    langsCh.map(lang => {
+                        if (lang) {
+                            let li = document.createElement('li');
+                            li.textContent = lang;
+                            nodesCh.push(li);
+                        }
+                    });
+                    appCh.append(...nodesCh);
+                    /*******************************************/
+                    let appV = document.querySelector('#appV');
+                    let tV = response.data.lisIdsV;
+                    let langsV = [];
+                    for (var prop in tV) {
+                        langsV[prop] = tV[prop];
+                    }
+                    let nodesV = [];
+                    langsV.map(lang => {
+                        if (lang) {
+                            let li = document.createElement('li');
+                            li.textContent = lang;
+                            nodesV.push(li);
+                        }
+                    });
+                    appV.append(...nodesV);
+                }).catch(function (error) {
+                    if (error.response.status === 400) {
+                        window.alert("Une erreur s'est produite, réessayer plus tard.")
+                    } else {
+                        window.alert("Une erreur s'est produite, réessayer plus tard.")
+                    }
+                });
+
+
+            }
+
+            function onClickEmpty(event) {
+
+
+                $('#appC').empty();
+                $('#appCh').empty();
+                $('#appV').empty();
+
+            }
+
+
+            document.querySelector('a.addContainer').addEventListener('click', onClickAddContainer);
+            document.querySelector('a.addCahssis').addEventListener('click', onClickAddChassis);
+            document.querySelector('a.addVrack').addEventListener('click', onClickAddVrack);
+            document.querySelector('a.addReservation').addEventListener('click', onClickAddresrvation);
+            document.querySelector('a.reset').addEventListener('click', onClickReset);
+
+            document.querySelector('a.listCChV').addEventListener('click', onClickNbVrack);
+            document.querySelector('a.empty').addEventListener('click', onClickEmpty);
+            document.querySelector('a.emptyX').addEventListener('click', onClickEmpty);
+
+        }, 2000);
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<title>InfoService</title>
+
+{% block body %}
+    <h1>InfoService</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ info_service.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ info_service.titre }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ info_service.contenu }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('info_service_admin') }}">back to list</a>
+
+    <a href="{{ path('info_service_edit', {'id': info_service.id}) }}">edit</a>
+
+    {{ include('back/info_service/_delete_form.html.twig') }}
+{% endblock %}

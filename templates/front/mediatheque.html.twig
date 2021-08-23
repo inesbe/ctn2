@@ -1,0 +1,79 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+
+{% block body %}
+
+    <div class="page-banner bg-2-media">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="page-content">
+                        <h2>Médiathèque</h2>
+                        <ul>
+                            <li><a href="index-2.html">Acceuil</a></li>
+                            <li>Médiathèque</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="team-area ptb-100">
+        <div class="container">
+            <div class="section-title">
+                <h2>Evenements</h2>
+            </div>
+            <div class="row">
+                {% for media in medias %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="team-card">
+                            <div class="team-image">
+                                {% if media.image %}
+                                    <img src="{{ asset('/uploads/mediasImages/' ~ media.image) }}" alt="image" style="height: 245px">
+                                {% else %}
+                                    <img src="{{ asset('assets/img/about/about2.jpg')}}" alt="image" style="height: 245px">
+                                {% endif %}
+                                <div class="caption">
+                                    <ul>
+                                        <a href="{{ path('media_details', {'id': media.id}) }}">
+                                            <i class='bx bx-show-alt'></i>
+                                        </a>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="team-text">
+                                <h3>{{ media.titre }}</h3>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="col-lg-12 col-md-12">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+    {% include 'front/footer.html.twig' %}

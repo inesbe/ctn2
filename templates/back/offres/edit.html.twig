@@ -1,0 +1,10 @@
+{% extends 'back/base.html.twig' %}
+
+{% block body %}
+    <h1>Edit Offres</h1>
+
+    {{ include('back/offres/_formEdit.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('offres_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+
+{% endblock %}

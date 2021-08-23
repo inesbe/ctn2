@@ -1,0 +1,205 @@
+
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block title %}Détails réservation{% endblock %}
+{% block body %}
+
+    <div class="page-banner bg-marchandise">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="page-content">
+                        <h2>Réservation</h2>
+                        <ul>
+                            <li><a href="{{ path('home') }}">Accueil</a></li>
+                            <li>Reservation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="faq-area  ">
+            <div class="container">
+
+
+                <div class="faq-form">
+                    <div>
+                        <div class="section-title">
+                            <span></span>
+                            <h2>Détails réservation {{ reservation.id }}</h2>
+                        </div>
+                        <div class="faq-area ptb-70 row">
+                            {% if reservation.valide is null %}
+                            {% elseif reservation.valide %}
+                            {% elseif reservation.valide == false %}
+
+                                <div class="container " style="background-color: indianred">
+                                    <div class="faq-form ">
+                                        <div class="row" style="color: white">
+                                            Nous sommes désolés de vous informer que votre demande a été refusée.
+                                            Nous avons envoyé les raisons pour lesquelles nous avons refusé votre demande.
+                                            Si vous pensez que ce refus est dû à cause d'une erreur, veuillez nous contacter.
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if reservation.confirme is null %}
+                            {% elseif reservation.confirme %}
+                            <div class="container " style="background-color: royalblue">
+                                <div class="faq-form ">
+                                    <div class="row" style="color: white">
+                                        <center> Vous avez confirmé cette réservation !</center>
+                                    </div>
+                                </div>
+                            </div>
+                            {% elseif reservation.confirme == false %}
+
+                                <div class="container " style="background-color: indianred">
+                                    <div class="faq-form ">
+                                        <div class="row" style="color: white">
+                                           <center> Vous avez refusé cette réservation !</center>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="pt-100 pb-70">
+                            <div class="container ">
+                                <div class="faq-form ">
+                                    <div class="row">
+                                        {% if reservation.dateExacte %}
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="contact-info">
+                                                    <i class='bx bxs-calendar'></i>
+                                                    <h4>Date éxacte</h4>
+                                                    <p>{{ reservation.dateExacte ? reservation.dateExacte|date('Y-m-d') : '' }} </p>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="contact-info">
+                                                    <i class='bx bxs-calendar'></i>
+                                                    <h4>Date Min</h4>
+                                                    <p>{{ reservation.dateMin ? reservation.dateMin|date('Y-m-d') : '' }} </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="contact-info">
+                                                    <i class='bx bxs-calendar'></i>
+                                                    <h4>Date Max</h4>
+                                                    <p>{{ reservation.dateMax ? reservation.dateMax|date('Y-m-d') : '' }}</p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <div class="col-lg-4 col-md-6 ">
+                                            <div class="contact-info">
+                                                <i class='bx bxs-location-plus'></i>
+                                                <h4>Port d'arrivé</h4>
+                                                <p>{{ reservation.portArrive }}</p>
+                                            </div>
+                                        </div>
+                                        {% if reservation.tarif %}
+                                            <div class="col-lg-4 col-md-6 ">
+                                                <div class="contact-info">
+                                                    <i class='bx bx-dollar'></i>
+                                                    <h4>Tarif</h4>
+                                                    <p>{{ reservation.tarif }}</p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container ">
+                            <div class="faq-form ">
+                                <div class="row">
+
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="about-info-card">
+                                            <h3>Conteneurs</h3>
+                                            <ul>
+                                                {% for conteneur in reservation.conteneurs %}
+                                                    <li>
+                                                        <i class='bx bx-check'></i>
+                                                        {% if conteneur.ref %}
+                                                            <span>{{ conteneur.ref }} : </span>
+                                                        {% endif %}
+                                                        {{ conteneur.type }}
+                                                    </li>
+                                                {% endfor %}
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="about-info-card">
+                                            <h3>Chassis</h3>
+                                            <ul>
+                                                {% for chassis in reservation.chassis %}
+                                                    <li>
+                                                        <i class='bx bx-check'></i>
+                                                        {% if chassis.ref %}
+                                                            <span>{{ chassis.ref }} : </span>
+                                                        {% endif %}
+                                                        {{ chassis.type }}
+                                                    </li>
+                                                {% endfor %}
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+                                        <div class="about-info-card">
+                                            <h3>Vracks</h3>
+                                            <ul>
+                                                {% for vrack in reservation.vracks %}
+                                                    <li>
+                                                        <i class='bx bx-check'></i>
+                                                        {% if vrack.ref %}
+                                                            <span>{{ vrack.ref }} : </span>
+                                                        {% endif %}
+                                                        {{ vrack.codeEmballage }}
+                                                    </li>
+                                                {% endfor %}
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="faq-area ptb-100 row">
+                        <div class="text-center">
+                            {% if reservation.valide %}
+                                {% if reservation.confirme is null %}
+                                    <a class="faq-form-btn me-4 " href="{{ path('confirmerReservation', {'id': reservation.id}) }}">Confirmer</a>
+                                    <a class="faq-form-btn me-4 " href="{{ path('userRfuseReservation', {'id': reservation.id}) }}">Refuser</a>
+                                {% endif %}
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+    <br>
+
+
+{% endblock %}
+{% include 'front/footer.html.twig' %}

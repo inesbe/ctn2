@@ -1,0 +1,249 @@
+
+
+
+
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+
+{% block body %}
+
+    <div class="page-banner bg-3">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="page-content">
+                        <h2>Terminer La Résérvation</h2>
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sign-up-area ptb-100">
+        <div class="container">
+            <div class="section-title">
+                <h2>Veuillez terminer cette etape</h2>
+                <p>Veuillez remplir les informations relatives a ce chassis</p>
+            </div>
+            <div class="sign-up-form">
+
+                {{ form_start(form,{'attr':{'novalidate': 'novalidate'}}) }}
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.metre_linaire, {
+                                'attr': {
+                                        'class': 'form-control',
+                                        'placeholder': 'Mètre linéaire',
+                                        'type' : 'number'
+                                    },
+                                }) }}
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.largeur, {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'placeholder': 'Largeur',
+                                        'type' : 'number'
+                                    },
+                                }) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.hauteur, {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'placeholder': 'Hauteur',
+                                        'type' : 'number'
+                                    },
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.tare, {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'placeholder': 'Tare',
+                                        'type' : 'number'
+                                    },
+                                }) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-check-label" for="exampleCheck1">Date de Chargement</label>
+                                {{ form_widget( form.date_changement , {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'id' : 'last_name',
+
+                                    },
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-check-label" for="exampleCheck1">Date d'enlevement</label>
+                                {{ form_widget(form.date_enlevment,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'date'}   }) }}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-check-label" for="exampleCheck1">Nature</label>
+                                {{ form_widget(form.nature,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'combo-box'}   }) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-check-label" for="exampleCheck1">Type</label>
+                                {{ form_widget(form.type,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'combo-box'}   }) }}
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.temeprature,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'number' ,'placeholder' : 'Temperature'}   }) }}
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.nb_colis,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'number','placeholder' : 'Nombre colis'}   }) }}
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.poids_unitaire,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'number','placeholder' : 'Poids Unitaire'}   }) }}
+
+                            </div>
+                        </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h6 for="exampleFormControlSelect1">Informations Reltaives Aux Marchanidses :</h6>
+                            {{ form_widget(form.marchandises,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'number','placeholder' : 'Marchandises'}   }) }}
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            {{ form_widget(form.emballage,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'combo-box','placeholder' : 'Poids Unitaire'}   }) }}
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h6 for="exampleFormControlSelect1">Informations Reltaives Au Destinataire :</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.nom_destinataire,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'combo-box','placeholder' : 'Nom destinataire'}   }) }}
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.adresse,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'text','placeholder' : 'Adresse'}   }) }}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.code_postale,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'text','placeholder' : 'Code Postale'}   }) }}
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.pays,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'text','placeholder' : 'Pays'}   }) }}
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form_widget(form.ville,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'text','placeholder' : 'Ville'}   }) }}
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                {{ form_widget(form.remarque,{ 'attr' : {'id' : 'last_name' , 'class' : 'form-control' , 'type' : 'text','placeholder' : 'Remarque...'}   }) }}
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                {{ form_end(form) }}
+                        <div class="text-center">
+                            <button type="submit" class="btn default-btn-one">Confirmer</button>
+
+                        </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="newsletter-area">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="newsletter-title">
+                            <h3>Newsletter:</h3>
+                            <p>S'il vous plaît, écrivez votre email ci-dessous pour rester en contact avec nous</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <form class="newsletter-form" data-bs-toggle="validator">
+                            <input type="email" class="form-control" placeholder="Email" name="EMAIL" required="" autocomplete="off">
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                            <div id="validator-newsletter" class="form-result"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
+{% include 'front/footer.html.twig' %}

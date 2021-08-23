@@ -1,0 +1,109 @@
+{% extends 'back/base.html.twig' %}
+{% block title %}CTN-Brc {% endblock %}
+
+
+
+
+
+{% block body %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header" >
+    <center>
+    <h1 STYLE="color: red">Bureau des relations avec le citoyen</h1>
+    </center>
+                        <BR>
+                        <div class="col-sm-12 col-md-6"><div class="dt-buttons btn-group flex-wrap">               <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Copy</span></button> <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>CSV</span></button> <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Excel</span></button> <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>PDF</span></button> <button class="btn btn-secondary buttons-print" tabindex="0" aria-controls="example1" type="button"><span>Print</span></button> <div class="btn-group"><button class="btn btn-secondary buttons-collection dropdown-toggle buttons-colvis" tabindex="0" aria-controls="example1" type="button" aria-haspopup="true" aria-expanded="false"><span>Column visibility</span></button></div> </div></div>
+                        <div class="card-body">
+    <table  class="table table-bordered table-striped">
+        <thead>
+            <tr>
+               <th>Nom</th>
+                <th>Prenom</th>
+                <th>Nationalité</th>
+                <th>Email</th>
+                <th>Adresse</th>
+                <th>Code Postale</th>
+                <th>Ville</th>
+                <th>Téléphone</th>
+                <th>Message</th>
+                <th>Etat  <button type="submit" name="confirmer">Confirmer</button></th>
+                <th>actions</th>
+            </tr>
+        </thead>
+
+
+
+
+        <tbody>
+        {% for bureaucitoyen in bureaucitoyens %}
+
+
+                <td>{{ bureaucitoyen.nom }}</td>
+                <td>{{ bureaucitoyen.prenom }}</td>
+                <td>{{ bureaucitoyen.nationalite }}</td>
+                <td>{{ bureaucitoyen.email }}</td>
+                <td>{{ bureaucitoyen.adresse }}</td>
+                <td>{{ bureaucitoyen.codepostale }}</td>
+                <td>{{ bureaucitoyen.ville }}</td>
+                <td>{{ bureaucitoyen.telephone }}</td>
+                <td>{{ bureaucitoyen.message }}</td>
+                <td> {{ bureaucitoyen.etat ? 'Traité' : 'Non traité' }}
+                    {% if bureaucitoyen.etat  == true %}
+                        <input  id="monCheckbox" type="checkbox"  class="cocher" name="active" value="{{ bureaucitoyen.id }}" checked="checked">
+                    {% else %}
+                        <input  id="monCheckbox" type="checkbox" class="decocher" name="active" value="{{ bureaucitoyen.id }}">
+                    {% endif %}
+                </td>
+
+            {% block javascripts %}
+
+                    <meta charset="UTF-8">
+                    <title>Cocher/décocher le bouton checkbox</title>
+                    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                           if ($(".cocher").click(function() {
+                                $("#monCheckbox").prop("checked", true);
+                            };
+                            $(".decocher").click(function(){
+                                $("#monCheckbox").prop("checked", false);
+                            });
+                        });
+                    </script>
+
+                </script>
+            {% endblock %}
+                <td>
+
+
+                    <a class="btn btn-app" href="{{ path('bureaucitoyen_show', {'id': bureaucitoyen.id}) }}">
+                        <i class="fas fa-eye"></i> Consulter
+                    </a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}
+

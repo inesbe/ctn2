@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<title>Rotation</title>
+
+{% block body %}
+    <h1>Rotation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rotation.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_navire</th>
+                <td>{{ rotation.nomNavire }}</td>
+            </tr>
+            <tr>
+                <th>Port_depart</th>
+                <td>{{ rotation.PortDepart }}</td>
+            </tr>
+            <tr>
+                <th>Date_depart</th>
+                <td>{{ rotation.dateDepart ? rotation.dateDepart|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Port_arrive</th>
+                <td>{{ rotation.PortArrive }}</td>
+            </tr>
+            <tr>
+                <th>Date_arrive</th>
+                <td>{{ rotation.DateArrive ? rotation.DateArrive|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ rotation.type }}</td>
+            </tr>
+            <tr>
+                <th>Id_ligne</th>
+                <td>{{ rotation.idLigne }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ rotation.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('rotation_index') }}">back to list</a>
+
+    <a href="{{ path('rotation_edit', {'id': rotation.id}) }}">edit</a>
+
+    {{ include('rotation/_delete_form.html.twig') }}
+{% endblock %}

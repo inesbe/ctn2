@@ -1,0 +1,124 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+
+<div class="page-banner bg-2">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="about-text-area ptb-100">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-safe-text">
+
+                        <h2 class="yassmine">Assurance Voyage</h2>
+
+                        <h2>Assurance Voyage</h2>
+                        <br> Gardez vos bagages à l’intérieur de votre véhicule. Pour des raisons de sécurité, et sauf cas de force majeure, vous n’aurez pas accès à votre véhicule en cours de traversée.
+                        </br>
+                        Avant de quitter le garage pour rejoindre votre installation:
+                        <br>
+                        <li align="justify">
+                            Serrez votre frein à main, enclenchez une vitesse et assure-vous que vos feux sont éteints. Désactivez l’alarme sonore de votre véhicule.
+                        </li>
+                        <li align="justify"> Prenez avec vous uniquement le necessaire de voyage et :</li>
+                        <b align="justify">Les clés de votre véhicule.</b></br>
+                        <b align="justify">Un vêtement chaud même en été à cause de la climatisation à bord.</b></br>
+                        <b align="justify">Vos médicaments, si besoin.
+                        </b></br>
+                        <li>
+                            Verrouillez soigneusement portes et malle arrière.
+                        </li>
+                        <li>
+                            Notez, à l’aide de la signalétique, l’emplacement de votre véhicule.
+                        </li>
+                        </ul>
+
+
+
+                        </p>
+                    </div>
+                    <div class="shipping-card">
+                        <div class="shipping-contant">
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="safe-image">
+                        <img src="assets/img/speciality/tanit_night.jpg" alt="image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-4" >
+        <div class="service-sidebar">
+            <h3 class="title" align="center">Plus d'infos</h3>
+            <ul>
+                <li>
+                    <a href="{{ path('tanit') }}">  DESCRIPTION
+                        <i class='bx bxs-ship' ></i>
+
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('equipements_tanit') }}">    ÉQUIPEMENTS
+                        <i class='bx bx-wifi'></i>
+
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('restauration_tanit') }}">   RESTAURATION
+                        <i class='bx bx-restaurant'></i>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('cafe_tanit') }}">   CAFÉ ET BAR
+                        <i class='bx bx-coffee'></i>
+
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+
+    {% include 'front/footer.html.twig' %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

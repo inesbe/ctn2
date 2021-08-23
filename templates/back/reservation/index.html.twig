@@ -1,0 +1,338 @@
+{% extends 'back/base.html.twig' %}
+{% block title %}Réservation {% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Réservations</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                        <li class="breadcrumb-item active">Réservation</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Filtres</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item">
+                                <a href="{{ path('reservation_index_back') }}" class="nav-link">
+                                    <i class="far fa-circle text-gray"></i>
+                                    Toutes
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('nonTraiteesBack') }}" class="nav-link">
+                                    <i class="far fa-circle text-warning"></i>
+                                    Non traitées
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('refuseesBack') }}" class="nav-link">
+                                    <i class="far fa-circle text-danger"></i>
+                                    Refusées
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('valideesBack') }}" class="nav-link">
+                                    <i class="far fa-circle text-green"></i> Validée
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('confirmeesBack') }}" class="nav-link">
+                                    <i class="far fa-circle text-primary"></i>
+                                    Confirmée
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+                <!-- Calendar -->
+                <div class="card bg-gradient-success">
+                    <div class="card-header border-0">
+
+                        <h3 class="card-title">
+                            <i class="far fa-calendar-alt"></i>
+                            Calendar
+                        </h3>
+                        <!-- tools card -->
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <!-- /. tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body pt-0">
+                        <!--The calendar -->
+                        <div id="calendar" style="width: 100%">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            {% if t %}
+                                Réservations non traitées
+                            {% elseif v %}
+                                Réservations validées
+                            {% elseif c %}
+                                Réservations confirmées
+                            {% elseif r %}
+                                Réservations refusée
+                            {% else %}
+                                Réservations
+                            {% endif %}
+                        </h3>
+                        <a href="{{ path('archivesReservation') }}" class="btn btn-info float-right"><b>Archive</b></a>
+
+
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+
+                        <div class="table-responsive mailbox-messages">
+                            <table id="example1" class="table table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    {% if not v and not  t and not  c %}
+                                        <th>validée</th>
+                                    {% endif %}
+                                    <th>User</th>
+                                    <th>Port d'arrivé</th>
+                                    <th>Date Min</th>
+                                    <th>Date Max</th>
+                                    <th>Date exacte</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for reservation in reservations %}
+                                    <tr>
+                                        <td>{{ reservation.id }}</td>
+                                        {% if not v and not  t and not  c %}
+                                            <td class="mailbox-star">
+                                                {% if reservation.valide is null %}
+                                                    <i class="fas fa-star-0 text-danger"></i>
+                                                {% elseif reservation.valide %}
+
+                                                    {% if reservation.confirme is null %}
+                                                        <i class="fas fa-star text-warning"></i>
+                                                    {% elseif reservation.confirme %}
+                                                        <i class="fas fa-star text-primary"></i>
+                                                    {% elseif reservation.confirme == false %}
+                                                        <i class="fas fa-star text-danger"></i>
+                                                    {% endif %}
+                                                {% elseif reservation.valide == false %}
+                                                    <i class="fas fa-star text-danger"></i>
+                                                {% endif %}
+                                            </td>
+                                        {% endif %}
+                                        <td class="mailbox-name"><a title="Profil" data-toggle="modal" data-target="#UserModal"
+                                                                    type="button"><i
+                                                        class="fas fa-eye"></i> {{ reservation.user.prenom }} {{ reservation.user.nom }}
+                                            </a>
+                                        </td>
+                                        <td class="mailbox-subject"><b>{{ reservation.portArrive }}</b>
+                                        </td>
+                                        <td class="mailbox-date">{{ reservation.dateMin ? reservation.dateMin|date('Y-m-d') : '' }}</td>
+                                        <td class="mailbox-date">{{ reservation.dateMax ? reservation.dateMax|date('Y-m-d') : '' }}</td>
+                                        <td class="mailbox-date">{{ reservation.dateExacte ? reservation.dateExacte|date('Y-m-d') : '' }}</td>
+                                        <td>
+                                            <a href="{{ path('reservation_showBack', {'id': reservation.id}) }}"
+                                               class="btn btn-default">
+                                                {% if reservation.valide is null %}
+                                                    <i class="fas fa-reply"></i> Rependre
+                                                {% elseif reservation.valide %}
+                                                    <i class="fas fa-eye"></i> Consulter
+                                                {% elseif reservation.valide == false %}
+                                                    <i class="fas fa-eye"></i> Consulter
+                                                {% endif %}
+                                            </a>
+                                            {% if reservation.valide is null %}
+                                            {% else%}
+                                            <a title="Archiver" href="{{ path('reservation_archiverReservation', {'id': reservation.id}) }}"
+                                               class="btn btn-default">
+
+                                                    <i class="fas fa-file-archive"></i>
+                                            </a>
+                                            {% endif %}
+                                        </td>
+
+                                    </tr>
+
+
+                                    <!--Modal-->
+                                    <div class="modal fade bd-example-modal-lg" id="UserModal" tabindex="-1"
+                                         role="dialog"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <center>
+                                                        <!-- Profile Image -->
+                                                        <div class="card card-primary card-outline">
+                                                            <div class="card-body box-profile">
+                                                                <div class="text-center">
+                                                                    <img class="profile-user-img img-fluid img-circle"
+                                                                         src="{{ asset('/uploads/adminImages/' ~ reservation.user.image) }}"
+                                                                         alt="User profile picture"
+                                                                         style="height: 100px;">
+                                                                </div>
+
+                                                                <h3 class="profile-username text-center">{{ reservation.user.prenom }} {{ reservation.user.nom }}</h3>
+
+                                                                <p class="text-muted text-center">{{ reservation.user.email }}</p>
+
+                                                                <ul class="list-group list-group-unbordered mb-3">
+                                                                    <li class="list-group-item">
+                                                                        <b>{{ reservation.user.societe }}</b> <a
+                                                                                class="float-right">{{ reservation.user.typesociete }}</a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>{{ reservation.user.pays }}</b>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Nb réservations</b> <a
+                                                                                class="float-right">{{ reservation.user.reservations |length }}</a>
+                                                                    </li>
+                                                                </ul>
+
+                                                                <a href="#"
+                                                                   class="btn btn-primary btn-block"><b>Profile</b></a>
+                                                            </div>
+                                                            <!-- /.card-body -->
+                                                        </div>
+                                                        <!-- /.card -->
+                                                    </center>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/Modal-->
+
+                                {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                        <!-- /.mail-box-messages -->
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer p-0">
+
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+    <!-- /.content-wrapper -->
+
+
+
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
+
+    <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
+
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+    <script>
+
+
+    </script>
+
+
+{% endblock %}

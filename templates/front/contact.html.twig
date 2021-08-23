@@ -1,0 +1,274 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+
+<div class="search-overlay" xmlns="http://www.w3.org/1999/html">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-close">
+                <span class="search-overlay-close-line"></span>
+                <span class="search-overlay-close-line"></span>
+            </div>
+            <div class="search-overlay-form">
+                <form>
+                    <input type="text" class="input-search" placeholder="Search here...">
+                    <button type="submit"><i class='bx bx-search'></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-banner bg-1">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-content">
+                    <h2>Contact</h2>
+                    <ul>
+                        <li><a href="index-2.html">Home</a></li>
+                        <li>Contact</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="pt-100 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="contact-info">
+                    <i class='bx bxs-phone-call'></i>
+                    <h4>
+                        numéro de contact</h4>
+                    <p> <a href=" +216 71 32 28 02"> +216 71 32 28 02</a></p>
+                    <p><a href="+33 (1) 47 42 17 55">+33 (1) 47 42 17 55</a></p>
+                    <p><a href=" +39 010 26 50 05"> +39 010 26 50 05</a></p>
+                    <p><a href="+49 61 96 77 30 60">+49 61 96 77 30 60</a></p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="contact-info">
+                    <a href="{{ path('map') }}"> <i class='bx bxs-location-plus'></i> </a>
+                    <h4>Localisation</h4>
+                    <p>05, AVENUE DAG HAMMARSKJOELD</p>
+                    <p>1001 TUNIS – TUNISIA</p>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+                <div class="contact-info">
+                    <i class='bx bxs-envelope'></i>
+                    <h4>Email</h4>
+                    <p>COTUNAV@CTN.COM.TN</p>
+                    <p>WWW.CTN.COM.TN</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="contact-info">
+                    <i class='bx bxs-phone'></i>
+                    <h4>Fax</h4>
+                    <p> <a href=" + 216 (71) 345 736"> + 216 (71) 345 736</a></p>
+                    <p><a href="+ 216 71 346 540">+ 216 71 346 540</a></p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="contact-info">
+                    <i class='bx bxs-phone'></i>
+                    <h4>Telex</h4>
+                    <p>14 203 CTN TN</p>
+                    <p>4 204 CTN TN</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="contact-info">
+                    <i class='bx bxs-message-rounded-detail'></i>
+                    <h4>Médias sociaux</h4>
+                    <a href="https://www.linkedin.com/company/compagnie-tunisienne-de-navigation/"><p>LinkedIn</p></a>
+                    <a href="https://www.linkedin.com/company/compagnie-tunisienne-de-navigation/"><p>Notre page facebook</p></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="contact-form-area pb-100">
+    <div class="container">
+        <div class="section-title">
+            <span>Nous contacter</span>
+            <h2>
+                Entrer en contact</h2>
+        </div>
+        <div class="contact-form">
+            <form id="contactForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-control" id="name" required data-error="Veuillez saisir votre nom" placeholder="Votre nom">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" id="email" required data-error="Veuillez saisir votre adresse email" placeholder="Votre adresse Email">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="msg_subject" id="msg_subject" class="form-control" required data-error="Veuilez saisir l'objet" placeholder="Objet">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="phone_number" class="form-control" id="phone_number" required data-error="Veuillez saisir votre numero de telephone" placeholder="Numéro de telephone">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12">
+                        <div class="form-group">
+                            <textarea name="message" id="message" class="form-control" cols="30" rows="6" required data-error="Veuillez saisir votre message" placeholder="Ecrivez Votre message..."></textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 text-center">
+                        <button type="submit" class="default-btn-one">Envoyez</button>
+                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="testimonials-area ptb-100">
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>Nos agences</h2>
+            </div>
+            <div class="testimonials-slider owl-carousel owl-theme">
+                <div class="testimonials-card">
+                    <div class="client-img">
+
+                        <h3>Agence Tunis</h3>
+                    </div>
+                    <div class="rating">
+
+                    </div>
+                    <div class="feedback-text">
+                        <p>Adresse: rue abdallah ibn zoubeir 4000 Sousse</p>
+                        <p>tel: 216 73 229 436</p>
+                        <p>tel: 216 73 224 861</p>
+                        <p>Fax: 216 73 224 884</p>
+                        <p>e-mail: ag.sousse@ctn.com.tn</p>
+                    </div>
+                </div>
+                <div class="testimonials-card">
+                    <div class="client-img">
+
+                        <h3>Agence La Goulette</h3>
+                    </div>
+                    <div class="rating">
+
+                    </div>
+                    <div class="feedback-text">
+                        <p>Adresse: avenue de l’environnement 2060 La Goulette</p>
+                        <p>tel: 216 71 735 957</p>
+                        <p>tel: 216 71 735 111</p>
+                        <p>Fax: 216 71 735 404</p>
+                        <p>e-mail: d.goulette@planet.tn</p>
+                    </div>
+                </div>
+                <div class="testimonials-card">
+                    <div class="client-img">
+
+                        <h3>Agence Sousse</h3>
+
+                    </div>
+
+                    <div class="feedback-text">
+                        <p>Adresse: rue abdallah ibn zoubeir 4000 Sousse</p>
+                        <p>tel: 216 73 229 436</p>
+                        <p>tel: 216 73 224 861</p>
+                        <p>Fax: 216 73 224 884</p>
+                        <p>e-mail: ag.sousse@ctn.com.tn</p>
+                    </div>
+                </div>
+                <div class="testimonials-card">
+                    <div class="client-img">
+
+                        <h3>Agence Bizerte</h3>
+
+                    </div>
+
+                    <div class="feedback-text">
+                        <p>Adresse: 29 avenue d’algérie, 7000 Bizerte</p>
+                        <p>tel: 216 72 431 440</p>
+                        <p>tel: 216 72 431 257</p>
+                        <p>Fax: 216 72 443 944</p>
+                        <p>e-mail : ag.bizerte@cotunav.com.tn</p>
+
+                    </div>
+                </div>
+                <div class="testimonials-card">
+                    <div class="client-img">
+
+                        <h3>Agence Sfax</h3>
+
+                    </div>
+
+                    <div class="feedback-text">
+                        <p>Adresse: 75 rue habib maazoun 3000 Sfax</p>
+                        <p>tel: 216 74 228 022</p>
+                        <p>tel: 216 74 298 324</p>
+                        <p>Fax: 216 74 298 320</p>
+                        <p>e-mail : ag.sfax@ctn.com.tn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="newsletter-area">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="newsletter-title">
+                            <h3>Newsletter:</h3>
+                            <p>S'il vous plaît, écrivez votre email ci-dessous pour rester en contact avec nous</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <form class="newsletter-form" data-bs-toggle="validator">
+                            <input type="email" class="form-control" placeholder="Email" name="EMAIL" required="" autocomplete="off">
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                            <div id="validator-newsletter" class="form-result"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock  %}
+    {% include 'front/footer.html.twig' %}

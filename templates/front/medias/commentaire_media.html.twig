@@ -1,0 +1,82 @@
+<!--Modal-->
+<div class="modal fade bd-example-modal-lg" id="MapsModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Entrer votre commentaire</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <div class="comments-area">
+                        <div class="comment-respond">
+                            <h3 class="comment-reply-title">Laissez un commentaire</h3>
+                            <div class="comment-form">
+                                <p class="comment-notes">
+                                    <span id="email-notes">Votre commentaire ne sera pas public.</span>
+                                    <!--les champs requis sont marqués
+                                    <span class="required">*</span>-->
+                                </p>
+                                <!--<p class="comment-form-author">
+                                    <label>Name <span class="required">*</span></label>
+                                    <input type="text" id="author" placeholder="Your Name*" name="author"
+                                           required="required">
+                                </p>
+                                <p class="comment-form-email">
+                                    <label>Email <span class="required">*</span></label>
+                                    <input type="email" id="email" placeholder="Your Email*" name="email"
+                                           required="required">
+                                </p>-->
+                                {% if app.user %}
+                                {{ form_start(formU) }}
+                                <p class="comment-form-comment">
+                                    <label>Comment</label>
+                                    {{ form_widget(formU.commentaireMed) }}
+                                </p>
+                                <p class="form-submit">
+                                    <input type="submit" name="submit" id="submit" class="submit"
+                                           value="Envoyer">
+                                </p>
+                                {{ form_end(formU) }}
+                                {% else %}
+                                    {{ form_start(form) }}
+                                    <p class="comment-form-comment">
+                                        <label>Commentaire</label>
+                                        {{ form_widget(form.Nom,{'attr':{'class':'form-control','placeholder':'Nom'}}) }}
+                                    </p>
+                                    <p class="comment-form-comment">
+                                        <label>Commentaire</label>
+                                        {{ form_widget(form.prenom,{'attr':{'class':'form-control','placeholder':'Prenom'}}) }}
+                                    </p>
+                                    <p class="comment-form-comment">
+                                        <label>Commentaire</label>
+                                        {{ form_widget(form.email,{'attr':{'class':'form-control','placeholder':'@ email'}}) }}
+                                    </p>
+                                    <p class="comment-form-comment">
+                                        <label>Commentaire</label>
+                                        {{ form_widget(form.commentaire,{'attr':{'class':'form-control','placeholder':'Commentaire'}})  }}
+                                    </p>
+                                    <div class="text-center">
+                                    </div>
+                                    <p class="form-submit">
+                                        <button type="submit"
+                                                class="default-btn-one">{{ button_label|default('Envoyer') }}</button>
+                                    </p>
+                                    {{ form_end(form) }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </center>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/Modal-->

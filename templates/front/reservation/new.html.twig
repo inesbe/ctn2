@@ -1,0 +1,15 @@
+
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+    <h1>Create new Reservation</h1>
+
+    {{ include('front/reservation/_form.html.twig') }}
+
+{% endblock %}{% include 'front/footer.html.twig' %}

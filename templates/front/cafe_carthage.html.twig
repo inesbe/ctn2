@@ -1,0 +1,91 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+<div class="page-banner bg-1">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <div class="freight-area freight-area-two pt-100 pb-70">
+        <div class="container">
+            <div class="section-title">
+                <span>Our Services</span>
+                <h2>Café & Bar</h2>
+            </div>
+            <div class="services-slider-two owl-carousel owl-theme">
+                <div class="service-card-two">
+                    <img class="freight-image" src="assets/img/freight/lido.jpg" alt="image">
+                    <div class="service-caption">
+                        <h3>Lido bar:
+                            Amilcar</h3>
+
+                    </div>
+                </div>
+                <div class="service-card-two">
+                    <img class="freight-image" src="assets/img/freight/cafe_bar.jpg" alt="image">
+                    <div class="service-caption">
+                        <h3>Café Bar:
+                            Hannibal</h3>
+
+                    </div>
+                </div>
+                <div class="service-card-two">
+                    <img class="freight-image" src="assets/img/freight/bar.jpg" alt="image">
+                    <div class="service-caption">
+                        <h3>Bar night :
+                            Asdrubal</h3>
+
+                    </div>
+                </div>
+
+                <div class="service-card-two">
+                    <img class="freight-image" src="assets/img/freight/bar2.jpg" alt="image">
+                    <div class="service-caption">
+                        <h3>Bar :
+                            Carthage</h3>
+
+                    </div>
+                </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+    {% include 'front/footer.html.twig' %}

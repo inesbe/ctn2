@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Vrac</title>
+
+{% block body %}
+    <h1>Create new Vrac</h1>
+
+    {{ include('vrac/_form.html.twig') }}
+
+    <a href="{{ path('vrac_index') }}">back to list</a>
+{% endblock %}

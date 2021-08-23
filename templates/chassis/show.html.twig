@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<title>Chassis</title>
+
+{% block body %}
+    <h1>Chassis</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ chassis.id }}</td>
+            </tr>
+            <tr>
+                <th>Matricule_chassis</th>
+                <td>{{ chassis.matriculeChassis }}</td>
+            </tr>
+            <tr>
+                <th>Metre_linaire</th>
+                <td>{{ chassis.metreLinaire }}</td>
+            </tr>
+            <tr>
+                <th>Largeur</th>
+                <td>{{ chassis.largeur }}</td>
+            </tr>
+            <tr>
+                <th>Hauteur</th>
+                <td>{{ chassis.hauteur }}</td>
+            </tr>
+            <tr>
+                <th>Tare</th>
+                <td>{{ chassis.tare }}</td>
+            </tr>
+            <tr>
+                <th>Numero_plomb</th>
+                <td>{{ chassis.numeroPlomb }}</td>
+            </tr>
+            <tr>
+                <th>Date_changement</th>
+                <td>{{ chassis.dateChangement ? chassis.dateChangement|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_enlevment</th>
+                <td>{{ chassis.dateEnlevment ? chassis.dateEnlevment|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nature</th>
+                <td>{{ chassis.nature }}</td>
+            </tr>
+            <tr>
+                <th>Nb_unite</th>
+                <td>{{ chassis.nbUnite }}</td>
+            </tr>
+            <tr>
+                <th>Temeprature</th>
+                <td>{{ chassis.temeprature }}</td>
+            </tr>
+            <tr>
+                <th>Poids_brute</th>
+                <td>{{ chassis.poidsBrute }}</td>
+            </tr>
+            <tr>
+                <th>Unite_payante</th>
+                <td>{{ chassis.unitePayante }}</td>
+            </tr>
+            <tr>
+                <th>Nb_colis</th>
+                <td>{{ chassis.nbColis }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ chassis.type }}</td>
+            </tr>
+            <tr>
+                <th>Poids_unitaire</th>
+                <td>{{ chassis.poidsUnitaire }}</td>
+            </tr>
+            <tr>
+                <th>Marchandises</th>
+                <td>{{ chassis.marchandises }}</td>
+            </tr>
+            <tr>
+                <th>Emballage</th>
+                <td>{{ chassis.emballage }}</td>
+            </tr>
+            <tr>
+                <th>Nom_destinataire</th>
+                <td>{{ chassis.nomDestinataire }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ chassis.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Code_postale</th>
+                <td>{{ chassis.codePostale }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ chassis.pays }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ chassis.ville }}</td>
+            </tr>
+            <tr>
+                <th>Remarque</th>
+                <td>{{ chassis.remarque }}</td>
+            </tr>
+            <tr>
+                <th>Id_reservation</th>
+                <td>{{ chassis.idReservation }}</td>
+            </tr>
+            <tr>
+                <th>Id_utilisateur</th>
+                <td>{{ chassis.idUtilisateur }}</td>
+            </tr>
+            <tr>
+                <th>Bl</th>
+                <td>{{ chassis.bl }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('chassis_index') }}">back to list</a>
+
+    <a href="{{ path('chassis_edit', {'id': chassis.id}) }}">edit</a>
+
+    {{ include('chassis/_delete_form.html.twig') }}
+{% endblock %}

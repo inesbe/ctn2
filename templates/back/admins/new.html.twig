@@ -1,0 +1,15 @@
+
+
+{% extends 'back/base.html.twig' %}
+
+
+
+{% block title %}Ajouter Admin{% endblock %}
+
+{% block body %}
+    <h1>Ajouter Admin</h1>
+
+    {{ include('back/admins/_form.html.twig') }}
+
+    <a href="{{ path('admins_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+{% endblock %}

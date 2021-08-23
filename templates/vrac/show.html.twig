@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<title>Vrac</title>
+
+{% block body %}
+    <h1>Vrac</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ vrac.id }}</td>
+            </tr>
+            <tr>
+                <th>Marchandises</th>
+                <td>{{ vrac.marchandises }}</td>
+            </tr>
+            <tr>
+                <th>Nb_colis</th>
+                <td>{{ vrac.nbColis }}</td>
+            </tr>
+            <tr>
+                <th>Poids_brute</th>
+                <td>{{ vrac.poidsBrute }}</td>
+            </tr>
+            <tr>
+                <th>Emballage</th>
+                <td>{{ vrac.emballage }}</td>
+            </tr>
+            <tr>
+                <th>Poids_unitaire</th>
+                <td>{{ vrac.poidsUnitaire }}</td>
+            </tr>
+            <tr>
+                <th>Nom_destinataire</th>
+                <td>{{ vrac.nomDestinataire }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ vrac.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Code_postale</th>
+                <td>{{ vrac.codePostale }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ vrac.pays }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ vrac.ville }}</td>
+            </tr>
+            <tr>
+                <th>Matricule_vrac</th>
+                <td>{{ vrac.matriculeVrac }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('vrac_index') }}">back to list</a>
+
+    <a href="{{ path('vrac_edit', {'id': vrac.id}) }}">edit</a>
+
+    {{ include('vrac/_delete_form.html.twig') }}
+{% endblock %}

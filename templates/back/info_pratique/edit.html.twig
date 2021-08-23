@@ -1,0 +1,15 @@
+
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Modifier information pratique{% endblock %}
+
+{% block body %}
+    <h1>Modifier service</h1>
+
+    {{ include('back/info_pratique/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+
+    <a href="{{ path('info_pratique_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+
+
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+
+
+    <div class="page-banner bg-1">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="service-card">
+                <i class='bx bx-chair'></i>
+                <h3>CAPACITÉ PASSAGERS</h3>
+                <b>2208</b>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="service-card">
+                <i class='bx bx-car'></i>
+                <h3>CAPACITÉ VÉHICULES
+                </h3>
+                <b>666</b>
+
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="service-card">
+                <i class='bx bx-transfer'></i>
+                <h3>LONGUEUR EN MÈTRES</h3>
+              <b>180</b>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="service-card">
+                <i class='bx bxs-up-arrow-alt'></i>
+                <h3>LARGEUR EN MÈTRES</h3>
+               <b>27</b>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="privacy-policy ptb-100">
+        <div class="container">
+            <div class="privacy-policy-text">
+                <h6 align="justify">Description détaillée</h6>
+                <br  align="justify">
+                    Carthage le fleuron de la ctn, navire construit en 1999 et appelé aussi « le bateau lumière » allie élégance et raffinement afin de vous offrir une nouvelle perception des traversées et croisières.
+                   Et oui! à bord, vous baignez dans la lumière de la Méditerranée; votre voyage au gré de vos envies vous mène tantôt vers une rive de jasmin et de fleurs d’oranger et tantôt vers une rive de mimosas et au langage chantonnant des pays du sud.</br>
+                    En voyage d’affaire ou d’agrément. la traversée vous permet d’apprécier le confort de votre cabine et la saveur des repas cuisinés aux goûts multiples et variés : cocktail de fruits de mer, salades tunisiennes couscous à l’agneau ou poissons n’ont pas de secrets pour votre chef cuisinier.</br>
+                    En cours de traversée, prenez le temps de vous détendre dans un des multiples salons et bars à l’intérieur ou à bord de la piscine.
+                </p>
+
+
+
+            </div></div></div>
+
+
+
+
+{% endblock %}
+
+    {% include 'front/footer.html.twig' %}

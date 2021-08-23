@@ -1,0 +1,128 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+
+
+    <div class="search-overlay">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-close">
+                    <span class="search-overlay-close-line"></span>
+                    <span class="search-overlay-close-line"></span>
+                </div>
+                <div class="search-overlay-form">
+                    <form>
+                        <input type="text" class="input-search" placeholder="Search here...">
+                        <button type="submit"><i class='bx bx-search'></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="page-banner bg-1">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+
+                    <div class="page-content">
+                        <h2>{{ new.titre }}</h2>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="single-services-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="service-details-text">
+                        <div class="service-image">
+                            <img style="width:600px; height:400px"  src='{{asset(new.photo)}}' alt="image">
+                        </div>
+                        <h3>{{ new.titre }}</h3>
+                        <h4>Date de publication : {{ new.Date ? new.Date|date('Y-m-d') : '' }}</h4>
+                        <a onclick="play()"  id="start" class="default-btn-one me-3">Lire</a>
+                        <a onclick="stop()"  id="stop" class="default-btn-one me-2">Stop</a>
+
+
+                        <p id="word" >{{ word |nl2br }}</p>
+
+
+
+
+
+
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4">
+                    <div class="service-sidebar">
+                        <h3 class="title">Voir Aussi</h3>
+                        <ul>
+                            <li>
+                                <a>
+                                    <i class='bx bxs-check-circle'></i>
+                                    Protocole sanitaire à bord
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class='bx bxs-check-circle'></i>
+                                    Protocole sanitaire à l'embarquement
+
+
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class='bx bxs-check-circle '></i>
+                                    Protocole sanitaire avant le voyage
+
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="newsletter-area">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="newsletter-title">
+                            <h3>Newsletter:</h3>
+                            <p>S'il vous plaît, écrivez votre email ci-dessous pour rester en contact avec nous</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <form class="newsletter-form" data-bs-toggle="validator">
+                            <input type="email" class="form-control" placeholder="Email" name="EMAIL" required="" autocomplete="off">
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                            <div id="validator-newsletter" class="form-result"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ asset('./textToSpeech.js') }}"></script>
+{% endblock  %}
+    {% include 'front/footer.html.twig' %}

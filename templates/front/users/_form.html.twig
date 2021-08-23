@@ -1,0 +1,317 @@
+
+<div class="container">
+
+    <div class="privacy-policy-text">
+
+
+        <!--------------fin div class contact ------------->
+        <div class="contact-form">
+
+
+
+                    <div class="container">
+                        <div class="section-title">
+                            <h2>Procédure d'enregistrement</h2>
+                            <span><b>Bienvenue</b> dans la procédure d'enregistrement à nos services en ligne. Pour créer votre compte , merci de remplir le formulaire ci-dessous.</span>
+                        </div>
+
+
+        </div>
+
+
+
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+            <!--------------debut div class form ------------->
+        <div class="contact-form">
+            <!-------- debut form -------------------->
+            <form id="contactForm">
+
+                <!------------ debut  row --------------->
+
+                <div class="row">
+
+                    <!--------- configuration compte --------------->
+
+                    <h2>Configuration du compte</h2>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Langue</label>
+                            {{ form_widget(form.langue) }}
+                            {% if form_errors(form.langue) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.langue) }}
+                                </div>
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Login</label>
+                            {{ form_widget(form.email,{'attr':{'placeholder':'Entrez votre Email '}}) }}
+                            {% if form_errors(form.email) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.email) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Mot de passe</label>
+                            {{ form_widget(form.password,{'attr':{'placeholder':'Entrez votre mot de passe ','id':'pass'}}) }}
+                            {% if form_errors(form.password) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.password) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Confirmez le mot de passe</label>
+                            <input type="password" name="cmdp" class="form-control" id="confirmpassword" required data-error="S'il vous plaît confirmer le mot de passe" placeholder="Confirmez le mot de passe">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--------- fin configuration compte --------------->
+
+                    <!-- Informations sur l'utilisateur -->
+
+                    <h2>Information sur l'utilisateur</h2>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Prénom</label>
+                            {{ form_widget(form.prenom,{'attr':{'placeholder':'Entrez votre prénom '}}) }}
+                            {% if form_errors(form.prenom) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.prenom) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Nom</label>
+                            {{ form_widget(form.nom,{'attr':{'placeholder':'Entrez votre nom '}}) }}
+                            {% if form_errors(form.nom) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.nom) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Numéro de téléphone</label>
+                            {{ form_widget(form.telephone,{'attr':{'placeholder':'Entrez votre numéro de téléphone '}}) }}
+                            {% if form_errors(form.telephone) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.telephone) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- fin Informations sur l'utilisateur -->
+
+                    <!-- Informations sur la société -->
+
+                    <h2>Informations sur la Société</h2>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Nom société</label>
+                            {{ form_widget(form.societe,{'attr':{'placeholder':'Entrez le nom de la société '}}) }}
+                            {% if form_errors(form.societe) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.societe) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Type de société</label>
+                             {{ form_widget(form.typesociete) }}
+                            {% if form_errors(form.typesociete) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.typesociete) }}
+                                </div>
+                            {% endif %}
+
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Adresse</label>
+                            {{ form_widget(form.adresse,{'attr':{'placeholder':'Entrez l adresse '}}) }}
+                            {% if form_errors(form.adresse) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.adresse) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Complément d'adresse</label>
+                            {{ form_widget(form.complementadresse,{'attr':{'placeholder':'Entrez un complément d adresse '}}) }}
+                            {% if form_errors(form.complementadresse) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.complementadresse) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Ville</label>
+                            {{ form_widget(form.ville,{'attr':{'placeholder':'Entrez la ville '}}) }}
+                            {% if form_errors(form.ville) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.ville) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Code postal</label>
+                            {{ form_widget(form.codepostal,{'attr':{'placeholder':'Entrez le code postal '}}) }}
+                            {% if form_errors(form.codepostal) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.codepostal) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Image</label>
+                            {{ form_widget(form.image,{ 'attr' : {'class' : 'form-control file-upload-info'}}) }}
+                            {% if form_errors(form.image) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.image) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Pays / Région</label>
+                            {{ form_widget(form.pays) }}
+                            {% if form_errors(form.pays) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.pays) }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Numéro de T.V.A</label>
+                            {{ form_widget(form.tva,{'attr':{'placeholder':'Entrez votre numéro de TVA '}}) }}
+                            {% if form_errors(form.tva) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.tva) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- fin Informations sur la société -->
+
+                    <!---------------------traitement collegue--------------------------------------->
+
+                </br>
+
+                    <div class="newsletter-area">
+                        <div class="container">
+                            <div class="newsletter-content">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-7">
+                                        <div class="newsletter-title">
+                                            <p>Vos données seront plus rapidement traitées si vous entrez l'email d'un collègue qui a déjà un compte avec nous ou une référence de booking
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <form class="newsletter-form" data-bs-toggle="validator">
+                                            {{ form_widget(form.collegue,{'attr':{'placeholder':'Entrez email collège/ref booking '}}) }}
+                                            {% if form_errors(form.collegue) %}
+                                                <div class="help-block with-errors" role="alert">
+                                                    {{ form_errors(form.collegue) }}
+                                                </div>
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!---------------------fin traitement collegue--------------------------------------->
+                    </br>
+
+
+
+                </div>
+
+                <!------------ fin row --------------->
+            </form>
+        <!-------- fin form -------------------->
+        </br>
+            <div class="col-lg-12 col-md-12 text-center">
+                <button type="submit" class="default-btn-one" id="envoyer">{{ button_label|default('Envoyez') }}</button>
+
+             </div>
+
+            {{ form_end(form) }}
+
+
+        </div>
+
+        <!--------------fin div class form ------------->
+
+    </div>
+        <!--------------fin div class contact ------------->
+
+
+  </div>
+
+</div>
+
+
+<script>
+        $(function (){
+            $("#envoyer").click(function (e){
+                e.preventDefault();
+                const pass =$("#pass").val();
+                const confirmpass=$("#confirmpassword").val();
+                if(  pass!=confirmpass){
+                    alert("s'il vous plait vérifiez votre mot de passe");
+                    return;
+                }
+                if(confirmpass.trim()==''){
+                    alert("s'il vous plait confimez votre mot de passe");
+                }
+            });
+        });
+
+</script>
+

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Connaissement</title>
+
+{% block body %}
+    <h1>Edit Connaissement</h1>
+
+    {{ include('connaissement/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('connaissement_index') }}">back to list</a>
+
+    {{ include('connaissement/_delete_form.html.twig') }}
+{% endblock %}

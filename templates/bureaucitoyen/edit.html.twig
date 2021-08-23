@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Bureaucitoyen</title>
+
+{% block body %}
+    <h1>Edit Bureaucitoyen</h1>
+
+    {{ include('bureaucitoyen/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('bureaucitoyen_index') }}">back to list</a>
+
+    {{ include('bureaucitoyen/_delete_form.html.twig') }}
+{% endblock %}

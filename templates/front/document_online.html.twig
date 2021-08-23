@@ -1,0 +1,139 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+
+{% block body %}
+
+    <div class="hero-slider-two owl-carousel owl-theme" style="height: 400px;">
+        <div class="hero-slider-two-item item-bg1" style="height: 400px;">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <div class="banner-content">
+                                    <h1>Documents</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="freight-area pb-70">
+        <div class="container">
+            <div class="freight-inner">
+                <div class="row">
+                    {% for document in documents %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="service-card-two">
+                                {% if document.image %}
+                                    <img class="freight-image"
+                                         src="{{ asset('/uploads/documentImages/' ~ document.image) }}" alt="image"
+                                         style="height: 300px">
+                                {% else %}
+                                    <img class="freight-image"
+                                         src="{{ asset('assets/img/about/about2.jpg') }}" alt="image"
+                                         style="height: 300px">
+                                {% endif %}
+                                <div class="service-caption">
+                                    <h3>{{ document.titre }}</h3>
+                                    <p>{{ document.description|nl2br }} </p>
+                                    {% if document.docPdf %}
+                                        <a href="{{ asset('uploads/documentPdf/' ~ document.docPdf) }}"
+                                           class="default-btn-two" target="_blank">Voir le document</a>
+                                    {% else %}
+                                        <a
+                                                class="default-btn-two" target="_blank">Document temporairement
+                                            indisponible</a>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-slider-two owl-carousel owl-theme">
+        <div class="hero-slider-two-item item-bg1">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <div class="banner-content">
+                                    <h1>Demande de documents</h1>
+                                    <!--
+                                    <a href="contact.html" class="default-btn-one me-3">Contact Us</a>
+                                    <a href="#" class="default-btn-two">Get A Quote</a>-->
+                                    <p>Veuillez saisir ces données afin d'envoyer une demande de document</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="order-form">
+                                    <h2>Formulaire</h2>
+                                    {% if app.user %}
+                                    {{ form_start(form) }}
+                                    <div class="form-group">
+                                        {{ form_widget(form.nom,{'attr':{'class':'form-control','placeholder':'Nom','value':app.user.nom}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form.prenom,{'attr':{'class':'form-control','placeholder':'Prenom','value':app.user.prenom}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form.email,{'attr':{'class':'form-control','placeholder':'@ email','value':app.user.email}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form.companie,{'attr':{'class':'form-control','placeholder':'Companie','value':app.user.societe}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form.demande,{'attr':{'class':'form-control','placeholder':'Demande'}})|nl2br }}
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit"
+                                                class="default-btn-one">{{ button_label|default('Envoyer') }}</button>
+                                    </div>
+                                    {{ form_end(form) }}
+                                    {% else %}
+                                    {{ form_start(form) }}
+                                    <div class="form-group">
+                                        {{ form_widget(form.nom,{'attr':{'class':'form-control','placeholder':'Nom'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form.prenom,{'attr':{'class':'form-control','placeholder':'Prenom'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form.email,{'attr':{'class':'form-control','placeholder':'@ email'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form.companie,{'attr':{'class':'form-control','placeholder':'Companie'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form.demande,{'attr':{'class':'form-control','placeholder':'Demande'}})|nl2br }}
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit"
+                                                class="default-btn-one">{{ button_label|default('Envoyer') }}</button>
+                                    </div>
+                                    {{ form_end(form) }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+    {% include 'front/footer.html.twig' %}

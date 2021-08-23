@@ -1,0 +1,61 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+    <div class="contact-form-area pb-100">
+        <div class="container">
+            <div class="section-title">
+                <span>Nous contacter</span>
+                <h2>
+                    Entrer en contact</h2>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Destination</label>
+                                <select type="combo-box" name="name" class="form-control" id="name" required data-error="choisir la destination !" placeholder="Votre nom">
+                                    <option value="France">Veuillez choisir votre destination</option>
+                                    <option value="France">France</option>
+                                    <option value="Suisse">Suisse</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6">
+                            <label for="name">Date aller</label>
+                            <div class="form-group">
+                                <input type="date" name="msg_subject" id="msg_subject" class="form-control" required data-error="Please enter the date" placeholder="Objet">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="name">Date retour</label>
+                            <div class="form-group">
+                                <input type="date" name="phone_number" class="form-control" id="phone_number" required data-error="Please enter the date" placeholder="Numéro de portable">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 text-center">
+                            <button type="submit" class="default-btn-one">Validez</button>
+                            <div id="msgSubmit" class="h3 text-center hidden"></div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
+{% include 'front/footer.html.twig' %}

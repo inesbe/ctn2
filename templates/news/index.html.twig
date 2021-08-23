@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<title>News index</title>
+
+{% block body %}
+    <h1>News index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Despcription</th>
+                <th>Contenu</th>
+                <th>Date</th>
+                <th>Photo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for news in news %}
+            <tr>
+                <td>{{ news.id }}</td>
+                <td>{{ news.titre }}</td>
+                <td>{{ news.Despcription }}</td>
+                <td>{{ news.Contenu }}</td>
+                <td>{{ news.Date ? news.Date|date('Y-m-d') : '' }}</td>
+                <td>{{ news.photo }}</td>
+                <td>{{ news.document }}</td>
+                <td>{{ news.type }}</td>
+                <td>
+                    <a href="{{ path('news_show', {'id': news.id}) }}">show</a>
+                    <a href="{{ path('news_edit', {'id': news.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('news_new') }}">Create new</a>
+{% endblock %}

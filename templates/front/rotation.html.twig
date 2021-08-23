@@ -1,0 +1,173 @@
+
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+<div class="search-overlay">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-close">
+                <span class="search-overlay-close-line"></span>
+                <span class="search-overlay-close-line"></span>
+            </div>
+            <div class="search-overlay-form">
+                <form>
+                    <input type="text" class="input-search" placeholder="Search here...">
+                    <button type="submit"><i class='bx bx-search'></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-banner bg-1">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-content">
+                    <h2>Rotation des navires</h2>
+                    <ul>
+                        <li><a href="{{ path('home') }}">Acceuil</a></li>
+                        <li><a href={{ path('rotation',{'id' : new.id }) }}>Rotation navires</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="single-services-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-18">
+                <div class="service-details-text">
+                    <div class="service-image">
+                        <img width="800px" height="600px" src="{{ asset(new.photo) }}" alt="image">
+                    </div>
+                    <h3>{{ new.titre }}</h3>
+                    {% for l in Lines %}
+                    <h4>{{  l.nom  }}:</h4>
+
+                        <div class="col-lg-40 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+
+                                            <th class="aya">Export:</th>
+                                            <style>
+                                                .aya
+                                                {
+                                                    color : red;
+                                                }
+                                            </style>
+
+                                            <th>Navire</th>
+                                            <th>Port de départ</th>
+                                            <th>Date et heure</th>
+                                            <th>Port d'arrivée</th>
+                                            <th>Date et heure</th>
+                                            <th></th>
+
+<th class="aya">Import:</th>
+
+                                            <th>Navire</th>
+                                            <th>Port de départ</th>
+                                            <th>Date et heure</th>
+                                            <th>Port d'arrivée</th>
+                                            <th>Date et heure</th>
+                                        </tr>
+
+
+                                        </thead>
+                                        <tbody>
+                                        {% set t = null %}
+                                        {% for r  in Rotations  %}
+                                        <tr>
+                                            {% if r.type == 0 and r.idLigne == l.id %}
+<td></td>
+                                            <td>{{ r.NomNavire }}</td>
+                                            <td>{{ r.PortDepart }}</td>
+                                            <td>{{ r.DateDepart ? r.DateDepart|date('Y-m-d') : '' }}</td>
+                                                <td>{{ r.PortArrive }}</td>
+                                                <td>{{ r.DateArrive ? r.DateArrive|date('Y-m-d') : '' }}</td>
+                                            <td><label class="badge badge-danger">Pending</label></td>
+                                            {% endif %}
+{% for r1 in Rotations2 %}
+                                            {% if r1.status == r.status %}
+                                            {% set  t = r1 %}
+                                            {% endif %}
+                                            {% endfor %}
+
+
+                                            {% if t.type == 1 and t.idLigne == l.id %}
+<td></td>
+                                                <td>{{ t.NomNavire }}</td>
+                                                <td>{{ t.PortDepart }}</td>
+                                                <td>{{ t.DateDepart ? t.DateDepart|date('Y-m-d') : '' }}</td>
+                                                <td>{{ t.PortArrive }}</td>
+                                                <td>{{ t.DateArrive ? t.DateArrive|date('Y-m-d') : '' }}</td>
+                                                <td><label class="badge badge-danger">Pending</label></td>
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="newsletter-area">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="newsletter-title">
+                            <h3>Newsletter:</h3>
+                            <p>S'il vous plaît, écrivez votre email ci-dessous pour rester en contact avec nous</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <form class="newsletter-form" data-bs-toggle="validator">
+                            <input type="email" class="form-control" placeholder="Email" name="EMAIL" required="" autocomplete="off">
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                            <div id="validator-newsletter" class="form-result"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock  %}
+    {% include 'front/footer.html.twig' %}
+

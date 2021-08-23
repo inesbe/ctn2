@@ -1,0 +1,131 @@
+{% extends 'back/base.html.twig' %}
+
+
+{% block title %}Produit index{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+{% endblock %}
+
+{% block body %}
+
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Liste Produits</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                     <div class="form-row align-items-end" >
+
+        <div class="col" style="margin-left: 9cm; ">
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+
+                                    <div class="dt-buttons btn-group flex-wrap">
+                                        <a href="{{ path('info_pratique_new') }}"><button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>create</span></button></a>
+                               </div> </div></div></div></div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+
+
+                    <!-- /.card-body -->
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">recommandations</th>
+      <th scope="col">recoepargne</th>
+      <th scope="col">reconecessaire</th>
+
+
+      <th scope="col">Action</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for info in info_pratiques %}
+                                            <tr>
+                                                <td>{{ info.id }}</td>
+                                                <td>{{ info.recommandations}}</td>
+                                                <td>{{ info.recoepargne }}</td>
+                                                <td>{{ info.reconecessaire}}</td>
+
+                                                <td>
+
+                                                    <a href="{{ path('info_pratique_edit', {'id': info.id}) }}" class="btn btn-block btn-info btn-sm">Update</a>
+                                                    {{ include('back/info_pratique/_delete_form.html.twig') }}
+
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="6">no records found</td>
+                                            </tr>
+
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+
+
+
+{% endblock %}
+{% block javascripts %}
+<script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{asset('assets/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{asset('assets/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+
+<script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
+
+<script src="{{asset('assets/dist/js/demo.js')}}"></script>
+
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
+{% endblock %}

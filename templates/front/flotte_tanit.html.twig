@@ -1,0 +1,112 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+    <div class="page-banner bg-2">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="single-services-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="service-details-text">
+                        <div class="service-image">
+                            <img src="assets/img/services/tanit_interieur.jpg" alt="image">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="service-sidebar">
+                        <h3 class="title">Nos services</h3>
+                        <ul>
+                            <li>
+                                <a href="{{ path('reservation_tanit') }}">   RESERVER SUR TANIT
+                                    <i class='bx bxs-ship'></i>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('assurance_voyage_tanit') }}"> SERVICES À BORD
+                                    <i class='bx bxs-ship'></i>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('assurance_voyage_tanit') }}">   ASSURANCE VOYAGE
+                                    <i class='bx bxs-ship'></i>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a  href="{{ path('tanit') }}" > TANIT EN CHIFFRE
+                                    <i class='bx bx-transfer'></i>
+
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    {% include 'front/footer.html.twig' %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

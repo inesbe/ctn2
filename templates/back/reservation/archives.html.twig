@@ -1,0 +1,79 @@
+{% extends 'back/base.html.twig' %}
+{% block title %}Réservation archives{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Archive des réservation</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Utilisateur</th>
+                    <th>Port d'arrivé</th>
+                    <th>Date Min</th>
+                    <th>Date Max</th>
+                    <th>Date exacte</th>
+                    <th style="width: 40px">Êtat</th>
+                    <th style="width: 20px"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation.id }}</td>
+                        <td class="mailbox-name"> {{ reservation.user.prenom }} {{ reservation.user.nom }}
+                        </td>
+                        <td class="mailbox-subject">{{ reservation.portArrive }}
+                        </td>
+                        <td class="mailbox-date">{{ reservation.dateMin ? reservation.dateMin|date('Y-m-d') : '' }}</td>
+                        <td class="mailbox-date">{{ reservation.dateMax ? reservation.dateMax|date('Y-m-d') : '' }}</td>
+                        <td class="mailbox-date">{{ reservation.dateExacte ? reservation.dateExacte|date('Y-m-d') : '' }}</td>
+                        <td>
+                            {% if reservation.valide is null %}
+                                <span class="badge bg-dark"></span>
+                            {% elseif reservation.valide %}
+
+                                {% if reservation.confirme is null %}
+                                    <span class="badge bg-warning">Validée</span>
+                                {% elseif reservation.confirme %}
+                                    <span class="badge bg-blue">Confirmée</span>
+                                {% elseif reservation.confirme == false %}
+                                    <span class="badge bg-danger">Refusée par user</span>
+                                {% endif %}
+                            {% elseif reservation.valide == false %}
+                                <span class="badge bg-danger">Refusée par admin</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a title="Desarchiver" href="{{ path('desarchiverReservation', {'id': reservation.id}) }}"><i class="fas fa-reply"></i></a>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+        <!--
+        <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+            </ul>
+        </div>
+        -->
+    </div>
+    <!-- /.card -->
+{% endblock %}

@@ -1,0 +1,63 @@
+
+
+
+{% block body %}
+    <h2 style="color: #002752">Un nouveau message reçu de la part de Mr/Mme {{ bureaucitoyen.nom }} {{ bureaucitoyen.prenom }}</h2>
+    <h3 >Ceci les informations relatives au message reçu:</h3>
+
+
+    <table class="table">
+        <tbody>
+
+        <tr>
+            <th style="color: #002752">Nom</th>
+            <td>{{ bureaucitoyen.nom }}</td>
+        </tr>
+        <tr>
+            <th style="color: #002752">Prénom</th>
+            <td>{{ bureaucitoyen.prenom }}</td>
+        </tr>
+        <tr>
+            <th style="color: #002752">Nationalité</th>
+            <td>{{ bureaucitoyen.nationalite }}</td>
+        </tr>
+        <tr>
+            <th style="color: #002752">Email</th>
+            <td>{{ bureaucitoyen.email }}</td>
+        </tr>
+        <tr>
+            <th style="color: #002752">Adresse</th>
+            <td>{{ bureaucitoyen.adresse }}</td>
+        </tr>
+        <tr>
+            <th style="color: #002752">Code Postale</th>
+            <td>{{ bureaucitoyen.codepostale }}</td>
+        </tr>
+        <tr>
+            <th style="color: #002752">Ville</th>
+            <td>{{ bureaucitoyen.ville }}</td>
+        </tr>
+        <tr>
+            <th style="color: #002752">Télèphone</th>
+            <td>{{ bureaucitoyen.telephone }}</td>
+        </tr>
+        <tr>
+            <th style="color: #002752">Message</th>
+            <td>{{ bureaucitoyen.message }}</td>
+        </tr>
+
+
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

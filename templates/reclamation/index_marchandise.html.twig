@@ -1,0 +1,72 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Reclamarion Marchandises{% endblock %}
+
+{% block body %}
+    <h1 style="color:#ec4844;">Listes des réclamations Marchandises</h1>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!--<div class="card-header  bg-primary text-white">
+                            <h3 class="card-title">Liste des Membres</h3>
+                        </div>-->
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row"><div class="col-sm-12"><table id="affichage_reclamation" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+
+                                            <thead>
+                                            <tr role="row">
+                                                <th><h5 style="color:royalblue;">Nom</h5></th>
+                                                <th><h5 style="color:royalblue;">Prenom</h5></th>
+                                                <th><h5 style="color:royalblue;">Nationalité</h5></th>
+                                                <th><h5 style="color:royalblue;">Email</h5></th>
+                                                <th><h5 style="color:royalblue;">Message</h5></th>
+                                                <th><h5 style="color:royalblue;">actions</h5></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for reclamation in reclamations %}
+                                                {% if reclamation.type == "Marchandise" %}
+                                                    <tr>
+                                                        <td>{{ reclamation.nom }}</td>
+                                                        <td>{{ reclamation.prenom }}</td>
+                                                        <td>{{ reclamation.nationalite }}</td>
+                                                        <td>{{ reclamation.email }}</td>
+                                                        <td>{{ reclamation.message }}</td>
+                                                        <td></td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="16">no records found</td>
+                                                </tr>
+
+                                            {% endfor %}
+                                            </tbody>
+                                        </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite"></div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"></ul></div></div></div></div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card-body -->
+
+
+
+                </div>
+
+            </div></div></section>
+
+
+
+{% endblock %}
+
+
+
+
+

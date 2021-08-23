@@ -1,0 +1,10 @@
+{% extends 'back/base.html.twig' %}
+{% block title %}CTN-Brc {% endblock %}
+
+{% block body %}
+    <h1>Create new Bureaucitoyen</h1>
+
+    {{ include('bureaucitoyen/_form.html.twig') }}
+
+    <a href="{{ path('bureaucitoyen_index') }}">back to list</a>
+{% endblock %}

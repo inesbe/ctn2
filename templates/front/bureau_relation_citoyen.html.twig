@@ -1,0 +1,184 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block title %}CTN-Brc {% endblock %}
+
+{% block stylesheets %}
+<!-- Load Leaflet from CDN-->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script>
+<script src="https://unpkg.com/esri-leaflet"></script>
+<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
+<script src="https://unpkg.com/esri-leaflet-geocoder"></script>
+<style>
+    #map {
+        width: 698px;
+        height: 468px;
+        margin-bottom: 15px;
+    }
+
+</style>
+{% endblock %}
+{% block body %}
+    <div class="page-banner bg-presentation">
+        <div class="d-table">
+<div class="d-table-cell">
+    <div class="container">
+        <div class="page-content">
+            <h2>Bureau des Relations avec le Citoyen</h2>
+            <ul>
+                <li><a href="index-2.html">CTN</a></li>
+                <li>BRC</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    </div>
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    <style>
+        #more {display: none;}
+    </style>
+
+
+
+
+    <div class="best-logistic-area ptb-100">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="logistic-text">
+                        <h2>Bureau des Relations avec le Citoyen</h2>
+                        <p><b>1- Objectifs :</b> <BR>
+
+                            Aider le citoyen qui s’adresse à la CTN à surmonter les difficultés qu’il pourrait rencontrer dans ses relations avec nos services  en vue de lui faciliter l’obtention des prestations administratives dans le cadre de la législation et de la réglementation en vigueur. <BR>
+                            <b>2- Attributions :</b> <BR>
+
+                            Ce bureau des relations avec le citoyen est chargé de :<span id="dots">...</span><span id="more"><BR>
+
+                            Accueillir les citoyens, recevoir leurs requêtes et en collaboration des services concernés, instruire ces requêtes en vue de leur trouver les solutions appropriées répondre aux citoyen directement ou par correspondance renseigner les citoyens sur les procédures et les formalités administratives concernant l’octroi des diverses prestations et ce, directement, par correspondance (par voie postal ou électronique) ou par téléphone .
+                            Centraliser et étudier les dossiers émanant  du Médiateur Administratif en coordination avec les différents services du ministère en vue de trouver les solutions adéquates à ces dossiers.
+                            Elaborer des rapports d’activité tous les six mois.
+                            Déceler à travers une analyse approfondie des requêtes des citoyens les lourdeurs et complications au niveau des procédures administratives et proposer les réformes susceptibles de les surmonter.<BR>
+                           <b> 3- Adresse du Bureau relations avec le citoyen  CTN:</b> <BR>
+
+                                Siège Social de la CTN, Bureau Relations avec le citoyen, 5 avenue Dag Hammarskjoleld, Tunis République 1001 Tunis, Tunisie.</span></p>
+                    </div>
+                    <a> <button onclick="myFunction()" id="myBtn" class="default-btn-one" >Afficher plus</button></a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="logistic-image">
+                        <img src="assets/img/relation.jpg" width="800" height="350" alt="image">
+                    </div>
+                </div>
+            </div>
+
+
+
+    <div class="faq-area ptb-100">
+        <div class="container">
+
+            <div class="faq-contant">
+
+                        <ul class="accordion">
+                            <li>
+                                <h1 class="title">Position géographique du bureau des relations avec le citoyen CTN:</h1>
+                                <div class="accordion-content" >
+                                    {% set adresse = '36.79858554956326, 10.190296206339667' %}
+                                    <div class="earth3dmap-com">
+                                        <iframe id="iframemap" src="https://maps.google.com/maps?q=%7B%7B adresse }}&amp;ie=UTF8&amp;iwloc=&amp;output=embed" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
+                                        <div style="color: #333; font-size: 14px; font-family: Arial, Helvetica, sans-serif; text-align: right; padding: 10px;">
+                                            <a style="color: #333; text-decoration: underline; font-size: 14px; font-family: Arial, Helvetica, sans-serif; text-align: right;" href="http://earth3dmap.com/?from=embed" target="_blank" ></a>
+                                        </div> </div>
+                                </div>
+                            </li>
+                            </li>
+
+                        </ul>
+            </div>
+        </div>
+
+
+
+        {% block javascripts %}
+            <script>
+
+                $( document ).ready(function() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(initMap);
+                    } else {
+                        alert("Geolocation is not supported by this browser.");
+                    }
+                });
+
+
+                //document.getElementById("publication_localisation").value = data.results[i].properties.PlaceName;
+
+                function initMap(position) {
+
+                    var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 12);
+                    var tiles = L.esri.basemapLayer("Streets").addTo(map);
+                    var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+                    var results = L.layerGroup().addTo(map);
+                    results.addLayer(L.marker([position.coords.latitude, position.coords.longitude]));
+                    searchControl.on("results", function(data) {
+                        results.clearLayers();
+                        for (var i = data.results.length - 1; i >= 0; i--) {
+                            results.addLayer(L.marker(data.results[i].latlng));
+                        }
+                    });
+                    var map = L.map('map').setView([51.505, -0.09], 13);
+
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+
+                    L.marker([51.5, -0.09]).addTo(map)
+                        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+                        .openPopup();
+
+
+                    var coord=(document.getElementById("js-lieu").value).split(',');
+                    var lat = coord[36.79858554956326];
+                    var lng = coord[10.190296206339667];
+                    console.log("Ye: " + lat + " and longitude: " + lng);
+                    var marker = L.marker([lat, lng]).addTo(map);
+                    var popup = L.popup()
+                        .setLatLng([lat, lng])
+                        .setContent("L'évenement aura lieu içi "+coord)
+                        .openOn(map);
+
+
+
+                }
+            </script>
+        {% endblock %}
+<br>
+
+
+
+
+                    {{ include('bureaucitoyen/_form.html.twig') }}
+
+
+
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+        <!--map-->
+
+
+{% endblock %}
+{% include 'front/footer.html.twig' %}

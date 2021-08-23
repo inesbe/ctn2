@@ -1,0 +1,190 @@
+{% extends 'back/base.html.twig' %}
+{% block title %}Documents{% endblock %}
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+     <link rel="stylesheet"
+           href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+ {% endblock %}
+
+{% block body %}
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Documents</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Description</th>
+                                    <th>actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for document in documents %}
+                                    <tr>
+                                        <td>{{ document.titre }}</td>
+                                        <td>{{ document.description }}</td>
+                                        <td>
+                                            <a class="btn btn-block btn-outline-success btn-xs"
+                                               href="{{ path('documents_show', {'id': document.id}) }}">Consulter</a>
+                                            <a class="btn btn-block btn-outline-warning btn-xs"
+                                               href="{{ path('documents_edit', {'id': document.id}) }}">Modifier</a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">Pas de record trouvé</td>
+                                    </tr>
+                                {% endfor %}
+                                <tfoot>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Description</th>
+                                    <th>actions</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <table>
+                    <td>
+                        <tr>
+                            <a href="{{ path('documents_new') }}">
+                            <button type="button" class="btn btn-outline-primary ">
+                                <i class="fa fa-plus"> Ajouter</i>
+                            </button>
+                            </a>
+                        </tr>
+                        <tr>
+                            &nbsp;
+                        </tr>
+                        <tr>
+                            <button data-toggle="modal" data-target="#demandesModal" type="button" class="btn btn-outline-primary ">
+                                <i class="fas fa-tasks"> Demandes</i> <a href="{{ path('documents_new') }}"></a>
+                            </button>
+                        </tr>
+                    </td>
+                </table>
+
+                <div>  </div>
+
+                <!-- /.card-body -->
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <!--Modal-->
+    <div class="modal fade bd-example-modal-lg" id="demandesModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Demandes de documents</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" >
+
+                        <div class="card card-secondary">
+                            <div class="card-header">
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                {% for c in quotas %}
+                                    <div class="post">
+                                        <div class="user-block">
+                                            <img class="img-circle img-bordered-sm" src="../../assets/img/blog/blog-details.jpg"
+                                                 alt="user image">
+                                            <span class="username"><a href="#">{{ c.nom }} {{ c.prenom }}</a></span>
+                                            <span class="description">{{ c.email }}</span>
+                                        </div>
+                                        <!-- /.user-block -->
+                                        <p>
+                                            {{ c.demande|nl2br }}
+                                        </p>
+
+                                        <p>
+                                            <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> {{ c.companie }}
+                                                v2</a>
+                                        </p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Modal-->
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
+
+    <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
+
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+    <script>
+
+
+    </script>
+{% endblock %}
+

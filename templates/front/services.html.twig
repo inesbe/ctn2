@@ -1,0 +1,70 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+
+{% block body %}
+
+<!--top page -->
+
+<div class="page-banner bg-marchandise">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-content">
+                    <h2> Services  </h2>
+                    <ul>
+                        <li><a href="{{ path('home') }}">Acceuil</a></li>
+                        <li>Marchandises</li>
+                        <li>Nos services</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- fin top page -->
+
+    <div class="privacy-policy ptb-100">
+        <div class="container">
+
+            <div class="privacy-policy-text">
+                {% for info in info_services %}
+                <h2>{{ info.titre }}</h2>
+               {{ info.contenu |nl2br }}
+            {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="newsletter-area">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="newsletter-title">
+                            <h3>Newsletter:</h3>
+                            <p>S'il vous plaît, écrivez votre email ci-dessous pour rester en contact avec nous</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <form class="newsletter-form" data-bs-toggle="validator">
+                            <input type="email" class="form-control" placeholder="Email" name="EMAIL" required="" autocomplete="off">
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                            <div id="validator-newsletter" class="form-result"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+    {% include 'front/footer.html.twig' %}

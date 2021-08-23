@@ -1,0 +1,12 @@
+{% extends 'back/base.html.twig' %}
+{% block body %}
+    <h1>Modifier un evenement</h1>
+
+    {{ include('back/medias/_form.html.twig', {'button_label': 'Update'}) }}
+
+    {{ include('back/medias/_delete_form.html.twig') }}
+
+    <BR>
+
+    <a href="{{ path('medias_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+{% endblock %}

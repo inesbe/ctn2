@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<title>Quota index</title>
+
+{% block body %}
+    <h1>Quota index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Companie</th>
+                <th>Demande</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quotum in quotas %}
+            <tr>
+                <td>{{ quotum.id }}</td>
+                <td>{{ quotum.nom }}</td>
+                <td>{{ quotum.prenom }}</td>
+                <td>{{ quotum.email }}</td>
+                <td>{{ quotum.companie }}</td>
+                <td>{{ quotum.demande }}</td>
+                <td>
+                    <a href="{{ path('quota_show', {'id': quotum.id}) }}">show</a>
+                    <a href="{{ path('quota_edit', {'id': quotum.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('quota_new') }}">Create new</a>
+{% endblock %}

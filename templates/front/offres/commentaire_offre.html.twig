@@ -1,0 +1,49 @@
+<div class="comments-area">
+    <div class="comment-respond">
+        <h3 class="comment-reply-title">Laissez un commentaire</h3>
+        <div class="comment-form">
+            <p class="comment-notes">
+                <span id="email-notes">Votre commentaire ne sera pas public.</span>
+                <!--les champs requis sont marqués
+                <span class="required">*</span>-->
+            </p>
+            <!--<p class="comment-form-author">
+                <label>Name <span class="required">*</span></label>
+                <input type="text" id="author" placeholder="Your Name*" name="author"
+                       required="required">
+            </p>
+            <p class="comment-form-email">
+                <label>Email <span class="required">*</span></label>
+                <input type="email" id="email" placeholder="Your Email*" name="email"
+                       required="required">
+            </p>-->
+            {{ form_start(form) }}
+            <p class="comment-form-comment">
+                <label>Commentaire</label>
+                {{ form_widget(form.Nom,{'attr':{'class':'form-control','placeholder':'Nom'}}) }}
+            </p>
+            <p class="comment-form-comment">
+                <label>Commentaire</label>
+                {{ form_widget(form.prenom,{'attr':{'class':'form-control','placeholder':'Prenom'}}) }}
+            </p>
+            <p class="comment-form-comment">
+                <label>Commentaire</label>
+                {{ form_widget(form.email,{'attr':{'class':'form-control','placeholder':'@ email'}}) }}
+            </p>
+            <p class="comment-form-comment">
+                <label>Commentaire</label>
+                {{ form_widget(form.commentaire,{'attr':{'class':'form-control','placeholder':'Commentaire'}})  }}
+            </p>
+            <div class="text-center">
+            </div>
+            <p class="form-submit">
+                <button type="submit"
+                        class="default-btn-one">{{ button_label|default('Envoyer') }}</button>
+            </p>
+
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+

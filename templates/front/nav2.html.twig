@@ -1,0 +1,216 @@
+<header class="header-area">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css' )}}">
+
+    <link rel="stylesheet" href="{{asset('assets/css/boxicons.min.css')}}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/meanmenu.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/odometer.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/CTNlogo.png') }}">
+    <div class="top-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-sm-6">
+                    <ul class="left-info">
+                        <!-- <li>
+                            <a href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#3c54595050537c5a594e4e45125f5351">
+                                <i class='bx bxs-envelope'></i>
+                                <span class="__cf_email__" data-cfemail="066e636a6a6946606374747f2865696b">[email&#160;protected]</span>
+                            </a>
+                        </li>-->
+                        <li>
+                            <a href="#">
+                                <i class='bx bxs-envelope'></i>
+                                cotunav@ctn.com.tn
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+216-71-322-802">
+                                <i class='bx bxs-phone-call'></i>
+                                + 216 71 322 802
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <ul class="right-info">
+                        <li class="mr-20">
+                            <a href="{{ path('contact') }}">Contact</a>
+                        </li>
+                        <li class="mr-20">
+                            <a href="{{ path('profil') }}">Profil</a>
+                        </li>
+                        <li class="mr-20">
+                            <a href="{{ path('logout') }}">Déconnecter</a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/ctn.com.tn" target="_blank">
+                                <i class='bx bxl-facebook'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/ctnferries?lang=fr" target="_blank">
+                                <i class='bx bxl-twitter'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/company/compagnie-tunisienne-de-navigation/" target="_blank">
+                                <i class='bx bxl-linkedin'></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar-area">
+        <div class="ferry-responsive-nav">
+            <div class="container">
+                <div class="ferry-responsive-menu">
+                    <div class="logo">
+                        <a href="{{ path('home') }}">
+                            <img src="{{ asset('assets/img/logo.png') }}" alt="logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ferry-nav">
+            <div class="container">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <a class="navbar-brand" href="{{ path('home') }}">
+                        <img src="{{ asset('assets/img/logo.png') }}" alt="logo">
+                    </a>
+                    <div class="collapse navbar-collapse mean-menu">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a href="{{ path('home') }}" class="nav-link active">
+                                    Acceuil
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    CTN <i class='bx bx-chevron-down'></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="{{ path('historique') }}" class="nav-link">Historique</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('presentation') }}" class="nav-link">Presentation</a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Espace Gov <i class='bx bx-chevron-down'></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="{{ path('bonnegouv') }}" class="nav-link">La Bonne Gouvernance </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('acces_relation') }}" class="nav-link">Accès à l'information</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('bureau') }}" class="nav-link">Bureau des relations avec le citoyen</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Passagers <i class='bx bx-chevron-down'></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Flotte <i class='bx bx-chevron-right'></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item">
+                                                <a href="{{ path('flottetanit') }}" class="nav-link">Tanit</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ path('flottecarthage') }}" class="nav-link">Carthage</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('info') }}" class="nav-link">Infos pratiques</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('conditionutilisation') }}" class="nav-link">Condition d'utilisation</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('reclamation_passagers') }}" class="nav-link">Réclamations Passagers</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Marchandises <i class='bx bx-chevron-down'></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="{{ path('info_service_front') }}" class="nav-link">Nos services </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('reclamation_marchandise') }}" class="nav-link">Réclamation marchandises</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Publication <i class='bx bx-chevron-down'></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="{{ path('mediatheque') }}" class="nav-link">Médiathèque </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('bulletin_interne') }}" class="nav-link">Bulletin interne</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('document_online') }}" class="nav-link">Documents en ligne</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('appel_offres') }}" class="nav-link">
+                                    Appel d'offres
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link search-box">
+                                    <i class='bx bx-search'></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</header>

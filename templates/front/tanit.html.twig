@@ -1,0 +1,87 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block body %}
+
+    <div class="page-banner bg-2">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="service-card">
+                <i class='bx bx-chair'></i>
+                <h3>CAPACITÉ PASSAGERS</h3>
+                <b>3200</b>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="service-card">
+                <i class='bx bx-car'></i>
+                <h3>CAPACITÉ VÉHICULES
+                </h3>
+                <b>1060</b>
+
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="service-card">
+                <i class='bx bx-transfer'></i>
+                <h3>LONGUEUR EN MÈTRES</h3>
+                <b>212</b>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="service-card">
+                <i class='bx bxs-up-arrow-alt'></i>
+                <h3>LARGEUR EN MÈTRES</h3>
+                <b>30</b>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="privacy-policy ptb-100">
+        <div class="container">
+            <br class="privacy-policy-text">
+                <h6 align="justify">Description détaillée</h6>
+                <br  align="justify">
+                La CTN avec sa flotte de standing, assure toute l’année une liaison entre Tunis et Marseille et entre Tunis et Gênes. des traversées de moins de 24 heures que vous apprécierez en famille, entre amis ou en groupe avec des tarifs adaptées et avantageux.</br>
+                Le navire Tanit le nouveau fleuron de la CTN, allie confort et modernité, il est doté de larges espaces lumineux et chaleureux pour vous rallier d’une rive à l’autre, en toute sérénité et sécurité.</br>
+                Et oui! à bord, vous baignez dans la lumière de la Méditerranée; votre voyage au gré de vos envies vous mêne tantôt vers une rive de jasmin et de fleurs d’oranger et tantôt vers une rive de mimosas et au langage chantonnant des pays du sud.</br>
+                A bord du Tanit, votre voyage sera poncuté par des pauses déjeuner avec un choix multiple de restaurants et de plats savoureux, des pauses café dans les bars ou au café Maure avec vue sur piscine et par la détente et le repos dans votre cabine ou votre suite de luxe.</br>
+                Les enfants et les jeunes auront un grand choix avec les salles de jeux électroniques et les piscines.
+                Le tout animé par une ambiance chaleureuse des pays de la Méditerranée.
+                </p>
+
+
+
+            </div></div></div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+    {% include 'front/footer.html.twig' %}

@@ -1,0 +1,14 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Modifier service{% endblock %}
+
+{% block body %}
+    <h1>Modifier service</h1>
+
+    {{ include('back/info_service/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+
+    <a href="{{ path('info_service_admin') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+
+
+
+{% endblock %}

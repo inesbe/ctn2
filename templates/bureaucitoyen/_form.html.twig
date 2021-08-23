@@ -1,0 +1,127 @@
+{{ form_start(form,{'attr':{'novalidate': 'novalidate'}}) }}
+<div class="faq-form">
+
+
+
+        <div class="section-title">
+            <span>BCR</span>
+            <h2>Bureau des Relations avec le Citoyen</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+            {{ form_row(form.nom, {
+                label: 'Nom :',
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'Votre Nom',
+                },
+            }) }}
+            </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    {{ form_row(form.prenom, {
+                        label: 'Prenom :',
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': 'Votre Prenom',
+                        },
+                    }) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    {{ form_row(form.nationalite, {
+                        label: 'Nationalité :',
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': 'Séléctionnez Votre Nationalité',
+                        },
+                    }) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    {{ form_row(form.email, {
+                        label: 'Email :',
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': 'Votre Email',
+                        },
+                    }) }}
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    {{ form_row(form.adresse, {
+                        label: 'Adresse :',
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': 'Votre Adresse',
+                        },
+                    }) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    {{ form_row(form.codepostale, {
+                        label: 'Code Postale :',
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': 'Votre Code Postale',
+                        },
+                    }) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    {{ form_row(form.ville, {
+                        label: 'Ville :',
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': 'Votre ville',
+                        },
+                    }) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    {{ form_row(form.telephone, {
+                        label: 'Télèphone :',
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': 'Votre Télèphone',
+                        },
+                    }) }}
+                </div>
+            </div>
+
+                <div class="form-group" >
+
+                    {{ form_row(form.message, {
+                        label: 'Message :',
+                        'attr': {
+                            'class': 'form-control',
+                            'input type':'textarea',
+                            'placeholder': 'Votre Message',
+                        },
+                    }) }}
+            </div>
+
+
+
+        <div class="text-center">
+            <button   class="faq-form-btn">{{ button_label|default('Envoyer') }}</button>
+
+        </div>
+
+        </div>
+</div>
+</div>
+
+
+</div>
+{{ form_end(form) }}

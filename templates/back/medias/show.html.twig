@@ -1,0 +1,206 @@
+{% extends 'back/base.html.twig' %}
+{% block body %}
+
+    <!-- Content Header (Page header) -->
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Accuil</a></li>
+                        <li class="breadcrumb-item active">{{ media.titre }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Général</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <h3>{{ media.titre }}</h3>
+                        </div>
+                        <div class="form-group">
+                            <p>{{ media.description }}</p>
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <div class="col-md-6">
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Fichiers</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Nom du fichier</th>
+                                <th>Type du fichier</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>{{ media.image }}</td>
+                                <td>Image</td>
+                                <td class="text-right py-0 align-middle">
+                                    <div class="btn-group btn-group-sm">
+                                        <a data-toggle="modal" data-target="#imageModal" type="button"
+                                           class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            <tr>
+                                <td>{{ media.video }}</td>
+                                <td>Video</td>
+                                <td class="text-right py-0 align-middle">
+                                    <div class="btn-group btn-group-sm">
+                                        <a data-toggle="modal" data-target="#videoModal" type="button"
+                                           class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                    </div>
+                                </td>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+
+                </div>
+                <!-- /.card -->
+                <div class="card card-secondary">
+                    <div class="card-header">
+                        <h3 class="card-title">Commentaires</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% for c in media.commentaire %}
+                            <div class="post">
+                                <div class="user-block">
+                                    <img class="img-circle img-bordered-sm" src="../../assets/img/blog/blog-details.jpg"
+                                         alt="user image">
+                                    {% if c.user %}
+                                        <span class="username"><a href="#">{{ c.user.nom }}</a></span>
+
+                                        <span class="description">{{ c.user.email }}</span>
+                                    {% else %}
+
+                                        <span class="username"><a href="#">{{ c.guest.nom }}</a></span>
+
+                                        <span class="description">{{ c.guest.email }}</span>
+                                    {% endif %}
+                                </div>
+                                <!-- /.user-block -->
+                                <p>
+                                    {{ c.commentaireMed|nl2br }}
+                                </p>
+                                <!--
+                                            <p>
+                                                <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1
+                                                    v2</a>
+                                            </p>-->
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.card-footer -->
+        <div class="card-footer">
+            {{ include('back/medias/_delete_form.html.twig') }}
+            <button type="button" class="btn btn-default float-md-right"><i class="fas fa-print"></i> Print</button>
+            <a href="{{ path('medias_edit', {'id': media.id}) }}" class="btn btn-default float-md-right"><i
+                        class="fas fa-edit"></i>Modifier</a>
+        </div>
+        <!-- /.card-footer -->
+    </section>
+    <!-- /.content -->
+    <a href="{{ path('medias_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+
+    <!--Modal-->
+    <div class="modal fade bd-example-modal-lg" id="videoModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ media.titre }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="height: 600px">
+
+                    <iframe src="{{ asset('uploads/mediasVideo/' ~ media.video) }}" title="video"
+                            style="height: 100%;width: 100%"></iframe>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Modal-->
+
+    <!--Modal imageModal-->
+    <div class="modal fade bd-example-modal-lg" id="imageModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Localisation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img src="{{ asset('uploads/mediasImages/' ~ media.image) }}" title="image"></img>
+                    </center>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Modal-->
+
+
+{% endblock %}

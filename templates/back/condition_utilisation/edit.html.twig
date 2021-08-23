@@ -1,0 +1,14 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Modifier condition{% endblock %}
+
+{% block body %}
+    <h1>Modifier condition</h1>
+
+    {{ include('back/condition_utilisation/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+
+    <a href="{{ path('condition_utilisation_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+
+
+
+{% endblock %}

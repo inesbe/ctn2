@@ -1,0 +1,114 @@
+
+
+{% extends 'back/base.html.twig' %}
+{% block body %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>{{ document.titre }}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                        <li class="breadcrumb-item active">{{ document.titre }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- /.col -->
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header" style="align-content: center">
+                                <center><img class="freight-image"
+                                     src="{{ asset('/uploads/documentImages/' ~ document.image) }}" alt="image"
+                                     >
+                                </center>
+                            <div class="card-tools">
+                                <h6>
+
+                                </h6>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div class="mailbox-read-info">
+                                <h5>{{ document.description }}</h5>
+
+                            </div>
+                            <!-- /.mailbox-read-info -->
+                            <div class="mailbox-controls with-border text-center">
+                                <div class="btn-group">
+                                    <form method="post" action="{{ path('documents_delete', {'id': document.id}) }}"
+                                          onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                        <input type="hidden" name="_token"
+                                               value="{{ csrf_token('delete' ~ document.id) }}">
+                                        <button class="btn btn-default btn-sm" data-container="body"
+                                                title="Delete">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+
+
+                                </div>
+                                <!-- /.btn-group -->
+                                <button type="button" class="btn btn-default btn-sm" title="Print">
+                                    <i class="fas fa-print"></i>
+                                </button>
+                                <a href="{{ path('documents_edit', {'id': document.id}) }}" class="btn btn-default btn-sm"><i
+                                            class="fas fa-edit"></i></a>
+
+                            </div>
+                            <!-- /.mailbox-controls -->
+                            <div class="mailbox-read-message">
+
+                            </div>
+                            <!-- /.mailbox-read-message -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer bg-white">
+                            <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                {% if  document.docPdf %}
+                                    <li>
+                                        <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
+
+                                        <div class="mailbox-attachment-info">
+                                            <a href="{{ asset('uploads/documentsPdf/' ~ document.docPdf) }}"
+                                               class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>
+                                                {{ document.titre }}.pdf</a>
+                                            <!--      <span class="mailbox-attachment-size clearfix mt-1">
+                                    <span>1,245 KB</span>
+                                    <a href="#" class="btn btn-default btn-sm float-right"><i
+                                                class="fas fa-cloud-download-alt"></i></a>
+                                  </span>-->
+                                        </div>
+                                    </li>
+                                {% endif %}
+
+
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+    <a href="{{ path('documents_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+
+
+{% endblock %}
+

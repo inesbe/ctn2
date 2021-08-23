@@ -1,0 +1,122 @@
+
+
+
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+
+<div class="search-overlay">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-close">
+                <span class="search-overlay-close-line"></span>
+                <span class="search-overlay-close-line"></span>
+            </div>
+            <div class="search-overlay-form">
+                <form>
+                    <input type="text" class="input-search" placeholder="Search here...">
+                    <button type="submit"><i class='bx bx-search'></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div style="position:relative; top:60px " class="sign-up-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <h2>Saisie de connaissements</h2>
+            <p></p>
+        </div>
+        <div class="sign-up-form">
+            {{ form_start(form,{'attr':{'novalidate': 'novalidate'}}) }}
+            <form method="get" action="{{ path('chassis') }}">
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+
+                            {{ form_row(form.conditions, {
+
+                                'attr': {
+                                    'class': 'form-control',
+
+                                },
+                            }) }}
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <select type="text" name="type" class="form-control" id="unité" placeholder="Unité De Charge">
+                        <option value="Condition">Veuillez selectionner l'unité de charge à remlpir</option>
+                        {% for c in ch  %}
+                            {% if c.etat == 0 %}
+                        <option  value="0{{ c.matriculeChassis }}">  {{ c.matriculeChassis }} </option>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                        {% for t in co  %}
+                            {% if t.etat == 0 %}
+                                <option  value="1{{ t.NumContainer }}">  {{ t.NumContainer }} </option>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                        {% for v in vr  %}
+                            {% if v.etat == 0 %}
+                                <option  value="2{{ v.MatriculeVrac }}">  {{ v.MatriculeVrac}} </option>
+
+                            {% endif %}
+
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="text-center">
+
+                    <button type="submit" class="btn default-btn-one">Etape suivante -></button>
+                </div>
+
+            {{ form_end(form) }}
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% include 'front/footer.html.twig' %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

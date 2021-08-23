@@ -1,0 +1,51 @@
+<!-- Main content -->
+<section class="content">
+
+    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-danger">
+
+                <div class="card-header">
+                    <h3 class="card-title">Veuillez remplir ce formulaire</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="inputName">Recommandations</label>
+                        {{ form_widget(form.recommandations,{'attr':{'class':'form-control','placeholder':'recommandation'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        <label >Le respect de ces recommandations</label>
+                        {{ form_widget(form.recoepargne,{'attr':{'class':'form-control','placeholder':'le respect de ces recommandations','rows':'10'}})|nl2br }}
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName">Nécessaire de voyage:</label>
+                        {{ form_widget(form.reconecessaire,{'attr':{'class':'form-control','placeholder':'necessaire de voyage'}}) }}
+                    </div>
+
+
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a href="#" class="btn btn-secondary">Cancel</a>
+            <button type="submit"
+                    class="btn btn-success float-right">{{ button_label|default('Sauvegarder') }}</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</section>
+<!-- /.content -->

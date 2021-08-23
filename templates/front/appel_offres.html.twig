@@ -1,0 +1,93 @@
+{% if user is not null %}
+
+    {% include 'front/nav2.html.twig' %}
+{% else %}
+    {% include  'front/base.html.twig' %}
+{% endif %}
+{% block title %}Appel d'offre {% endblock %}
+{% block body %}
+    <div class="page-banner bg-3-appel">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="page-content">
+                        <h2>Nos appels d'offres <i class="bx bxs-megaphone"></i></h2>
+                        <ul>
+                            <li><a href="{{ path('home') }}">Acceuil</a></li>
+                            <li>appel d'offre</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="blog-area-two ptb-100">
+        <div class="container">
+            <div class="section-title">
+                <!--<span><i class="bx bxs-megaphone"></i></span>-->
+                <h2>Nos appels d'offres</h2>
+            </div>
+            <div class="about-info-area pb-70">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="about-info-card">
+                                <a href="{{ path('appel_offres') }}"><h3>Tous</h3></a>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="about-info-card">
+                                <a href="{{ path('appel_offres_ouvert') }}"><h3>Ouverts</h3></a>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+                            <div class="about-info-card">
+                                <a href="{{ path('appel_offres_ferme') }}"><h3>Fermés</h3></a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for offre in offres %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="blog-card" style="height: 600px">
+                            <a class="blog-image" href="path('offres_details', {'id': offre.id}) }}">
+                                {% if tous == "yes" %}
+                                    <img src="assets/img/blog/blog12.jpg" alt="image">
+                                {% else %}
+                                    <img src="../assets/img/blog/blog12.jpg" alt="image">
+                                {% endif %}
+                            </a>
+                            <div class="blog-text">
+                                <span class="meta-tag">{{ offre.type }}</span>
+                                <div class="date">{{ offre.dateRelease ? offre.dateRelease|date('Y-m-d') : '' }}</div>
+                                <h3>
+                                    <a href="#">
+                                        {{ offre.titre }}
+                                    </a>
+
+                                </h3>
+                                {% if new <= offre.resultRelDate and tous == "fe" %}
+                                    <span style="background-color: red" class="meta-tag">Résultat</span>
+                                {% endif %}
+                                <p class="mb-20">{{ offre.description }}</p>
+                                <a href="{{ path('offres_details', {'id': offre.id}) }}" class="default-btn-two">Consulter</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <tr>
+                        <td colspan="7">Pas de record trouvé</td>
+                    </tr>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}{% include 'front/footer.html.twig' %}

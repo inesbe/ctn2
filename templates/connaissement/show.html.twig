@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<title>Connaissement</title>
+
+{% block body %}
+    <h1>Connaissement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ connaissement.id }}</td>
+            </tr>
+            <tr>
+                <th>Id_reservation</th>
+                <td>{{ connaissement.idReservation }}</td>
+            </tr>
+            <tr>
+                <th>Id_utilisateur</th>
+                <td>{{ connaissement.idUtilisateur }}</td>
+            </tr>
+            <tr>
+                <th>Bl</th>
+                <td>{{ connaissement.bl }}</td>
+            </tr>
+            <tr>
+                <th>Conditions</th>
+                <td>{{ connaissement.conditions }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('connaissement_index') }}">back to list</a>
+
+    <a href="{{ path('connaissement_edit', {'id': connaissement.id}) }}">edit</a>
+
+    {{ include('connaissement/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+    <h1 style="color:royalblue;">Admin : {{ admin.nom }} {{ admin.prenom }}</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th><img src="{{ asset('uploads/adminImages/'~admin.image~'') }}" width="150px" height="150px"></td></th>
+        </tr>
+
+        <tr>
+            <th>Nom</th>
+            <td>{{ admin.nom }}</td>
+        </tr>
+        <tr>
+            <th>Prenom</th>
+            <td>{{ admin.prenom }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ admin.username }}</td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>{{ admin.password }}</td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td>{{ admin.role }}</td>
+        </tr>
+
+
+
+
+        </tbody>
+    </table>
+
+
+
+
+
+    <div class="row">
+        <div class="col-12">
+
+            <a href="{{ path('admins_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+        </div>
+    </div>
+
+
+
+{% endblock %}

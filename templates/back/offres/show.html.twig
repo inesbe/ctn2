@@ -1,0 +1,324 @@
+{% extends 'back/base.html.twig' %}
+{% block body %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>{{ offre.titre }}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                        <li class="breadcrumb-item active">{{ offre.titre }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    {% if  not offre.pdfResultat %}
+                        <a data-toggle="modal" data-target="#reultatModal" type="button"
+                           class="btn btn-primary btn-block mb-3">Ajouter un résultat</a>
+                    {% endif %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="far fa-file-alt"></i>Commentaires</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body ">
+                            <ul class="nav nav-pills flex-column">
+                                {% for c in offre.commentaires %}
+                                    <li class="nav-item content">
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                     src="../../../assets/img/blog/blog-details.jpg"
+                                                     alt="user image">
+
+                                                {% if c.user %}
+                                                    <span class="username"><a
+                                                                href="#">{{ c.user.nom }} {{ c.user.prenom }}</a></span>
+                                                    {% if c.ferme %}
+                                                        <span class="badge bg-danger float-right">Répondu</span>
+                                                    {% endif %}
+                                                    <span class="description">{{ c.user.email }}</span>
+                                                {% elseif c.guest %}
+                                                    <span class="username"><a
+                                                                href="#">{{ c.guest.Nom }} {{ c.guest.prenom }}</a></span>
+                                                    {% if c.ferme %}
+                                                        <span class="badge bg-danger float-right">Répondu</span>
+                                                    {% endif %}
+                                                    <span class="description">{{ c.guest.email }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <!-- /.user-block -->
+                                            <p>
+                                                {{ c.commentaire|nl2br }}
+                                            </p>
+
+                                            <p>
+                                                <!-- <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i>
+                                                     v2</a>-->
+                                            </p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="text-right">
+                                                <a class="btn btn-sm bg-teal modalClick" data-toggle="modal"
+                                                   data-target="#{{ c.id }}" type="button">
+                                                    <i class="fas fa-comments"></i>
+                                                </a>
+                                                <!-- <a href="#" class="btn btn-sm btn-primary">
+                                                     <i class="fas fa-user"></i> View Profile
+                                                 </a>-->
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <!--Modal details commentaire-->
+                                    <div class="modal fade bd-example-modal-lg" id="{{ c.id }}" tabindex="-1"
+                                         role="dialog"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post"
+                                                          action="{{ path('responseToOffreComment', {'id': offre.id}) }}"
+                                                          onsubmit="return confirm('Êtes vous sûr?');">
+
+                                                        <div class="form-group">
+                                                            <input type="hidden" name="comId" value="{{ c.id }}">
+                                                            <input name="objet"
+                                                                   class="form-control"
+                                                                   placeholder="Objet">
+                                                            <label>à </label></br>
+                                                            {% if c.user %}
+                                                                <input name="email" value="{{ c.user.email }}"
+                                                                       class="form-control" >
+                                                            {% else %}
+                                                                <input name="email" value="{{ c.guest.email }}"
+                                                                       class="form-control" >
+                                                            {% endif %}
+                                                            <br>
+
+                                                            <textarea name="mailText" id="compose-textarea"
+                                                                      class="compose-textarea" style="height: 300px"
+                                                                      placeholder="Mail Body">
+
+                                                            </textarea>
+                                                        </div>
+                                                        <br>
+                                                        <button class="btn btn-success float-right">Envoyer
+                                                        </button>
+                                                    </form>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/Modal-->
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
+
+                    </div>
+
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ offre.type }}</h3>
+
+                            <div class="card-tools">
+                                <h6>
+                                    <span class="mailbox-read-time float-right">{{ offre.dateRelease ? offre.dateRelease|date('Y-m-d') : '' }}</span>
+                                </h6>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div class="mailbox-read-info">
+                                <h5>{{ offre.description }}</h5>
+
+                            </div>
+                            <!-- /.mailbox-read-info -->
+                            <div class="mailbox-controls with-border text-center">
+                                <div class="btn-group">
+                                    {{ include('back/offres/_delete_form.html.twig') }}
+
+                                </div>
+                                <!-- /.btn-group -->
+                                <a href="{{ path('printOffre', {'id': offre.id}) }}" class="btn btn-default btn-sm" title="Print">
+                                    <i class="fas fa-print"></i>
+                                </a>
+                                <a href="{{ path('offres_edit', {'id': offre.id}) }}" class="btn btn-default btn-sm"><i
+                                            class="fas fa-edit"></i></a>
+
+                            </div>
+                            <!-- /.mailbox-controls -->
+                            {{ include('back/offres/offreDetails.html.twig') }}
+                            <!-- /.mailbox-read-message -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer bg-white">
+                            <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                {% if  offre.pdf %}
+                                    <li>
+                                        <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
+
+                                        <div class="mailbox-attachment-info">
+                                            <a href="{{ asset('uploads/offresPdf/' ~ offre.pdf) }}"
+                                               class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>
+                                                {{ offre.titre }}.pdf</a>
+                                            <!--      <span class="mailbox-attachment-size clearfix mt-1">
+                                    <span>1,245 KB</span>
+                                    <a href="#" class="btn btn-default btn-sm float-right"><i
+                                                class="fas fa-cloud-download-alt"></i></a>
+                                  </span>-->
+                                        </div>
+                                    </li>
+                                {% endif %}
+
+                                {% if  offre.pdfResultat %}
+                                    <li>
+                                        <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
+
+                                        <div class="mailbox-attachment-info">
+                                            <a href="{{ asset('uploads/offresPdf/' ~ offre.pdfResultat) }}"
+                                               class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>
+                                                Résultat.pdf</a>
+                                            <!--      <span class="mailbox-attachment-size clearfix mt-1">
+                                    <span>1,245 KB</span>
+                                    <a href="#" class="btn btn-default btn-sm float-right"><i
+                                                class="fas fa-cloud-download-alt"></i></a>
+                                  </span>-->
+                                        </div>
+                                    </li>
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                        <!-- /.card-footer -->
+                        <div class="card-footer">
+                            {{ include('back/offres/_delete_form.html.twig') }}
+                            <a href="{{ path('printOffre', {'id': offre.id}) }}" type="button" class="btn btn-default float-md-right"><i class="fas fa-print"></i>
+                                Print
+                            </a>
+                            <a href="{{ path('offres_edit', {'id': offre.id}) }}"
+                               class="btn btn-default float-md-right"><i class="fas fa-edit"></i>Modifier</a>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+    <a href="{{ path('offres_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i>Retour</a>
+
+
+    {{ include('back/offres/addResultat.html.twig') }}
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+    <script src="javascript/common.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            //Add text editor
+            $('.compose-textarea').summernote()
+        })
+    </script>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <script>
+        //<--!<input type="date" class="custom-select" style="height: 55px">-->
+        setTimeout(() => {
+
+            $(".modalClick").ready(function () {
+
+                $(".modalClick").click(function () {
+                    const id = $(this).attr("data-target");
+                    console.log(id)
+                    $(id).modal();
+                })
+            })
+
+            /***** add vrack**/
+
+            function onClickAddVrack(event) {
+                event.preventDefault();
+                let ref = document.getElementById('refVrack').value;
+                var select = document.getElementById('typeVrack');
+                var typeVrack = select.options[select.selectedIndex].value;
+                let idR =;
+
+                var params = encodeURIComponent(idR + "-" + typeVrack + "-" + ref);
+                const url = Routing.generate('reservation_addVrackBack', {
+                    params: params,
+                });
+                if (ref != "" && typeVrack != "") {
+                    axios.get(url).then(function (response) {
+                        window.alert("Vrack bien ajouté!");
+                        location.reload();
+
+                    }).catch(function (error) {
+                        if (error.response.status === 400) {
+                            window.alert("Vous ne pouvez pas faire d'ajout si vous n'êtes pas connecté!")
+                        } else {
+                            window.alert("Une erreur s'est produite, réessayer plus tard.")
+                        }
+                    });
+                } else
+                    window.alert("Verrifier vos données")
+
+
+            }
+
+            document.querySelector('a.addVrack').addEventListener('click', onClickAddVrack);
+
+
+        }, 2000);
+
+    </script>
+{% endblock %}

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Quota</title>
+
+{% block body %}
+    <h1>Edit Quota</h1>
+
+    {{ include('front/quota/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('quota_index') }}">back to list</a>
+
+    {{ include('front/quota/_delete_form.html.twig') }}
+{% endblock %}

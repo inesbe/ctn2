@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}CTN - Compagnie Tunisienne de Navigation{% endblock %}</title>
+    {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css' )}}">
+
+    <link rel="stylesheet" href="{{asset('assets/css/boxicons.min.css')}}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/meanmenu.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/odometer.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/CTNlogo.png') }}">
+
+    {% block stylesheets %}
+        {#{{ encore_entry_link_tags('app') }}#}
+    {% endblock %}
+
+
+</head>
+
+<body>
+<div class="preloader">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+{% include 'front/header.html.twig' %}
+
+<!-- search overlay-->
+<div class="search-overlay">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-layer"></div>
+            <div class="search-overlay-close">
+                <span class="search-overlay-close-line"></span>
+                <span class="search-overlay-close-line"></span>
+            </div>
+            <div class="search-overlay-form">
+                <form>
+                    <input type="text" class="input-search" placeholder="Search here...">
+                    <button type="submit"><i class='bx bx-search'></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end search overlay -->
+
+
+
+
+
+
+
