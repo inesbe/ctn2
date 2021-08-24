@@ -36,7 +36,7 @@ class AdminType extends AbstractType
                 ],
                 'constraints'=> [
                     new NotBlank([
-                        'message' => "S'il vous plaît entrer le pays",
+                        'message' => "S'il vous plaît entrer le role",
                     ]),
                 ],
             ])
