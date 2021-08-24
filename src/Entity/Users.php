@@ -28,8 +28,7 @@ class Users implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     *  @Assert\NotBlank(message="S'il vous plaît entrer la langue")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $langue;
 
@@ -79,8 +78,7 @@ class Users implements UserInterface
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="S'il vous plaît entrer le numéro de téléphone")
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(
      *     pattern = "/^[0-9]+$/",
      *     message="'{{ value }}' doit etre chaine des nombres"
@@ -89,8 +87,7 @@ class Users implements UserInterface
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="S'il vous plaît entrer le nom du societe")
+     * @ORM\Column(type="string", length=255 , nullable=true)
      */
     private $societe;
 
@@ -100,8 +97,7 @@ class Users implements UserInterface
     private $typesociete;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="S'il vous plaît entrer l'adresse")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adresse;
 
@@ -111,20 +107,17 @@ class Users implements UserInterface
     private $complementadresse;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="S'il vous plaît entrer la ville")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="S'il vous plaît entrer le code postal")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $codepostal;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="S'il vous plaît entrer le pays")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $pays;
 

@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UsersType extends AbstractType
 {
@@ -25,6 +26,11 @@ class UsersType extends AbstractType
                     'Français' => 'Français',
                     'Anglais' => 'Anglais'
 
+                ],
+                'constraints'=> [
+                    new NotBlank([
+                        'message' => "S'il vous plaît entrer la langue",
+                    ]),
                 ],
             ])
             ->add('email',EmailType::class)
@@ -51,8 +57,20 @@ class UsersType extends AbstractType
             ->add('password',PasswordType::class)
             ->add('prenom',TextType::class)
             ->add('nom',TextType::class)
-            ->add('telephone',TextType::class)
-            ->add('societe',TextType::class)
+            ->add('telephone',TextType::class,[
+                'constraints'=> [
+                    new NotBlank([
+                        'message' => "S'il vous plaît entrer le numéro de téléphone",
+                    ]),
+                ],
+            ])
+            ->add('societe',TextType::class,[
+                'constraints'=> [
+                    new NotBlank([
+                        'message' => "S'il vous plaît entrer le nom du societe",
+                    ]),
+                ],
+            ])
             ->add('typesociete',ChoiceType::class,[
                 'choices' => [
                     'Choisissez le type de votre société'=>'',
@@ -65,15 +83,35 @@ class UsersType extends AbstractType
                     'BCO (Business Cargo owner)' => 'BCO',
                     'Douanes' => 'Douanes',
                     'Autre' => 'Autre'
-
-
-
+                ],
+                'constraints'=> [
+                    new NotBlank([
+                        'message' => "S'il vous plaît entrer le type du societe",
+                    ]),
                 ],
             ])
-            ->add('adresse',TextType::class)
+            ->add('adresse',TextType::class,[
+                'constraints'=> [
+                    new NotBlank([
+                        'message' => "S'il vous plaît entrer l'adresse",
+                    ]),
+                ],
+            ])
             ->add('complementadresse',TextType::class)
-            ->add('ville',TextType::class)
-            ->add('codepostal',TextType::class)
+            ->add('ville',TextType::class,[
+                'constraints'=> [
+                    new NotBlank([
+                        'message' => "S'il vous plaît entrer la ville",
+                    ]),
+                ],
+            ])
+            ->add('codepostal',TextType::class,[
+                'constraints'=> [
+                    new NotBlank([
+                        'message' => "S'il vous plaît entrer le code postal",
+                    ]),
+                ]
+            ])
             ->add('pays',ChoiceType::class,[
                 'choices' => [
                     'Choisissez votre pays / région' => '',
@@ -322,9 +360,11 @@ class UsersType extends AbstractType
                     'YEMEN' => 'YEMEN',
                     'ZAMBIA' => 'ZAMBIA',
                     'ZIMBABWE' => 'ZIMBABWE'
-
-
-
+                ],
+                'constraints'=> [
+                    new NotBlank([
+                        'message' => "S'il vous plaît entrer le pays",
+                    ]),
                 ],
             ])
             ->add('tva',TextType::class)

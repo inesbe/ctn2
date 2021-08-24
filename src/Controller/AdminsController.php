@@ -37,13 +37,18 @@ class AdminsController extends AbstractController
         $form = $this->createForm(AdminType::class, $admin);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() ) {
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $admin->setRole(1);
+            $admin->setIsVerified(1);
+            $admin->setEtat(1);
 
             //image
             $fileI = $form->get('image')->getData();
             $fileNameI = $this->generateUniqueFileName().'.'.$fileI->guessExtension();
             $fileI->move ($this->getParameter('images_admins_directory'),$fileNameI);
             $admin->setImage($fileNameI);
+            /////
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($admin);

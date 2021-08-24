@@ -29,7 +29,17 @@
         </tr>
         <tr>
             <th>Role</th>
-            <td>{{ admin.role }}</td>
+            <td>{% if admin.role == 1 %}
+                    <p>Super admin</p>
+                {% elseif admin == 2 %}
+                    <p>Admin Passage</p>
+                {% elseif admin == 3 %}
+                    <p>Admin Fret</p>
+                {% elseif admin == 4 %}
+                    <p>Admin news</p>
+                {% else %}
+                    <p>Admin Appel d'offre</p>
+                {% endif%}</td>
         </tr>
 
 

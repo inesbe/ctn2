@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AdminType extends AbstractType
 {
@@ -24,9 +25,21 @@ class AdminType extends AbstractType
             ->add('password',PasswordType::class)
             ->add('nom',TextType::class)
             ->add('prenom',TextType::class)
-            ->add('role')
-
-
+            ->add('role_admin',ChoiceType::class,[
+                'choices' => [
+                    'Choisissez le role' => null,
+                    'Super admin' => 1,
+                    'Admin Passage' => 2,
+                    'Admin Fret' => 3,
+                    'Admin news'=> 4,
+                    'Admin Appel d"offre' => 5
+                ],
+                'constraints'=> [
+                    new NotBlank([
+                        'message' => "S'il vous plaît entrer le pays",
+                    ]),
+                ],
+            ])
 
             ->add('image',FileType::class,[
                 'label' => 'Image(jpg,png,jpeg)',
@@ -45,11 +58,13 @@ class AdminType extends AbstractType
                             'image/png',
                         ],
                         'mimeTypesMessage' => 'Image invalide : (jpg,png,jpeg)',
-                    ])
+                    ]),
+
                 ],
+
             ])
         ;
-        ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
