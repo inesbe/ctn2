@@ -10,6 +10,7 @@ parameters:
     images_document_directory: '%kernel.project_dir%/public/uploads/documentImages'
     pdf_document_directory: '%kernel.project_dir%/public/uploads/documentPdf'
     images_admins_directory: '%kernel.project_dir%/public/uploads/adminImages'
+    images_users_directory: '%kernel.project_dir%/public/uploads/userImages'
 
 
 services:
