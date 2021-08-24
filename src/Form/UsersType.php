@@ -14,6 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+
+
 class UsersType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -365,6 +367,7 @@ class UsersType extends AbstractType
                     new NotBlank([
                         'message' => "S'il vous plaît entrer le pays",
                     ]),
+
                 ],
             ])
             ->add('tva',TextType::class)

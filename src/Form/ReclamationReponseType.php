@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ReclamationReponseType extends AbstractType
 {
@@ -20,6 +21,13 @@ class ReclamationReponseType extends AbstractType
                     new NotBlank([
                         'message' => 'S il vous plaît entrer votre message',
                     ]),
+                    new Length([
+                                            'min' => 20,
+                                            'minMessage' => 'Votre message est trop court.Il doit avoir au minimum {{ limit }} caractères',
+                                            // max length allowed by Symfony for security reasons
+                                            'max' => 4096,
+                                        ]),
+
                 ]
             ])
         ;
