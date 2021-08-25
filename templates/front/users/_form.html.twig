@@ -63,10 +63,10 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Mot de passe</label>
-                            {{ form_widget(form.password,{'attr':{'placeholder':'Entrez votre mot de passe ','id':'pass'}}) }}
-                            {% if form_errors(form.password) %}
+                            {{ form_widget(form.password.first,{'attr':{'placeholder':'Entrez votre mot de passe ','id':'pass'}}) }}
+                            {% if form_errors(form.password.first) %}
                                 <div class="help-block with-errors" role="alert">
-                                    {{ form_errors(form.password) }}
+                                    {{ form_errors(form.password.first) }}
                                 </div>
                             {% endif %}
                         </div>
@@ -74,9 +74,13 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Confirmez le mot de passe</label>
-                            <input type="password" name="cmdp" class="form-control" id="confirmpassword" required data-error="S'il vous plaît confirmer le mot de passe" placeholder="Confirmez le mot de passe">
-                            <div class="help-block with-errors"></div>
+                            <label for="exampleFormControlSelect1">Mot de passe</label>
+                            {{ form_widget(form.password.second,{'attr':{'placeholder':'Entrez votre mot de passe ','id':'pass'}}) }}
+                            {% if form_errors(form.password.first) %}
+                                <div class="help-block with-errors" role="alert">
+                                    {{ form_errors(form.password.first) }}
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
 
