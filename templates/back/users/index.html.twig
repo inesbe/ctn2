@@ -59,7 +59,7 @@
                                             </thead>
                                             <tbody>
                                             {% for user in users %}
-
+                                                    {% if user.role == 0 %}
                                                 <tr>
                                                     <td>{{ user.nom }}</td>
                                                     <td>{{ user.prenom }}</td>
@@ -87,6 +87,7 @@
                                                         {% endif %}
                                                     </td>
                                                 </tr>
+                                                {% endif %}
 
                                             {% else %}
                                                 <tr>
@@ -94,6 +95,7 @@
                                                 </tr>
 
                                             {% endfor %}
+
                                             </tbody>
                                         </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite"></div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"></ul></div></div></div></div>
 
