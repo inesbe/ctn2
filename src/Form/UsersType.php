@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
 
 
 
@@ -59,10 +60,23 @@ class UsersType extends AbstractType
             ])
             ->add('password',RepeatedType::class,[
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
-                'options' => ['attr' => ['class' => 'password-field']],
+                'invalid_message' => 'Le mot de passe ne correspond pas',
                 'required' => true,
                 'label' => false,
+                'first_options' => array(
+                    'constraints' => array(
+                        new Length(array('min' => 3)),
+                    ),
+
+                ),
+                'second_options' => array(
+                    'constraints' => array(
+                        new NotBlank([
+                            'message' => "S'il vous plaît confirmez votre mot de passe",
+                        ]),
+                        new Length(array('min' => 3)),
+                    ),
+                ),
             ])
             ->add('prenom',TextType::class)
             ->add('nom',TextType::class)

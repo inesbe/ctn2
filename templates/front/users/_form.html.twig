@@ -63,7 +63,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Mot de passe</label>
-                            {{ form_widget(form.password.first,{'attr':{'placeholder':'Entrez votre mot de passe ','id':'pass'}}) }}
+                            {{ form_widget(form.password.first,{'attr':{'placeholder':'Entrez votre mot de passe '}}) }}
                             {% if form_errors(form.password.first) %}
                                 <div class="help-block with-errors" role="alert">
                                     {{ form_errors(form.password.first) }}
@@ -74,11 +74,11 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Mot de passe</label>
-                            {{ form_widget(form.password.second,{'attr':{'placeholder':'Entrez votre mot de passe ','id':'pass'}}) }}
-                            {% if form_errors(form.password.first) %}
+                            <label for="exampleFormControlSelect1">Confirmez le mot de passe</label>
+                            {{ form_widget(form.password.second,{'attr':{'placeholder':'Confirmez votre mot de passe '}}) }}
+                            {% if form_errors(form.password.second) %}
                                 <div class="help-block with-errors" role="alert">
-                                    {{ form_errors(form.password.first) }}
+                                    {{ form_errors(form.password.second) }}
                                 </div>
                             {% endif %}
                         </div>
@@ -300,22 +300,4 @@
 
 </div>
 
-
-<script>
-        $(function (){
-            $("#envoyer").click(function (e){
-                e.preventDefault();
-                const pass =$("#pass").val();
-                const confirmpass=$("#confirmpassword").val();
-                if(  pass!=confirmpass){
-                    alert("s'il vous plait vérifiez votre mot de passe");
-                    return;
-                }
-                if(confirmpass.trim()==''){
-                    alert("s'il vous plait confimez votre mot de passe");
-                }
-            });
-        });
-
-</script>
 
